@@ -384,7 +384,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // YouTube-Suchleiste
 
-const API_KEY = "AIzaSyBMduZWOUO6_7EUPhK8jfT-11qX6t4VYEI";
+const API_KEY = "AIzaSyBPTc_wbo3dpmEYEd-g-zNu7vmv8oYLFUQ";
 
 // DOM-Elemente für YouTube auswählen
 var ytSearchInput = document.querySelector("#yt-search-input");
