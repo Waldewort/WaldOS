@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0; URL=waldos.html">
+    <link rel="icon" type="image/x-icon" href="WaldOS_W.png" style="border-radius: 50px;">
+    <title>WaldOS&copy;</title>
+  </head>
+  <body>
+    
+    <!--Maximieren-->
+      <div id="maximize-button-WaldOS">
+        <button id="fullscreen-btn-WaldOS" class="fullscreen-btn-WaldOS">Press here to start the Walstastic WALDOS expierience in full screen</button>
+      </div>
+
+    <!--Taskleiste-->
+    <div id="Header" class="taskbar">  
+      <!-- Applications -->
+      <div id="applications" class="applications"> 
+        <!-- Notizen App-Aufruf-->
+        <div id="notes" class="unselected">
+          <img id="opennotescreen" src="notizen.png" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+        </div> 
+        <!-- Trompeten App-Aufruf -->
+        <div id="trumpet" class="unselected">
+          <img id="opentrumpetscreen" src="trompete.png" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+        </div>
+        <!-- Hauptseite App-Aufruf -->
+        <div id="welcome" class="unselected">
+          <img id="openwelcomescreen" src="WaldOS_W.png" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+        </div>
+        <!-- Suchmaschine App-Aufruf -->
+        <div id="searchmachine" class="unselected">
+          <img id="opensearchmachinescreen" src="suchmaschine.png" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+        </div>
+        <!--YouTube App-Aufruf -->
+        <div id="youtube" class="unselected">
+          <img id="openyoutubescreen" src="WaldVideo1.png" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+        </div>
+        <!--Rezepte App-Aufruf -->
+        <div id="rezepte" class="unselected">
+          <img id="openrezeptescreen" src="rezepte.png" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+        </div> 
+      </div>
+
+      <!-- Informationen-->
+      <div class="information" id="togglecalendarscreen">
+          <p id="time" class="time"></p>
+      </div>
+    </div>
+
+    <!-- Hauptseite -->
+    <div class="window" id="Hauptseite" style="width: 650px;">
+      <div class="header" id="Hauptseiteheader">
+        <p class="close-button" id="closewelcomescreen">X</p>
+      </div>
+      <h1>
+        About the WaldOS&copy;! 
+      </h1>
+      <img style="border-radius: 10px; width: 360px; height: 640px" src="Waldewort.png" ><br>That´s me :D
+      <p style="color:rgb(182, 146, 0)">
+        I´m a 17 year old student from Germany and I´m the head behind the WaldOS&copy;! I´m going to graduate next year and I´m really interested in programming and computer science. I´m also a musician and I play the trombone for 5 years now. I´m also a big fan of the videogames like Valheim, which is my favorite game of all time!
+      </p>
+      <p>It´s probably not: <time>13:12</time></p>
+    </div>
+
+    <!-- Trompeten-Screen -->
+    <div class="window" id="trumpetscreen">
+
+      <!-- Header des Trompeten-Screens -->
+      <div class="header" id="trumpetscreenheader">
+        <svg class="maximize-button" id="maximizetrumpetscreen" width="24" height="30">
+          <rect y="10" x="2.5" width="12px" height="12px" fill="none" stroke="black" stroke-width="2.5"/>
+        </svg>
+        <p class="close-button" id="closetrumpetscreen">X</p>
+      </div>
+
+      <!-- Inhalt des Trompeten-Screens -->
+      <div class="iframe-container" id="trumpetiframecontainer">
+        <iframe src="trompete-lernen.html" style="width: 100%; height: 100%; min-height: 760px; min-width: 640px; border-radius: 2px;">Learn the trumpet fingerings!</iframe>
+      </div>
+    </div>
+
+    <!-- Notizen-Screen -->
+    <div class="window" id="notescreen">
+
+      <!--Header des Notizen-Screens -->
+      <div class="header" id="notescreenheader">
+        <svg class="maximize-button" id="maximizenotescreen" width="24" height="30">
+          <rect y="10" x="2.5" width="12px" height="12px" fill="none" stroke="black" stroke-width="2.5"/>
+        </svg>
+        <p class="close-button" id="closenotescreen">X</p>
+      </div>
+
+      <div class="notes-container">
+        <textarea id="notes-textarea" style="width: 100%; height: 100%; background-color: rgb(230, 230, 230);" placeholder="🛒 GROCERIES (Don't forget!!)
+Oat milk (the barista edition one)
+Bananas (get green ones this time)
+Sourdough bread 🍞
+Peanut butter (crunchy > smooth, no debate)
+Avocados (check if soft)
+Dark chocolate (85% minimum)
+
+📏 QUICK MEASUREMENTS & DIMS
+Bedroom desk wall gap: 125 cm
+Poster frame size: 24 x 36 inches
+Coffee table height: 45 cm max (otherwise looks weird with the couch)
+Laptop sleeve size needed: 14-inch
+
+📚 HOMEWORK & DEADLINES
+History: Read Ch. 14 + write 3 bullet points on the Industrial Revolution (Due Thursday!)
+Math: Exercises p. 112, #4–12 (even numbers only)
+English: Pick a poem for the 2-minute recital next week. (Maybe something by Robert Frost?)
+Biology: Lab report draft — check graphs again!
+
+💡 RANDOM IDEAS & BRAINSTORMS
+App idea: An app that scans your fridge and gives recipes based ONLY on what’s about to expire. Call it `Save The Food`?
+Story snippet: `The lighthouse hadn't blinked in thirty years, but tonight, it gave two quick flashes.`
+Gift idea for Mum: That ceramic teapot she stared at for 10 minutes in the vintage shop.
+
+🧠 COOL FACTS / THINGS I LEARNED TODAY
+Honey literally never spoils. Archaeologists found 3,000-year-old honey in Egyptian tombs that is still edible!
+Bananas are technically berries, but strawberries aren't. Biology makes no sense.
+The word `robot` comes from the Czech word robota, meaning `forced labor`.
+
+🎵 PLAYLIST TO-ADD
+Glass Animals — Heat Waves
+Florence + The Machine — Dog Days Are Over
+Something chill for studying... look up Lofi Rain tracks tonight.
+
+✏️ TO-DO TODAY
+[x] Water the plants
+[ ] Call Grandma
+[ ] Clean off the desk (for real this time)
+[ ] Back up photos to external drive">
+</textarea>
+      </div>
+    </div>  
+
+    <!-- Calender-Screen-->
+    <div class="window" id="calendarscreen">
+      <div class="calendarscreencontent" id="calendarscreencontent">
+        <div class="input-screen">
+          <input type="date" id="calendar-date" class="calendar-date-input">
+          <input type="time" id="calendar-time" class="calendar-time-input">
+          <input type="text" id="calendar-text" class="calendar-text-input">
+          <button id="calendar-add-button">Add Event to the mooncalendar!</button>
+        </div>
+
+        <div class="calendar-container">
+          <h4 class="calendar-title">Mooncalendar, your takeoff dates!</h4>
+          <div class="calendar-list" id="calendar-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Suchmachinescreen -->
+    <div class="window" id="searchmachinescreen">
+      <!-- Header des Suchmachinescreen-->
+      <div class="header" id="searchmachinescreenheader">
+        <svg class="maximize-button" id="maximizesearchmachinescreen" width="24" height="30">
+          <rect y="10" x="2.5" width="12px" height="12px" fill="none" stroke="black" stroke-width="2.5"/>
+        </svg>
+        <p class="close-button" id="closesearchmachinescreen">X</p>
+      </div>
+
+      <!--Inhalt des Suchmachinescreen-->
+      <div id="searchmachinescreencontent" class="search-app">
+        <h2 style="margin-bottom: 10px; font-family: sans-serif; text-align: center;">WaldSearch🔍</h2>
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+          <input type="text" id="waldos-search-input" placeholder="Get Knowledge for free!" style="flex-grow: 1; padding: 10px; border-radius: 6px; border: 1px solid #444; background: #2b2b2b; color: white; font-size: 15px; outline: none;">
+          <button id="waldos-search-btn" style="padding: 10px 18px; border-radius: 6px; border: none; background: rgb(8, 155, 155); color: white; font-weight: bold; cursor: pointer;">Start the W(ald)hormhole</button>
+        </div>
+
+        <div id="search-results-container">
+          <img src="wikipedia.png" class="wikipedia-logo">
+          <p style="text-align: center; color: #888;">Enter to start search.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="window" id="wikipediascreen">
+      <div class="header" id="wikipediascreenheader">
+        <span>📖 Waldpedia</span>
+        <svg class="maximize-button" id="maximizewikipediascreen" width="24" height="30">
+          <rect y="10" x="2.5" width="12px" height="12px" fill="none" stroke="black" stroke-width="2.5"/>
+        </svg>
+        <p class="close-button" id="closewikipediascreen">X</p>
+      </div>
+
+      <div id="wikipediascreencontent" class="wikipedia-app">
+          <iframe id="wikipediaframe" class="wikipediaframe" src=""></iframe>
+      </div>
+    </div>
+
+    <!-- YouTube-Screen -->
+    <div class="window" id="youtubescreen">
+
+      <!--Header des YouTube-Screens -->
+      <div class="header" id="youtubescreenheader">
+        <svg class="maximize-button" id="maximizeyoutubescreen" width="24" height="30">
+          <rect y="10" x="2.5" width="12px" height="12px" fill="none" stroke="black" stroke-width="2.5"/>
+        </svg>
+        <p class="close-button" id="closeyoutubescreen">X</p>
+      </div>
+      
+      <div class="youtube-app">
+        <p id="yt-playername" style="text-align: center; margin: 10px 0; font-family: sans-serif; color: rgb(0, 0, 0); font-weight: bold; font-size: 30px;">WaldVideo📽️</p>
+        <div style="padding: 10px; display: flex; gap: 10px; align-items: center; border-radius: 4px;">
+          <input type="text" id="yt-search-input" placeholder="Search to start the W(ald)hormhole" style="flex-grow: 1; padding: 10px; border-radius: 4px; border: 1px solid #3d3d3d; background: #121212; color: white;">
+          <button id="yt-search-btn" style="padding: 8px 16px; cursor: pointer; background: #070848; color: white; border: none; border-radius: 4px; font-weight: bold;">Start the Engines</button>
+        </div>
+        <img id="yt-logo" src="WaldVideo.png" style="min-width: 1280px; min-height: 720px; max-width: 1080px; max-height: 1080px; transform: rotate(0deg); top: 50%; left: 50%;">
+
+      <div id="yt-player-container" style="display: none; flex-grow: 1; display: flex; justify-content: center; align-items: center; padding-bottom: 10px;">
+        <iframe id="yt-player" 
+              style="display: none; width: 100%; height: 100%; min-height: 720px; min-width: 1280px; border: none; border-radius: 4px;" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+        </iframe>
+      </div>
+
+      <div id="yt-results-container" class="yt-results-input">
+        <p class="yt-output-line"> Search a Fantastic Video in the the WaldVid</p>
+      </div>
+
+    </div>
+  </div>
+
+    <!-- Rezepte-Screen-->
+    <div class="window" id="rezeptescreen">
+      
+      <!--Header des Rezepte-Screens -->
+      <div class="header" id="rezeptescreenheader">
+        <svg class="maximize-button" id="maximizerezeptescreen" width="24" height="30">
+          <rect y="10" x="2.5" width="12px" height="12px" fill="none" stroke="black" stroke-width="2.5"/>
+        </svg>
+        <p class="close-button" id="closerezeptescreen">X</p>
+      </div>
+
+      <div class="rezepte-app" style="height: calc(100% - 30px); display: flex; flex-direction: column; background-color: #ffffff; color: white;">
+        <div class="rezept-container" id="recipe-list-container">
+          <div class="titel_Waldskitchen">
+            <h1 style="color: rgb(0, 0, 0);">Waldskitchen</h1>
+            <!--<img src="" style =" height: 500px; width: 500px; border-radius: 250px;"> -->
+          </div>
+            <div id="stews" class="rezepte-auswahl">
+              <p id="stews-schrift">Choose your stew type!</p>
+                <div id="Linseneintopf" class="rezept-vorschau versteckt">
+                  <img id="linseneintopf" src="linseneintopf.png" alt="Linseneintopf" class="rezept-bilder">
+                  <div id="Linseneintopf" class="rezept-informationen">
+                    <h2 style="color: rgb(0, 0, 0);">Lentil stew</h2>
+                    <p style="color: rgb(0, 0, 0);">Lentil stew with potatoes and carrots</p>
+                  </div>
+                </div>
+                <div id="Kartoffeleintopf" class="rezept-vorschau versteckt">
+                  <img id="kartoffeleintopf" src="kartoffeleintopf.png" alt="Kartoffeleintopf" class="rezept-bilder">
+                  <div id="Kartoffeleintopf" class="rezept-informationen">
+                    <h2 style="color: rgb(0, 0, 0);">Potato stew</h2>
+                    <p style="color: rgb(0, 0, 0);">Potato stew with onions and sausages</p>
+                  </div>
+                </div>
+                <div id="Bohneneintopf" class="rezept-vorschau versteckt">
+                  <!-- <img id="bohneneintopf" src="bohneneintopf.png" class="rezept-bilder"> -->
+                  <div id="Bohneneintopf" class="rezept-informationen">
+                    <h2 style="color: rgb(0, 0, 0);">Bean stew</h2>
+                    <p style="color: rgb(0, 0, 0);">Bean stew with onions and bacon</p>
+                  </div>
+                </div>
+            </div>
+            <div id="bread" class="rezepte-auswahl">
+              <p id="bread-schrift">Choose your bread type!</p>
+                <div id="Vollkornbrot" class="rezept-vorschau versteckt">
+                  <img id="vollkornbrot" src="vollkornbrot.png" alt="Vollkornbrot" class="rezept-bilder">
+                  <div id="vollkornbrot" class="rezept-informationen">
+                    <h2 style="color: rgb(0, 0, 0);">Whole grain bread</h2>
+                    <p style="color: rgb(0, 0, 0);">Healthy and nutritious whole grain bread</p>
+                  </div>
+                </div>
+                <div id="Weißbrot" class="rezept-vorschau versteckt">
+                  <!--<img id="weißbrot" src="weißbrot.png" class="rezept-bilder"> -->
+                  <div id="weißbrot" class="rezept-informationen">
+                    <h2 style="color: rgb(0, 0, 0);">White Bread</h2>
+                    <p style="color: rgb(0, 0, 0)">A white bread out of wheat</p>
+                  </div>
+                </div>
+            </div>
+            <div id="cake" class="rezepte-auswahl">
+              <p id="cake-schrift">Choose your cake type!</p>
+                <div id="brownies" class="rezept-vorschau versteckt">
+                  <img src="brownies.png" class="rezept-bilder">
+                  <div class="rezept-informationen">
+                    <h2 style="color:rgb(0, 0, 0)">Brownies</h2>
+                  </div>
+                </div>
+                <!-- <div id="Muffins" class="rezepte-auswahl">
+                  <img src="Muffins.png" class="rezept-bilder">
+                  <div class="rezept-informationen">
+
+                  </div>
+                </div> -->
+
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+      
+
+    <script src="script.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </body>
+
+</html>
+
+
+<!-- 
+Icon: Kochlöffel oder Buch ? 
+
+Rezepte Seite: 
+  Erste Seite: Auswahl des Gerichtstyps (Vorspeise, Hauptgericht, Dessert)
+  Nach Auswahl: Liste von Rezepten und Bild und Beschreibung mit Zeit 
+  Bei Rezeptklick: Details mit großem Bild oben, runterscrollen, Zutaten und dann zubereitung (1- Infinit)
+  Ideen: 
+    Möglichkeit zu speichern, was man schon gekocht hat 
+    Eigene Anmerkungen 
+    Eigene Rezepte hinzufügen? 
+
+
+Fragen: Wie scrollt man runter 
+        Wie kann man die Auswahl der Rezepte machen 
+        Wie kann man ein Rezept speichern 
+        Wie kann man machen das das div erst ngezeigt wird wenn man die Kategorie anklickt? 
+-->
