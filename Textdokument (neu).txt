@@ -1,0 +1,17 @@
+❗Completely new Design for WaldOS© ❗
+.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.
+
+__Devlog 6!__
+
+Now the WaldOS has an fullscrennmode to make it feel like a real Operating System (That´s so cool!)
+Other things I added: 
+1. Togglemode for the appicons to close them by pressing again on them
+2. A new App has launched (yippie): 
+    A calender to write in all your import dates to ship the next project for stardance XD 
+3. The Taskbar border is gone now the Border is the sun 🤯
+4. The Waldiverse and Waldsearch became their own Icons and a big remake: 
+   The Waldiverse (YouTube) experience is now way smoother and easier to handle 
+   The Waldsearch has now a own Wikipedia Screen in the WaldOS 😱 which opens by choosing an article and makes the expierience of WaldOS© sooo immersive (befor you was kicked out to your browser 🙄) 
+5. The  design is a bit updated and some datails like backgroundcolors changed (some uninteresting stuff XD ) 
+
+.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.
