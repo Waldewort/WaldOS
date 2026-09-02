@@ -12,6 +12,7 @@ dragElement(document.getElementById("searchmachinescreen"));
 dragElement(document.getElementById("youtubescreen"));
 dragElement(document.getElementById("rezeptescreen"));
 dragElement(document.getElementById("wikipediascreen"));
+dragElement(document.getElementById("mapscreen"));
 
 
 const fullscreenBtn = document.getElementById("fullscreen-btn-WaldOS");
@@ -29,11 +30,25 @@ fullscreenBtn.addEventListener('click', () => {
 
 document.addEventListener("fullscreenchange", () => {
     if (document.fullscreenElement) {
-      // Blendet das gesamte Overlay-DIV inklusive Hintergrund aus
       overlayWaldOS.classList.add("hidden");
     } else {
-      // Stellt das Overlay beim Verlassen des Vollbildmodus wieder her
       overlayWaldOS.classList.remove("hidden");
+      pIframe.src = '';
+      const windowMappings =[
+        { element: welcomescreen, underline: welcome },
+        { element: trumpetscreen, underline: trumpet },
+        { element: notescreen, underline: notes },
+        { element: searchmachinescreen, underline: searchmachine },
+        { element: youtubescreen, underline: youtube },
+        { element: rezeptescreen, underline: rezepte },
+        { element: wikipediascreen},
+        { element: calendarscreen},
+        { element: mapscreen, underline: map },
+      ];
+
+      windowMappings.forEach(item => {
+          closewindow(item.element, item.underline);
+      })
     }
   });
 
@@ -112,6 +127,7 @@ var searchmachinescreen = document.querySelector("#searchmachinescreen");
 var youtubescreen = document.querySelector("#youtubescreen");
 var rezeptescreen = document.querySelector("#rezeptescreen");
 var wikipediascreen = document.querySelector("#wikipediascreen");
+var mapscreen = document.querySelector("#mapscreen");
 
 var welcome = document.querySelector("#welcome");
 var trumpet = document.querySelector("#trumpet");
@@ -119,133 +135,285 @@ var notes = document.querySelector("#notes");
 var searchmachine = document.querySelector("#searchmachine");
 var youtube = document.querySelector("#youtube");
 var rezepte = document.querySelector("#rezepte");
+var map = document.querySelector("#map");
 
-function closewindow(element) {
+var openwelcomescreen = document.querySelector("#openwelcomescreen");
+var opentrumpetscreen = document.querySelector("#opentrumpetscreen");
+var opennotescreen = document.querySelector("#opennotescreen");
+var opensearchmachinescreen = document.querySelector("#opensearchmachinescreen");
+var openyoutubescreen = document.querySelector("#openyoutubescreen");
+var openrezeptescreen = document.querySelector("#openrezeptescreen");
+var openmapscreen = document.querySelector("#openmapscreen");
+
+var closewelcomescreen = document.querySelector("#closewelcomescreen");
+var closetrumpetscreen = document.querySelector("#closetrumpetscreen");
+var closenotescreen = document.querySelector("#closenotescreen");
+var closesearchmachinescreen = document.querySelector("#closesearchmachinescreen");
+var closeyoutubescreen = document.querySelector("#closeyoutubescreen");
+var closerezeptescreen = document.querySelector("#closerezeptescreen");
+var closemapscreen = document.querySelector("#closemapscreen");
+
+function closewindow(element, underline) {
+  if (!element) return;
   element.style.display = "none";
+  if (underline) {
+    underline.classList.remove("selected");
+    underline.classList.add("unselected");
+  }
 }
 
-function openwindow(element) {
+function openwindow(element, underline) {
+  if (!element) return;
   element.style.display = "block";
+  
+  biggestIndex++;
+  element.style.zIndex = biggestIndex;
+  if (Blurscreen) Blurscreen.style.zIndex = biggestIndex + 1;
+  if (topbar) topbar.style.zIndex = biggestIndex + 2;
+  if (underline){
+    underline.classList.remove("unselected");
+    underline.classList.add("selected");
+  }
+
+  if (element.id === "mapscreen") {
+    if (!osmMap && typeof L !== "undefined") {
+      var defaultLat = 47.4212;
+      var defaultLon = 10.9863;
+
+      osmMap = L.map('mapcontent', { zoomControl: false }).setView([defaultLat, defaultLon], 13);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> Mitwirkende'
+      }).addTo(osmMap);
+
+      renderCustomPins();
+
+      // Klick-Event auf der Karte mit Emoji-Dropdown
+      osmMap.on('click', function (e) {
+        let popupContent = document.createElement('div');
+        popupContent.style.cssText = "display: flex; flex-direction: column; gap: 8px; padding: 4px; width: 350px; box-sizing: border-box;";
+
+        popupContent.innerHTML = `
+          <strong style="font-size: 13px; color: #333; line-height: 1.3; display: block;">Setup your Launchpad to save it for the rocketstart!</strong>
+          <div style="display: flex; gap: 6px; width: 100%; box-sizing: border-box;">
+            <select id="new-pin-emoji" style="flex: 0 0 95px; padding: 6px 2px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; background: #fff; cursor: pointer; box-sizing: border-box;">
+              <option value="📍">📍 Marker</option>
+              <option value="🏠">🏠 Home</option>
+              <option value="🚀">🚀 Rocketcenter</option>
+              <option value="❤️">❤️ You won´t need this XD</option>
+              <option value="🌲">🌲 Some Forest?</option>
+              <option value="🍕">🍕 Foodplace</option>
+              <option value="☕">☕ Coffeeshop</option>
+              <option value="🏖️">🏖️ Beach</option>
+              <option value="⛺">⛺ Camping</option>
+              <option value="🎯">🎯 Your goal</option>
+              <option value="⭐">⭐ Star</option>
+              <option value="🚗">🚗 Car</option>
+              <option value="✈️">✈️ Plane</option>
+              <option value="🏙️">🏙️ Cities</option>
+              <option value="🎮">🎮 Gaming</option>
+              <option value="💼">💼 Co-Workspace</option>
+              <option value="🛒">🛒 Grocery Store</option>
+              <option value="🍻">🍻 Bar (don´t go here to often!)</option>
+              <option value="🏰">🏰 Castle</option>
+              <option value="⚡">⚡ Energy</option>
+            </select>
+            <input type="text" id="new-pin-name" placeholder="Name your Launchpad..." style="flex: 1; min-width: 0; padding: 6px 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; outline: none; box-sizing: border-box;">
+          </div>
+          <button id="save-pin-btn" style="width: 100%; padding: 8px 10px; background: #089b9b; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; box-sizing: border-box;">Save the location to start the rocket!</button>
+        `;
+
+        let popup = L.popup({ minWidth: 350, maxWidth: 360 })
+          .setLatLng(e.latlng)
+          .setContent(popupContent)
+          .openOn(osmMap);
+
+        setTimeout(() => {
+          let input = popupContent.querySelector('#new-pin-name');
+          if (input) input.focus();
+        }, 100);
+
+        let saveBtn = popupContent.querySelector('#save-pin-btn');
+        let inputField = popupContent.querySelector('#new-pin-name');
+        let emojiSelect = popupContent.querySelector('#new-pin-emoji');
+
+        function savePin() {
+          let pinName = inputField ? inputField.value.trim() : '';
+          let selectedEmoji = emojiSelect ? emojiSelect.value : '📍';
+
+          if (pinName !== "") {
+            customPinsData.push({
+              lat: e.latlng.lat,
+              lng: e.latlng.lng,
+              name: pinName,
+              emoji: selectedEmoji
+            });
+
+            localStorage.setItem('waldos_custom_pins', JSON.stringify(customPinsData));
+            renderCustomPins();
+            osmMap.closePopup(popup);
+          }
+        }
+
+        saveBtn.onclick = savePin;
+        inputField.onkeypress = function (evt) {
+          if (evt.key === 'Enter') {
+            savePin();
+          }
+        };
+      });
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            var userLat = position.coords.latitude;
+            var userLon = position.coords.longitude;
+
+            osmMap.setView([userLat, userLon], 15);
+
+            L.marker([defaultLat, defaultLon]).addTo(osmMap)
+              .bindPopup('WaldOS HQ 💻');
+            L.marker([userLat, userLon]).addTo(osmMap)
+              .bindPopup('🚀 Your current spaceship position')
+              .openPopup();
+          },
+          function (error) {
+            console.warn("Your Spaceship has no GPS ", error.message);
+          },
+          { timeout: 10000 }
+        );
+      } else {
+        L.marker([defaultLat, defaultLon]).addTo(osmMap)
+          .bindPopup('WaldOS HQ 💻')
+          .openPopup();
+      }
+    }
+
+    if (osmMap) {
+      setTimeout(() => {
+        osmMap.invalidateSize();
+      }, 50);
+    }
+}
 }
 
-closewelcomescreen.addEventListener("click", function() {
-  closewindow(welcomescreen);
-  welcome.classList.add("unselected");
-  welcome.classList.remove("selected");
-});
+function visible(element){ return window.getComputedStyle(element).display === "block"};
 
+// Welcomescreen
 openwelcomescreen.addEventListener("click", function() {
-  if (welcomescreen.style.display === "block") {
-    welcomescreen.style.display = "none";
-    welcome.classList.add("unselected");
-    welcome.classList.remove("selected");
+  if (visible(welcomescreen)){
+    closewindow(welcomescreen, welcome);
   }
   else{
-    openwindow(welcomescreen);
-    welcome.classList.remove("unselected");
-    welcome.classList.add("selected");
+    openwindow(welcomescreen, welcome);
   }
 });
 
-closetrumpetscreen.addEventListener("click", function() {
-  closewindow(trumpetscreen);
-  trumpet.classList.add("unselected");
-  trumpet.classList.remove("selected");
-});
-
+// Trumpetscreen
 opentrumpetscreen.addEventListener("click", function() {
-  if (trumpetscreen.style.display === "block") {
-    trumpetscreen.style.display = "none";
-    trumpet.classList.add("unselected");
-    trumpet.classList.remove("selected");
+  if (visible(trumpetscreen)){
+    closewindow(trumpetscreen, trumpet);
   }
   else{
-    openwindow(trumpetscreen);
-    trumpet.classList.remove("unselected");
-    trumpet.classList.add("selected");
+    openwindow(trumpetscreen, trumpet);
   }
 });
 
-closenotescreen.addEventListener("click", function() {
-  closewindow(notescreen);
-  notes.classList.add("unselected");
-  notes.classList.remove("selected");
-});
-
+// Notesscreen
 opennotescreen.addEventListener("click", function() {
-  if (notescreen.style.display === "block") {
-    notescreen.style.display = "none";
-    notes.classList.add("unselected");
-    notes.classList.remove("selected");
+  if (visible(notescreen)){
+    closewindow(notescreen, notes);
   }
   else{
-    openwindow(notescreen);
-    notes.classList.remove("unselected");
-    notes.classList.add("selected");
+    openwindow(notescreen, notes);
   }
 });
 
-
+// Searchmachinescreen
 opensearchmachinescreen.addEventListener("click", function() {
-  if (searchmachinescreen.style.display === "block") {
-    searchmachinescreen.style.display = "none";
-    searchmachine.classList.add("unselected");
-    searchmachine.classList.remove("selected");
+  if (visible(searchmachinescreen)) {
+    closewindow(searchmachinescreen, searchmachine);
   }
   else{
-    openwindow(searchmachinescreen);
-    searchmachine.classList.remove("unselected");
-    searchmachine.classList.add("selected");
+    openwindow(searchmachinescreen, searchmachine);
   }
 });
 
-closesearchmachinescreen.addEventListener("click", function() {
-  closewindow(searchmachinescreen);
-  searchmachine.classList.add("unselected");
-  searchmachine.classList.remove("selected");
-});
-
-closewikipediascreen.addEventListener("click", function() {
-  closewindow(wikipediascreen);
-})
-
+// Youtubescreen
 openyoutubescreen.addEventListener("click", function() {
-  if (youtubescreen.style.display === "block") {
-    youtubescreen.style.display = "none";
-    youtube.classList.add("unselected");
-    youtube.classList.remove("selected");
+  if (visible(youtubescreen)) {
+    closewindow(youtubescreen, youtube);
   }
   else{
-    openwindow(youtubescreen);
-    youtube.classList.remove("unselected");
-    youtube.classList.add("selected");
+    openwindow(youtubescreen, youtube);
   }
 });
 
-closeyoutubescreen.addEventListener("click", function() {
-  closewindow(youtubescreen); 
-  youtube.classList.add("unselected");
-  youtube.classList.remove("selected");
-});
-
+// Rezeptescreen
 openrezeptescreen.addEventListener("click", function() {
-  if (rezeptescreen.style.display === "block") {
-    rezeptescreen.style.display = "none";
-    rezepte.classList.add("unselected");
-    rezepte.classList.remove("selected");
+  if (visible(rezeptescreen)) {
+    closewindow(rezeptescreen, rezepte);
   }
   else{
-    openwindow(rezeptescreen);
-    rezepte.classList.add("selected");
-    rezepte.classList.remove("unselected");
+    openwindow(rezeptescreen, rezepte);
   }
 });
 
-closerezeptescreen.addEventListener("click", function() {
-  closewindow(rezeptescreen);
-  rezepte.classList.add("unselected");
-  rezepte.classList.remove("selected");
+openmapscreen.addEventListener("click", function() {
+  if (visible(mapscreen)) {
+    closewindow(mapscreen, map);
+  } 
+  else{
+    openwindow(mapscreen, map);
+  }
 });
+
+
+// ==========================================
+// SEPARATE EVENT-LISTENER FÜR DIE X-BUTTONS
+// ==========================================
+
+if (closewelcomescreen) {
+  closewelcomescreen.addEventListener("click", function() {
+    closewindow(welcomescreen, welcome);
+  });
+}
+
+if (closetrumpetscreen) {
+  closetrumpetscreen.addEventListener("click", function() {
+    closewindow(trumpetscreen, trumpet);
+  });
+}
+
+if (closenotescreen) {
+  closenotescreen.addEventListener("click", function() {
+    closewindow(notescreen, notes);
+  });
+}
+
+if (closesearchmachinescreen) {
+  closesearchmachinescreen.addEventListener("click", function() {
+    closewindow(searchmachinescreen, searchmachine);
+  });
+}
+
+if (closeyoutubescreen) {
+  closeyoutubescreen.addEventListener("click", function() {
+    closewindow(youtubescreen, youtube);
+  });
+}
+
+if (closerezeptescreen) {
+  closerezeptescreen.addEventListener("click", function() {
+    closewindow(rezeptescreen, rezepte);
+  });
+}
+
+if (closemapscreen) {
+  closemapscreen.addEventListener("click", function() {
+    closewindow(mapscreen, map);
+  });
+}
 
 var clockelement = document.querySelector("#togglecalendarscreen");
 var calendarscreen = document.querySelector("#calendarscreen");
@@ -260,6 +428,7 @@ if (clockelement && calendarscreen) {
     }
   });
 }
+
 
 
 var topbar = document.querySelector("#Header");
@@ -281,6 +450,7 @@ addwindowtaphandling(youtubescreen);
 addwindowtaphandling(rezeptescreen);
 addwindowtaphandling(wikipediascreen);
 addwindowtaphandling(calendarscreen);
+addwindowtaphandling(mapscreen);
 
 
 function handleWindowTap(element) {
@@ -290,14 +460,14 @@ function handleWindowTap(element) {
   topbar.style.zIndex = biggestIndex + 2;
 }
 
-function openwindow(element) {
-  element.style.display ="block";
-  biggestIndex++;
-  element.style.zIndex = biggestIndex;
-  Blurscreen.style.zIndex = biggestIndex + 1;
-  topbar.style.zIndex = biggestIndex + 2;
+//function openwindow(element) {
+//  element.style.display ="block";
+//  biggestIndex++;
+//  element.style.zIndex = biggestIndex;
+//  Blurscreen.style.zIndex = biggestIndex + 1;
+//  topbar.style.zIndex = biggestIndex + 2;
 
-}
+//}
 
 var trumpetscreen = document.querySelector("#trumpetscreen");
 var maximizeTrumpetScreenButton = document.querySelector("#maximizetrumpetscreen");
@@ -311,6 +481,8 @@ var searchmachinescreen = document.querySelector("#searchmachinescreen");
 var maximizeSearchmachineScreenButton = document.querySelector("#maximizesearchmachinescreen");
 var wikipediascreen = document.querySelector("#wikipediascreen");
 var maximizeWikipediaScreenButton = document.querySelector("#maximizewikipediascreen");
+var mapscreen = document.querySelector("#mapscreen");
+var maximizeMapScreenButton = document.querySelector("#maximizemapscreen");
 
 function maximizeWindow(element) {
   element.classList.toggle("maximized");
@@ -337,7 +509,7 @@ if (maximizeNoteScreenButton) {
 if (maximizeYoutubeScreenButton) {
   maximizeYoutubeScreenButton.addEventListener("click", function() {
     maximizeWindow(youtubescreen);
-  })
+  });
 }
 
 if (maximizeRezepteScreenButton) {
@@ -355,6 +527,12 @@ if (maximizeSearchmachineScreenButton) {
 if (maximizeWikipediaScreenButton) {
   maximizeWikipediaScreenButton.addEventListener("click", function(){
     maximizeWindow(wikipediascreen);
+  });
+}
+
+if (maximizeMapScreenButton) {
+  maximizeMapScreenButton.addEventListener("click", function(){
+    maximizeWindow(mapscreen);
   })
 }
 
@@ -715,4 +893,194 @@ if (searchBtnSearchapp && searchInputSearchapp && resultsContainerSearchapp) {
   });
 })();
 
+// ==========================================
+// MAP LOGIK
+// ==========================================
+// Ganz oben im Skript global definieren
+let osmMap = null;
 
+// Speicher für eigene Pins initialisieren
+let customPinsData = JSON.parse(localStorage.getItem('waldos_custom_pins')) || [];
+let customMarkers = [];
+
+// Funktion zum Rendern der Pins mit Emojis als Marker
+function renderCustomPins() {
+  // Alte Marker von der Karte entfernen
+  customMarkers.forEach(m => osmMap.removeLayer(m));
+  customMarkers = [];
+
+  customPinsData.forEach((pin, index) => {
+    let pinEmoji = pin.emoji || '📍'; // Fallback für ältere Pins ohne Emoji
+
+    // Erstellt ein Custom Leaflet-Icon mit dem gewählten Emoji
+    let emojiIcon = L.divIcon({
+      className: 'custom-emoji-pin',
+      html: `<div style="font-size: 28px; line-height: 1; text-align: center; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)); cursor: pointer;">${pinEmoji}</div>`,
+      iconSize: [32, 32],
+      iconAnchor: [16, 16] // Zentriert das Emoji exakt auf den Koordinaten
+    });
+
+    let marker = L.marker([pin.lat, pin.lng], { icon: emojiIcon }).addTo(osmMap);
+
+    // Popup mit Namen und Lösch-Button
+    let container = document.createElement('div');
+    container.innerHTML = `<strong style="color: #333; font-size: 14px;">${pinEmoji} ${pin.name}</strong><br>`;
+
+    let deleteBtn = document.createElement('button');
+    deleteBtn.innerText = "Delete this pin";
+    deleteBtn.style.cssText = "margin-top: 8px; padding: 4px 8px; background: #ff6b6b; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;";
+
+    deleteBtn.onclick = function () {
+      customPinsData.splice(index, 1);
+      localStorage.setItem('waldos_custom_pins', JSON.stringify(customPinsData));
+      renderCustomPins();
+    };
+
+    container.appendChild(deleteBtn);
+    marker.bindPopup(container);
+    customMarkers.push(marker);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  var searchBtn = document.querySelector("#map-search-button");
+  var searchInput = document.querySelector("#map-search-input");
+
+  if (searchBtn && searchInput) {
+    searchBtn.addEventListener("click", performMapSearch);
+    searchInput.addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
+        performMapSearch();
+      }
+    });
+  }
+});
+
+function performMapSearch() {
+  var searchInput = document.querySelector("#map-search-input");
+  if (!searchInput || !osmMap) return;
+
+  var query = searchInput.value.trim();
+  if (!query) return;
+
+  var nominatimUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
+
+  fetch(nominatimUrl, {
+    headers: {
+      'User-Agent': 'WaldOS-MapApp'
+    }
+  })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      if (data && data.length > 0) {
+        var lat = parseFloat(data[0].lat);
+        var lon = parseFloat(data[0].lon);
+        var displayName = data[0].display_name;
+
+        osmMap.setView([lat, lon], 13);
+
+        L.marker([lat, lon]).addTo(osmMap)
+          .bindPopup(displayName)
+          .openPopup();
+      } else {
+        alert("The place is in outerspace.");
+      }
+    })
+    .catch(function (err) {
+      console.error("Your Spaceship is lost in the W(ald)hormhole.", err);
+    });
+}
+
+// Variable zum Speichern der aktuellen Routen-Linie
+let currentRouteLayer = null;
+
+// Seitenleiste ein-/ausklappen
+function toggleRouteSidebar() {
+  let sidebar = document.getElementById('route-sidebar');
+  if (sidebar) {
+    sidebar.classList.toggle('open');
+  }
+}
+
+// Hilfsfunktion: Adresse zu Koordinaten über Nominatim
+async function geocodeAddress(query) {
+  let url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
+  let response = await fetch(url, { headers: { 'User-Agent': 'WaldOS-MapApp' } });
+  let data = await response.json();
+  if (data && data.length > 0) {
+    return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
+  }
+  throw new Error(`Your : ${query}`);
+}
+
+// Auto-Route berechnen und auf der Karte zeichnen
+async function calculateCarRoute() {
+  let startInput = document.getElementById('route-start').value.trim();
+  let endInput = document.getElementById('route-end').value.trim();
+
+  if (!startInput || !endInput) {
+    alert("Please enter both start and end addresses.");
+    return;
+  }
+
+  try {
+    let startCoords = await geocodeAddress(startInput);
+    let endCoords = await geocodeAddress(endInput);
+
+    let osrmUrl = `https://router.project-osrm.org/route/v1/driving/${startCoords.lon},${startCoords.lat};${endCoords.lon},${endCoords.lat}?overview=full&geometries=geojson`;
+    
+    let routeResponse = await fetch(osrmUrl);
+    let routeData = await routeResponse.json();
+
+    if (routeData.routes && routeData.routes.length > 0) {
+      clearCarRoute();
+
+      let route = routeData.routes[0];
+      let routeGeoJSON = route.geometry;
+
+      // Umrechnung von Meter in KM und Sekunden in Std/Min
+      let distanceKm = (route.distance / 1000).toFixed(1);
+      let distanceMiles = (route.distance / 1609.34).toFixed(1);
+      let totalMinutes = Math.round(route.duration / 60);
+      let hours = Math.floor(totalMinutes / 60);
+      let minutes = totalMinutes % 60;
+
+      let durationText = hours > 0 ? `${hours} Std. ${minutes} Min.` : `${minutes} Min.`;
+
+      // Werte in der UI anzeigen
+      document.getElementById('route-distance').innerText = `${distanceKm} km`;
+      document.getElementById('route-distance-miles').innerText = `${distanceMiles} mi`;
+      document.getElementById('route-duration').innerText = durationText;
+      document.getElementById('route-info').style.display = 'flex';
+
+      // Route auf der Karte darstellen
+      currentRouteLayer = L.geoJSON(routeGeoJSON, {
+        style: {
+          color: '#089b9b',
+          weight: 6,
+          opacity: 0.8
+        }
+      }).addTo(osmMap);
+
+      osmMap.fitBounds(currentRouteLayer.getBounds(), { padding: [50, 50] });
+    } else {
+      alert("Your Rokete is to heavy for the route to this Launchpad.");
+    }
+  } catch (error) {
+    alert(error.message || "Your Rokete is collapsed during the ride to the Launchpad.");
+  }
+}
+
+function clearCarRoute() {
+  if (currentRouteLayer && osmMap) {
+    osmMap.removeLayer(currentRouteLayer);
+    currentRouteLayer = null;
+  }
+  // Info-Box ausblenden
+  let infoBox = document.getElementById('route-info');
+  if (infoBox) {
+    infoBox.style.display = 'none';
+  }
+}

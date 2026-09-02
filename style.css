@@ -3,11 +3,10 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
     font-family: sans-serif;
     background-color: rgb(8, 155, 155);
-    font-family:Snell Roundhand, cursive;
+    font-family: Snell Roundhand, cursive;
     background-image: url('WaldOS.png');
     background-size: cover;
     width: 200vh;
@@ -15,7 +14,6 @@ body {
     background-repeat: no-repeat;
     overflow: hidden;
 }
-
 .fullscreen-btn-WaldOS.hidden {
   display: none;
 }
@@ -42,54 +40,49 @@ body {
   align-items: center;
   font-weight: bold;
 }
-
 .close-button:hover {
   color: rgb(254, 0, 0);
 }
-
 .move {
   cursor: move;
   padding: 0px;
   margin: 0px 30px;
 }
-
 .header {
-    cursor: move; 
-    justify-content: right; 
+    cursor: move;
+    justify-content: right;
     align-items: center;
     display: flex;
-    gap: 10px; 
-    border: solid; 
-    border-color: rgb(0, 0, 0); 
-    border-width: 3px; 
-    border-radius: 3px; 
+    gap: 10px;
+    border: solid;
+    border-color: rgb(0, 0, 0);
+    border-width: 3px;
+    border-radius: 3px;
     background-color: rgba(37, 38, 45, 0.5);
     padding: 0px;
     height: 30px;
     margin-top: auto;
+    margin-bottom: 5px;
     flex-shrink: 0;
 }
-
 .taskbar {
-    position: fixed; 
-    bottom: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 70px; 
-    background-color: rgba(33, 33, 33, 0.0); 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    padding: 0px 10px; 
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: rgba(33, 33, 33, 0.0);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 10px;
 }
-
 .applications {
-    display: flex; 
-    gap: 10px; 
-    align-items: center; 
+    display: flex;
+    gap: 10px;
+    align-items: center;
     height: 100%;
 }
-
 .unselected:hover {
     transform: scale(1.1);
     transition: transform 0.1s ease-in-out;
@@ -97,33 +90,30 @@ body {
 }
 .window {
     display: none;
-    position: absolute; 
-    top: 100px; 
-    left: 100px; 
-    border: solid; 
-    border-width: 1px; 
-    max-width: 100vw; 
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    border: solid;
+    border-width: 1px;
+    max-width: 100vw;
     max-height: 100vh;
     padding: 10px;
-    border-radius: 10px; 
-    border-color: rgb(238, 238, 239); 
+    border-radius: 10px;
+    border-color: rgb(238, 238, 239);
     background-color: rgb(230, 230, 230);
     overflow: hidden;
     margin: 0px;
 }
-
 .unselected {
     transform: scale(0.8);
     transition: transform 0.1s ease-in-out;
 }
-
 .selected {
     transform: scale(1);
     transition: transform 0.1s ease-in-out;
     border-bottom: solid 3px rgb(255, 255, 255);
     border-radius: 7px;
 }
-
 .time {
     position: absolute;
     top: 20%;
@@ -132,11 +122,9 @@ body {
     font-size: 20px;
     font-family: Snell Roundhand, cursive;
 }
-
 .information {
-    cursor:pointer;
+    cursor: pointer;
 }
-
 .window.maximized {
     position: fixed;
     width: 100%;
@@ -147,15 +135,13 @@ body {
     border-radius: 0px;
     box-sizing: border-box;
 }
-
-.window.maximized.iframe-container iframe{
+.window.maximized.iframe-container iframe {
     margin-top: 0px;
     width: 100%;
     height: 100%;
     transform: scale(1.2);
     transform-origin: center center;
 }
-
 .iframe-container {
     position: relative;
     flex-grow: 1;
@@ -164,22 +150,19 @@ body {
     justify-content: center;
     align-items: center;
 }
-
-.window.maximized iframe{
+.window.maximized iframe {
     zoom: 1.5;
 }
-
-.window.maximized #searchmachinescreencontent{
+.window.maximized #searchmachinescreencontent {
     transform-origin: center top;
     height: calc(100% - 30px);
 }
-
-.searchmachinescreencontent{
+.searchmachinescreencontent {
     transform: none;
     position: relative;
     flex-grow: 1;
     overflow: hidden;
-    overflow-y: auto; 
+    overflow-y: auto;
     min-height: 0px;
     display: flex;
     justify-content: center;
@@ -189,27 +172,24 @@ body {
     padding: 100px;
     margin: 100px;
 }
-
 .search-app {
     min-width: 1080px;
     min-height: 720px;
 }
-
-.wikipedia-app{
-    flex: 1; 
+.wikipedia-app {
+    flex: 1;
     gap: 10px;
     margin-top: 10px;
     color: rgb(0, 0, 0);
-    min-width: 1280px; 
-    min-height: 720px; 
+    min-width: 1280px;
+    min-height: 720px;
     overflow-y: auto;
-    display: flex; 
+    display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
-
-#wikipediaframe {  
+#wikipediaframe {
     top: 40px;
     left: 0px;
     width: 100%;
@@ -217,7 +197,6 @@ body {
     border-radius: 5px;
     box-sizing: border-box;
 }
-
 .wikipediascreencontent {
     position: relative;
     flex-grow: 1;
@@ -227,35 +206,29 @@ body {
     align-items: center;
     height: 100%;
 }
-
 .wikipedia-logo {
     width: 1080px;
     height: 720px;
     box-shadow: 0 0 15px 5px rgb(222, 222, 222);
     border-radius: 5px;
 }
-
 .maximize-button {
     cursor: pointer;
 }
-
 .maximize-button:hover {
     transform: scale(1.1);
     transition: transform 0.1s ease-in-out;
 }
-
 .notes-container {
-    height: calc(100% - 30px); /* Adjust height to account for header */
+    height: calc(100% - 30px);
     box-sizing: border-box;
     width: 100%;
-    height: 100%;
     min-height: 680px;
     min-width: 800px;
 }
-
 .notes-container textarea {
-    width: 100%;    
-    height:100%;
+    width: 100%;
+    height: 100%;
     min-height: 680px;
     min-width: 800px;
     resize: none;
@@ -265,35 +238,30 @@ body {
     font-family: Arial, sans-serif;
     background-color: rgba(255, 255, 255, 0.9);
 }
-
 .rezepte-app {
-    flex: 1; 
+    flex: 1;
     gap: 10px;
     margin-top: 10px;
     color: rgb(0, 0, 0);
     min-width: 1280px;
     min-height: 720px;
     overflow-y: auto;
-    display: flex; 
+    display: flex;
     flex-direction: row;
     border-radius: 5px;
     background: linear-gradient(135deg, #ffffff 0%, #e2edfd 100%);
     color: #f1f2f6;
     padding: 20px;
-    gap: 20px;
     width: 100%;
     max-height: 100%;
-    overflow-y: auto;
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
-
-.window:not(.maximized) .rezepte-app{
+.window:not(.maximized) .rezepte-app {
     max-height: 720px;
     overflow-y: auto;
 }
-
 .rezepte-app h1 {
     font-size: 22px;
     font-weight: 700;
@@ -304,32 +272,28 @@ body {
     align-items: center;
     gap: 10px;
 }
-
 .rezepte-app h1::before {
     content: '🍳';
     font-size: 24px;
 }
-
 .rezepte-auswahl > p {
     font-size: 14px;
     font-weight: 600;
-    color: #ff9f43; /* Warmes Gewürz-Orange */
+    color: #ff9f43;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 5px;
 }
-
-.titel_Waldskitchen{
+.titel_Waldskitchen {
     display: flex;
     flex-direction: row;
 }
 .rezept-container {
-    gap: 15px; 
+    gap: 15px;
     width: 100%;
-    padding: 10px; 
+    padding: 10px;
     box-sizing: border-box;
 }
-
 .rezepte-auswahl {
     display: flex;
     gap: 10px;
@@ -342,60 +306,47 @@ body {
     padding: 16px;
     transition: background 0.3s ease;
 }
-
 .rezepte-auswahl:hover {
     background-color: rgba(11, 11, 11, 0.1);
 }
-
 .rezepte-auswahl.selected {
     background-color: rgba(0, 0, 0, 0.2);
 }
-
 .rezepte-vorschau {
     display: flex;
     border-radius: 5px;
     align-items: center;
     gap: 10px;
     margin-top: 10px;
-    border:solid;
     background: #2b2e35;
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 12px;
     padding: 12px;
-    gap: 20px;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
     overflow: hidden;
 }
-
 .rezept-vorschau:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(1, 1, 1, 0.4), 0 0 15px rgba(255, 107, 107, 0.15);
     border-color: #2d1afc;
 }
-
 .rezept-informationen {
     margin-top: 10px;
     margin-bottom: 7px;
     margin-left: 7px;
     margin-right: 7px;
     color: rgb(0, 0, 0);
-    
     border-radius: 5px;
-
 }
-
 .rezept-bilder {
-    margin: 7px; 
+    margin: 7px;
     width: 400px;
-    height: 400px; 
-    
+    height: 400px;
 }
-
 .versteckt {
     display: none;
 }
-
 .yt-card {
     background-color: #1f1f1f;
     border-radius: 8px;
@@ -405,40 +356,32 @@ body {
     display: flex;
     flex-direction: column;
 }
-
 .yt-card:hover {
     transform: translateY(-3px);
     background-color: #2e2e2e;
 }
-
 .yt-card img {
     width: 100%;
     height: 110px;
     object-fit: cover;
 }
-
 .yt-card-info {
     padding: 8px;
 }
-
 .yt-card-title {
     font-size: 13px;
     font-weight: bold;
     color: #ffffff;
     display: -webkit-box;
-    
-    
     overflow: hidden;
     margin-bottom: 4px;
 }
-
 .yt-card-channel {
     font-size: 11px;
     color: #aaa;
 }
-
 .yt-output-line {
-    grid-column: 1/ -1;
+    grid-column: 1 / -1;
     text-align: center;
     font-size: 11px;
     color: #888;
@@ -447,7 +390,6 @@ body {
     width: 2400px;
     height: 1440px;
 }
-
 .youtubescreen {
     display: flex;
     flex-direction: column;
@@ -463,154 +405,352 @@ body {
     padding: 16px;
     transition: background 0.3s ease;
 }
-
 .youtube-app {
     overflow-y: auto;
-    flex: 1; 
-    height: calc(100% - 30px); 
-    display: flex; 
+    flex: 1;
+    height: calc(100% - 30px);
+    display: flex;
     flex-direction: column;
-    background-color: #e4e4e4; 
-    color: white; 
+    background-color: #e4e4e4;
+    color: white;
     min-width: 1280px;
     min-height: 0px;
     justify-content: flex-start;
 }
-
 #youtubescreen:not(.maximized) {
-    height: 925px; 
-    max-height: 720vh; 
+    height: 925px;
+    max-height: 720vh;
     flex-direction: column;
 }
-
-
 #youtubescreen:not(.maximized) .youtube-app {
-    flex: 1 1 auto; 
+    flex: 1 1 auto;
     min-height: 0;
-    overflow-y: auto;   
+    overflow-y: auto;
 }
-
-
 #calendarscreen {
-  background-color: rgb(230, 230, 230);
-  border: 1px solid #888888;
-  border-radius: 8px;
-  color: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-  bottom: 70px;
-  top: auto;
-  right: 0px;
-  left:auto;
+    background-color: rgb(230, 230, 230);
+    border: 1px solid #888888;
+    border-radius: 8px;
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    bottom: 70px;
+    top: auto;
+    right: 0px;
+    left: auto;
 }
-
 .calendarscreencontent {
-  padding: 16px;
-  max-height: 560px;
-  box-sizing: border-box;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+    padding: 16px;
+    max-height: 560px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
-
 .input-screen {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  background-color: #262626;
-  padding: 12px;
-  border-radius: 6px;
-  border: 1px solid #383838;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background-color: #262626;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #383838;
 }
-
 .calendar-date-input,
 .calendar-time-input,
 .calendar-text-input {
-  background-color: #5f5f5f;
-  color: #ffffff;
-  border: 1px solid #444;
-  border-radius: 4px;
-  padding: 8px 12px;
-  font-size: 13px;
-  outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  color-scheme: dark; /* Erzwingt den dunklen Browser-Datepicker */
+    background-color: #5f5f5f;
+    color: #ffffff;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    color-scheme: dark;
 }
-
-/* Spezifische Aufteilung der Felder */
 .calendar-text-input {
-  flex: 1 1 200px; /* Nimmt den verbleibenden Platz ein */
+    flex: 1 1 200px;
 }
-
 .calendar-date-input,
 .calendar-time-input {
-  flex: 0 1 auto;
+    flex: 0 1 auto;
 }
-
-/* Fokus-Zustand für Eingaben */
 .calendar-date-input:focus,
 .calendar-time-input:focus,
 .calendar-text-input:focus {
-  border-color: rgb(8, 155, 155);
-  box-shadow: 0 0 0 2px rgba(8, 155, 155, 0.25);
+    border-color: rgb(8, 155, 155);
+    box-shadow: 0 0 0 2px rgba(8, 155, 155, 0.25);
 }
-
-/* Add Button */
 #calendar-add-button {
-  background-color: rgb(8, 155, 155);
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 16px;
-  font-weight: 600;
-  font-size: 13px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+    background-color: rgb(8, 155, 155);
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
 }
-
 #calendar-add-button:hover {
-  background-color: rgb(10, 180, 180);
+    background-color: rgb(10, 180, 180);
 }
-
 #calendar-add-button:active {
-  transform: scale(0.98);
+    transform: scale(0.98);
 }
-
 .calendar-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
-
 .calendar-title {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 500;
-  color: #000000;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
-
 .calendar-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
-
 .calendarscreencontent::-webkit-scrollbar {
-  width: 6px;
+    width: 6px;
 }
-
 .calendarscreencontent::-webkit-scrollbar-track {
-  background: transparent;
+    background: transparent;
 }
-
 .calendarscreencontent::-webkit-scrollbar-thumb {
-  background: #a0a0a0;
-  border-radius: 3px;
+    background: #a0a0a0;
+    border-radius: 3px;
 }
-
 .calendarscreencontent::-webkit-scrollbar-thumb:hover {
-  background: #555;
+    background: #555;
+}
+.mapscreen {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    gap: 10px;
+}
+#mapscreen.maximized {
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 40px);
+    border: none;
+    box-shadow: none;
+}
+.mapcontent {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(230, 230, 230);
+    border: 1px solid #888888;
+    border-radius: 8px;
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+.mapcontent-container {
+    top: 0;
+    left: 0;
+    width: 1280px;
+    height: 720px;
+    padding-top: 10px;
+    box-sizing: border-box;
+}
+.mapscreeninput {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #222;
+    box-sizing: border-box;
+}
+.map-search-input {
+    flex: 1;
+    width: 50%;
+    padding: 10px 14px;
+    border: 1px solid #555;
+    border-radius: 6px;
+    background-color: #333;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+.map-search-button {
+    flex-shrink: 0;
+    padding: 10px 16px;
+    border: 1px solid #555;
+    border-radius: 6px;
+    background-color: rgb(8, 155, 155);
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.2s;
+}
+.map-search-button:hover {
+    background-color: rgb(6, 125, 125);
+}
+#toggle-route-btn {
+    background: #089b9b;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 60;
+    font-size: 13px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+#toggle-route-btn:hover {
+    background: #067a7a;
+    transform: translateY(-1px);
+}
+.route-sidebar {
+    position: absolute;
+    top: 75px;
+    left: -340px;
+    width: 320px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(229, 231, 235, 0.8);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: left 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 0 16px 16px 0;
+    overflow: hidden;
+}
+.route-sidebar.open {
+    left: 15px;
+}
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+}
+.sidebar-header h3 {
+    margin: 0;
+    font-size: 14px;
+    color: #0f172a;
+    font-weight: 700;
+}
+.sidebar-header .close-btn {
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    color: #64748b;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+.sidebar-header .close-btn:hover {
+    color: #0f172a;
+    background: #e2e8f0;
+}
+.sidebar-content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 4px;
+}
+.input-group label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.sidebar-content input {
+    padding: 9px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 12px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background: #ffffff;
+}
+.sidebar-content input:focus {
+    border-color: #089b9b;
+    box-shadow: 0 0 0 3px rgba(8, 155, 155, 0.15);
+}
+.button-group {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+}
+#calc-route-btn {
+    flex: 2;
+    padding: 10px;
+    background: #089b9b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background 0.2s;
+}
+#calc-route-btn:hover {
+    background: #067a7a;
+}
+#clear-route-btn {
+    flex: 1;
+    padding: 10px;
+    background: #f1f5f9;
+    color: #64748b;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s;
+}
+#clear-route-btn:hover {
+    background: #fee2e2;
+    color: #ef4444;
+    border-color: #fca5a5;
+}
+.route-info-box {
+    margin-top: 4px;
+    padding: 12px 14px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 12px;
+    color: #334155;
+}
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.info-item span strong {
+    color: #0f172a;
 }

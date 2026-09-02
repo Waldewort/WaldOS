@@ -2,8 +2,10 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0; URL=waldos.html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="WaldOS_W.png" style="border-radius: 50px;">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <title>WaldOS&copy;</title>
   </head>
   <body>
@@ -19,28 +21,32 @@
       <div id="applications" class="applications"> 
         <!-- Notizen App-Aufruf-->
         <div id="notes" class="unselected">
-          <img id="opennotescreen" src="notizen.png" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="opennotescreen" src="notizen.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
         </div> 
         <!-- Trompeten App-Aufruf -->
         <div id="trumpet" class="unselected">
-          <img id="opentrumpetscreen" src="trompete.png" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="opentrumpetscreen" src="trompete.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
         </div>
         <!-- Hauptseite App-Aufruf -->
         <div id="welcome" class="unselected">
-          <img id="openwelcomescreen" src="WaldOS_W.png" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="openwelcomescreen" src="WaldOS_W.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
         </div>
         <!-- Suchmaschine App-Aufruf -->
         <div id="searchmachine" class="unselected">
-          <img id="opensearchmachinescreen" src="suchmaschine.png" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="opensearchmachinescreen" src="suchmaschine.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
         </div>
         <!--YouTube App-Aufruf -->
         <div id="youtube" class="unselected">
-          <img id="openyoutubescreen" src="WaldVideo1.png" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="openyoutubescreen" src="WaldVideo1.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
         </div>
         <!--Rezepte App-Aufruf -->
         <div id="rezepte" class="unselected">
-          <img id="openrezeptescreen" src="rezepte.png" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="openrezeptescreen" src="rezepte.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
         </div> 
+        <!--Maps App-Aufruf-->
+        <div id="maps" class="unselected">
+          <img id="openmapscreen" src="maps.png" draggable="false" onclick="toggleMapsApp()" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+        </div>
       </div>
 
       <!-- Informationen-->
@@ -57,7 +63,7 @@
       <h1>
         About the WaldOS&copy;! 
       </h1>
-      <img style="border-radius: 10px; width: 360px; height: 640px" src="Waldewort.png" ><br>That´s me :D
+      <img style="border-radius: 10px; width: 360px; height: 640px" draggable="false" src="Waldewort.png" ><br>That´s me :D
       <p style="color:rgb(182, 146, 0)">
         I´m a 17 year old student from Germany and I´m the head behind the WaldOS&copy;! I´m going to graduate next year and I´m really interested in programming and computer science. I´m also a musician and I play the trombone for 5 years now. I´m also a big fan of the videogames like Valheim, which is my favorite game of all time!
       </p>
@@ -173,7 +179,7 @@ Something chill for studying... look up Lofi Rain tracks tonight.
         </div>
 
         <div id="search-results-container">
-          <img src="wikipedia.png" class="wikipedia-logo">
+          <img src="wikipedia.png" draggable="false" class="wikipedia-logo">
           <p style="text-align: center; color: #888;">Enter to start search.</p>
         </div>
       </div>
@@ -210,8 +216,8 @@ Something chill for studying... look up Lofi Rain tracks tonight.
           <input type="text" id="yt-search-input" placeholder="Search to start the W(ald)hormhole" style="flex-grow: 1; padding: 10px; border-radius: 4px; border: 1px solid #3d3d3d; background: #121212; color: white;">
           <button id="yt-search-btn" style="padding: 8px 16px; cursor: pointer; background: #070848; color: white; border: none; border-radius: 4px; font-weight: bold;">Start the Engines</button>
         </div>
-        <img id="yt-logo" src="WaldVideo.png" style="min-width: 1280px; min-height: 720px; max-width: 1080px; max-height: 1080px; transform: rotate(0deg); top: 50%; left: 50%;">
-
+        <img id="yt-logo" src="WaldVideo.png" draggable="false" style="min-width: 1280px; min-height: 720px; max-width: 1080px; max-height: 1080px; transform: rotate(0deg); top: 50%; left: 50%;">
+      </div>
       <div id="yt-player-container" style="display: none; flex-grow: 1; display: flex; justify-content: center; align-items: center; padding-bottom: 10px;">
         <iframe id="yt-player" 
               style="display: none; width: 100%; height: 100%; min-height: 720px; min-width: 1280px; border: none; border-radius: 4px;" 
@@ -225,7 +231,6 @@ Something chill for studying... look up Lofi Rain tracks tonight.
       </div>
 
     </div>
-  </div>
 
     <!-- Rezepte-Screen-->
     <div class="window" id="rezeptescreen">
@@ -303,10 +308,69 @@ Something chill for studying... look up Lofi Rain tracks tonight.
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Mapscreen -->
+    <div id="mapscreen" class="window">
+      <div class="header" id="mapscreenheader">
+        <svg class="maximize-button" id="maximizemapscreen" width="24" height="30">
+          <rect y="10" x="2.5" width="12px" height="12px" fill="none" stroke="black" stroke-width="2.5"/>
+        </svg>
+        <p class="close-button" id="closemapscreen" onclick="toggleMapsApp()">X</p>
+      </div>
+
+      <!-- Obere Suchleiste -->
+      <div id="mapscrenninput" class="mapscrenninput">
+        <input type="text" id="map-search-input" class="map-search-input" placeholder="Search for the Launchpad of your spaceship...">
+        <button id="map-search-button" class="map-search-button">Send out the satalite to search</button>
+        <button id="toggle-route-btn" onclick="toggleRouteSidebar()">🚗 Route >>></button>
+      </div>
+    
+      <!-- Routen-Seitenleiste (Eigenständig positioniert) -->
+      <div id="route-sidebar" class="route-sidebar">
+        <div class="sidebar-header">
+          <h3>🚗 Auto-Routenplaner</h3>
+          <button class="close-btn" onclick="toggleRouteSidebar()">✕</button>
+        </div>
+        <div class="sidebar-content">
+          <div class="input-group">
+            <label for="route-start">Startpunkt</label>
+            <input type="text" id="route-start" placeholder="Shaby Spaceport...">
+          </div>
+          <div class="input-group">
+            <label for="route-end">Zielpunkt</label>
+            <input type="text" id="route-end" placeholder="The Moon...">
+          </div>
+          <div class="button-group">
+            <button onclick="calculateCarRoute()" id="calc-route-btn">Calculate Route</button>
+            <button onclick="clearCarRoute()" id="clear-route-btn">Clear Route</button>
+          </div>
+        
+          <div id="route-info" class="route-info-box" style="display: none;">
+            <div class="info-item">
+              <span>📏 <strong>Distanz:</strong></span>
+              <span id="route-distance">-</span>
+              <span id="route-distance-miles">-</span>
+            </div>
+
+            <div class="info-item">
+              <span>⏱️ <strong>Fahrzeit:</strong></span>
+              <span id="route-duration">-</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Karten-Container -->
+      <div id="mapcontent-container" class="mapcontent-container">
+        <div id="mapcontent" class="mapcontent"></div>
       </div>
     </div>
-      
+      </div>
+    </div>
 
+    
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="script.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
   </body>
