@@ -39,13 +39,13 @@
         <div id="youtube" class="unselected">
           <img id="openyoutubescreen" src="WaldVideo1.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
         </div>
-        <!--Rezepte App-Aufruf -->
+        <!--Rezepte App-Aufruf 
         <div id="rezepte" class="unselected">
           <img id="openrezeptescreen" src="rezepte.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
-        </div> 
+        </div> -->
         <!--Maps App-Aufruf-->
         <div id="maps" class="unselected">
-          <img id="openmapscreen" src="maps.png" draggable="false" onclick="toggleMapsApp()" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="openmapscreen" src="maps.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
         </div>
       </div>
 
@@ -200,7 +200,8 @@ Something chill for studying... look up Lofi Rain tracks tonight.
     </div>
 
     <!-- YouTube-Screen -->
-    <div class="window" id="youtubescreen">
+    <!-- YouTube-Screen -->
+    <div class="window yt-window" id="youtubescreen">
 
       <!--Header des YouTube-Screens -->
       <div class="header" id="youtubescreenheader">
@@ -211,103 +212,23 @@ Something chill for studying... look up Lofi Rain tracks tonight.
       </div>
       
       <div class="youtube-app">
-        <p id="yt-playername" style="text-align: center; margin: 10px 0; font-family: sans-serif; color: rgb(0, 0, 0); font-weight: bold; font-size: 30px;">WaldVideo📽️</p>
+        <p id="yt-playername" class="yt-playername">WaldVideo📽️</p>
         <div style="padding: 10px; display: flex; gap: 10px; align-items: center; border-radius: 4px;">
           <input type="text" id="yt-search-input" placeholder="Search to start the W(ald)hormhole" style="flex-grow: 1; padding: 10px; border-radius: 4px; border: 1px solid #3d3d3d; background: #121212; color: white;">
           <button id="yt-search-btn" style="padding: 8px 16px; cursor: pointer; background: #070848; color: white; border: none; border-radius: 4px; font-weight: bold;">Start the Engines</button>
         </div>
-        <img id="yt-logo" src="WaldVideo.png" draggable="false" style="min-width: 1280px; min-height: 720px; max-width: 1080px; max-height: 1080px; transform: rotate(0deg); top: 50%; left: 50%;">
-      </div>
-      <div id="yt-player-container" style="display: none; flex-grow: 1; display: flex; justify-content: center; align-items: center; padding-bottom: 10px;">
-        <iframe id="yt-player" 
-              style="display: none; width: 100%; height: 100%; min-height: 720px; min-width: 1280px; border: none; border-radius: 4px;" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowfullscreen>
-        </iframe>
-      </div>
-
-      <div id="yt-results-container" class="yt-results-input">
-        <p class="yt-output-line"> Search a Fantastic Video in the the WaldVid</p>
-      </div>
-
-    </div>
-
-    <!-- Rezepte-Screen-->
-    <div class="window" id="rezeptescreen">
-      
-      <!--Header des Rezepte-Screens -->
-      <div class="header" id="rezeptescreenheader">
-        <svg class="maximize-button" id="maximizerezeptescreen" width="24" height="30">
-          <rect y="10" x="2.5" width="12px" height="12px" fill="none" stroke="black" stroke-width="2.5"/>
-        </svg>
-        <p class="close-button" id="closerezeptescreen">X</p>
-      </div>
-
-      <div class="rezepte-app" style="height: calc(100% - 30px); display: flex; flex-direction: column; background-color: #ffffff; color: white;">
-        <div class="rezept-container" id="recipe-list-container">
-          <div class="titel_Waldskitchen">
-            <h1 style="color: rgb(0, 0, 0);">Waldskitchen</h1>
-            <!--<img src="" style =" height: 500px; width: 500px; border-radius: 250px;"> -->
-          </div>
-            <div id="stews" class="rezepte-auswahl">
-              <p id="stews-schrift">Choose your stew type!</p>
-                <div id="Linseneintopf" class="rezept-vorschau versteckt">
-                  <img id="linseneintopf" src="linseneintopf.png" alt="Linseneintopf" class="rezept-bilder">
-                  <div id="Linseneintopf" class="rezept-informationen">
-                    <h2 style="color: rgb(0, 0, 0);">Lentil stew</h2>
-                    <p style="color: rgb(0, 0, 0);">Lentil stew with potatoes and carrots</p>
-                  </div>
-                </div>
-                <div id="Kartoffeleintopf" class="rezept-vorschau versteckt">
-                  <img id="kartoffeleintopf" src="kartoffeleintopf.png" alt="Kartoffeleintopf" class="rezept-bilder">
-                  <div id="Kartoffeleintopf" class="rezept-informationen">
-                    <h2 style="color: rgb(0, 0, 0);">Potato stew</h2>
-                    <p style="color: rgb(0, 0, 0);">Potato stew with onions and sausages</p>
-                  </div>
-                </div>
-                <div id="Bohneneintopf" class="rezept-vorschau versteckt">
-                  <!-- <img id="bohneneintopf" src="bohneneintopf.png" class="rezept-bilder"> -->
-                  <div id="Bohneneintopf" class="rezept-informationen">
-                    <h2 style="color: rgb(0, 0, 0);">Bean stew</h2>
-                    <p style="color: rgb(0, 0, 0);">Bean stew with onions and bacon</p>
-                  </div>
-                </div>
-            </div>
-            <div id="bread" class="rezepte-auswahl">
-              <p id="bread-schrift">Choose your bread type!</p>
-                <div id="Vollkornbrot" class="rezept-vorschau versteckt">
-                  <img id="vollkornbrot" src="vollkornbrot.png" alt="Vollkornbrot" class="rezept-bilder">
-                  <div id="vollkornbrot" class="rezept-informationen">
-                    <h2 style="color: rgb(0, 0, 0);">Whole grain bread</h2>
-                    <p style="color: rgb(0, 0, 0);">Healthy and nutritious whole grain bread</p>
-                  </div>
-                </div>
-                <div id="Weißbrot" class="rezept-vorschau versteckt">
-                  <!--<img id="weißbrot" src="weißbrot.png" class="rezept-bilder"> -->
-                  <div id="weißbrot" class="rezept-informationen">
-                    <h2 style="color: rgb(0, 0, 0);">White Bread</h2>
-                    <p style="color: rgb(0, 0, 0)">A white bread out of wheat</p>
-                  </div>
-                </div>
-            </div>
-            <div id="cake" class="rezepte-auswahl">
-              <p id="cake-schrift">Choose your cake type!</p>
-                <div id="brownies" class="rezept-vorschau versteckt">
-                  <img src="brownies.png" class="rezept-bilder">
-                  <div class="rezept-informationen">
-                    <h2 style="color:rgb(0, 0, 0)">Brownies</h2>
-                  </div>
-                </div>
-                <!-- <div id="Muffins" class="rezepte-auswahl">
-                  <img src="Muffins.png" class="rezept-bilder">
-                  <div class="rezept-informationen">
-
-                  </div>
-                </div> -->
-
-                </div>
-            </div>
+        <div id="yt-player-container" style="position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 4px; margin-bottom: 10px;">
+          <img id="yt-logo" src="WaldVideo.png" draggable="false" style="position: absolute; top: 0; left: 15px; width: calc(100% - 30px); height: 100%; z-index: 2; box-shadow: 0 0 15px 5px rgb(222, 222, 222);">
+          <iframe id="yt-player" allow="autoplay; encrypted-media" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; z-index: 1;"></iframe>
         </div>
+
+        <div id="yt-results-container" class="yt-results-container">
+          <p class="yt-output-line"> Search a Fantastic Video in the the WaldVid</p>
+        </div>
+      </div>
+
+      
+
     </div>
 
     <!-- Mapscreen -->
@@ -316,20 +237,20 @@ Something chill for studying... look up Lofi Rain tracks tonight.
         <svg class="maximize-button" id="maximizemapscreen" width="24" height="30">
           <rect y="10" x="2.5" width="12px" height="12px" fill="none" stroke="black" stroke-width="2.5"/>
         </svg>
-        <p class="close-button" id="closemapscreen" onclick="toggleMapsApp()">X</p>
+        <p class="close-button" id="closemapscreen">X</p>
       </div>
 
       <!-- Obere Suchleiste -->
       <div id="mapscrenninput" class="mapscrenninput">
         <input type="text" id="map-search-input" class="map-search-input" placeholder="Search for the Launchpad of your spaceship...">
         <button id="map-search-button" class="map-search-button">Send out the satalite to search</button>
-        <button id="toggle-route-btn" onclick="toggleRouteSidebar()">🚗 Route >>></button>
+        <button id="toggle-route-btn" onclick="toggleRouteSidebar()">🚗 Route</button>
       </div>
     
       <!-- Routen-Seitenleiste (Eigenständig positioniert) -->
       <div id="route-sidebar" class="route-sidebar">
         <div class="sidebar-header">
-          <h3>🚗 Auto-Routenplaner</h3>
+          <h3>🚗 Routeplaner</h3>
           <button class="close-btn" onclick="toggleRouteSidebar()">✕</button>
         </div>
         <div class="sidebar-content">

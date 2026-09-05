@@ -181,8 +181,18 @@ function openwindow(element, underline) {
       var defaultLon = 10.9863;
 
       osmMap = L.map('mapcontent', { zoomControl: false }).setView([defaultLat, defaultLon], 13);
+      const mapElement = document.querySelector("#mapcontent");
+
+      if (mapElement && osmMap) {
+        const mapResizeObserver = new ResizeObserver(() => {
+          osmMap.invalidateSize();
+        });
+        
+        mapResizeObserver.observe(mapElement);
+}
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        keepBuffer: 200,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> Mitwirkende'
       }).addTo(osmMap);
 
@@ -275,7 +285,6 @@ function openwindow(element, underline) {
               .bindPopup('WaldOS HQ 💻');
             L.marker([userLat, userLon]).addTo(osmMap)
               .bindPopup('🚀 Your current spaceship position')
-              .openPopup();
           },
           function (error) {
             console.warn("Your Spaceship has no GPS ", error.message);
@@ -368,11 +377,6 @@ openmapscreen.addEventListener("click", function() {
   }
 });
 
-
-// ==========================================
-// SEPARATE EVENT-LISTENER FÜR DIE X-BUTTONS
-// ==========================================
-
 if (closewelcomescreen) {
   closewelcomescreen.addEventListener("click", function() {
     closewindow(welcomescreen, welcome);
@@ -412,6 +416,12 @@ if (closerezeptescreen) {
 if (closemapscreen) {
   closemapscreen.addEventListener("click", function() {
     closewindow(mapscreen, map);
+  });
+}
+
+if (closewikipediascreen) {
+  closewikipediascreen.addEventListener("click", function() {
+    closewindow(wikipediascreen);
   });
 }
 
@@ -573,14 +583,19 @@ var ytPlayer = document.querySelector("#yt-player");
 var ytLogo = document.querySelector("#yt-logo");
 var pContainer = ytPlayerContainer || document.querySelector("#yt-player-container");
 var pIframe = ytPlayer || document.querySelector("#yt-player");
+
 async function performYtSearch() {
-  ytLogo.style.display = "none";
-  pContainer.style.display = 'none';
-  pIframe.style.display = 'none';
-  pIframe.src = '';
   if (!ytSearchInput) return;
   const query = ytSearchInput.value.trim();
   if (!query) return;
+
+  // Beim Start einer neuen Suche das Logo und den Player zurücksetzen
+  if (ytLogo) ytLogo.style.display = "none";
+  if (pContainer) pContainer.style.display = 'none';
+  if (pIframe) {
+    pIframe.style.display = 'none';
+    pIframe.src = '';
+  }
 
   ytResultsContainer.innerHTML = '<p style="color: #888; text-align: center;">Spaceship is diving into the W(ald)hormhole...</p>';
 
@@ -612,20 +627,29 @@ async function performYtSearch() {
             <div style="color: #aaa; font-size: 12px;">${author}</div>
           </div>
         `;
+        
+        
         card.addEventListener('click', () => {
-          var pContainer = ytPlayerContainer || document.querySelector("#yt-player-container");
-          var pIframe = ytPlayer || document.querySelector("#yt-player");
+          console.log("Video geklickt, ID:", videoId);
+          var activeContainer = document.querySelector("#yt-player-container");
+          var activeIframe = document.querySelector("#yt-player");
           var ytApp = document.querySelector(".youtube-app");
           var ytPlayername = document.querySelector("#yt-playername");
-          var ytLogo = document.querySelector("#yt-logo");
+          var activeLogo = document.querySelector("#yt-logo");
 
-          if (pContainer && pIframe) {
-            pContainer.style.display = 'flex';
-            pIframe.style.display = 'flex';
-            ytPlayername.style.display = "none";
-            pIframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`;
+          // Logo komplett ausblenden
+          if (activeLogo) activeLogo.style.display = "none";
+
+          if (activeContainer && activeIframe) {
+            // Wichtig: Den Container und das Iframe jetzt sichtbar machen!
+            activeContainer.style.display = 'block';
+            activeIframe.style.display = 'block';
+            activeIframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`;
             
-            // Scrollt das Innenfenster der YouTube-App gezielt nach ganz oben
+            if (ytPlayername) {
+              ytPlayername.style.display = "none";
+            }
+            
             if (ytApp) {
               ytApp.scrollTo({ top: 0, behavior: 'smooth' });
             }
@@ -650,7 +674,6 @@ if (ytSearchBtn && ytSearchInput) {
     }
   });
 }
-
 
 var eintöpfeButton = document.querySelector("#stews");
 var breadButton = document.querySelector("#bread");
@@ -894,9 +917,8 @@ if (searchBtnSearchapp && searchInputSearchapp && resultsContainerSearchapp) {
 })();
 
 // ==========================================
-// MAP LOGIK
+// MAP LOGIC
 // ==========================================
-// Ganz oben im Skript global definieren
 let osmMap = null;
 
 // Speicher für eigene Pins initialisieren
@@ -992,7 +1014,6 @@ function performMapSearch() {
       console.error("Your Spaceship is lost in the W(ald)hormhole.", err);
     });
 }
-
 // Variable zum Speichern der aktuellen Routen-Linie
 let currentRouteLayer = null;
 
@@ -1004,15 +1025,20 @@ function toggleRouteSidebar() {
   }
 }
 
-// Hilfsfunktion: Adresse zu Koordinaten über Nominatim
+// Hilfsfunktion: Adresse zu Koordinaten über Nominatim (ohne verbotene Header)
 async function geocodeAddress(query) {
   let url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
-  let response = await fetch(url, { headers: { 'User-Agent': 'WaldOS-MapApp' } });
+  
+  let response = await fetch(url);
+  if (!response.ok) {
+    throw new Error("Netzwerkfehler bei der Adresssuche.");
+  }
+  
   let data = await response.json();
   if (data && data.length > 0) {
     return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
   }
-  throw new Error(`Your : ${query}`);
+  throw new Error(`Ort nicht gefunden: "${query}". Bitte eine reale Adresse eingeben.`);
 }
 
 // Auto-Route berechnen und auf der Karte zeichnen
@@ -1021,7 +1047,7 @@ async function calculateCarRoute() {
   let endInput = document.getElementById('route-end').value.trim();
 
   if (!startInput || !endInput) {
-    alert("Please enter both start and end addresses.");
+    alert("Bitte geben Sie sowohl einen Start- als auch einen Zielort ein.");
     return;
   }
 
@@ -1034,7 +1060,7 @@ async function calculateCarRoute() {
     let routeResponse = await fetch(osrmUrl);
     let routeData = await routeResponse.json();
 
-    if (routeData.routes && routeData.routes.length > 0) {
+    if (routeData.code === "Ok" && routeData.routes && routeData.routes.length > 0) {
       clearCarRoute();
 
       let route = routeData.routes[0];
@@ -1066,10 +1092,10 @@ async function calculateCarRoute() {
 
       osmMap.fitBounds(currentRouteLayer.getBounds(), { padding: [50, 50] });
     } else {
-      alert("Your Rokete is to heavy for the route to this Launchpad.");
+      alert("Es konnte keine Straßenverbindung zwischen diesen Orten gefunden werden.");
     }
   } catch (error) {
-    alert(error.message || "Your Rokete is collapsed during the ride to the Launchpad.");
+    alert(error.message || "Fehler bei der Routenberechnung.");
   }
 }
 
@@ -1078,7 +1104,6 @@ function clearCarRoute() {
     osmMap.removeLayer(currentRouteLayer);
     currentRouteLayer = null;
   }
-  // Info-Box ausblenden
   let infoBox = document.getElementById('route-info');
   if (infoBox) {
     infoBox.style.display = 'none';
