@@ -39,10 +39,10 @@
         <div id="youtube" class="unselected">
           <img id="openyoutubescreen" src="WaldVideo1.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
         </div>
-        <!--Rezepte App-Aufruf 
+        <!--Rezepte App-Aufruf -->
         <div id="rezepte" class="unselected">
           <img id="openrezeptescreen" src="rezepte.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
-        </div> -->
+        </div> 
         <!--Maps App-Aufruf-->
         <div id="maps" class="unselected">
           <img id="openmapscreen" src="maps.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
@@ -229,6 +229,84 @@ Something chill for studying... look up Lofi Rain tracks tonight.
 
       
 
+    </div>
+
+    <!-- Rezepte-Screen -->
+    <div class="window" id="rezeptescreen">
+      
+      <!-- Header des Rezepte-Screens-->
+      <div class="header" id="rezeptescreenheader">
+        <svg class="maximize-button" id="maximizerezeptescreen" width="24" height="30">
+          <rect y="10" x="2.5" width="12px" height="12px" fill="none" stroke="black" stroke-width="2.5"/>
+        </svg>
+        <p class="close-button" id="closerezeptescreen">X</p>
+      </div>
+
+      <div class="rezepte-app" style="height: calc(100% - 30px); display: flex; flex-direction: column; background-color: #ffffff; color: white;">
+        <div class="rezept-container" id="recipe-list-container">
+          <div class="titel_Waldskitchen">
+            <h1 style="color: rgb(0, 0, 0);">Waldskitchen</h1>
+            <!--<img src="" style =" height: 500px; width: 500px; border-radius: 250px;"> -->
+          </div>
+            <div id="stews" class="rezepte-auswahl">
+              <p id="stews-schrift">Choose your stew type!</p>
+                <div id="Linseneintopf" class="rezept-vorschau versteckt">
+                  <img id="linseneintopf" src="linseneintopf.png" alt="Linseneintopf" class="rezept-bilder">
+                  <div id="Linseneintopf" class="rezept-informationen">
+                    <h2 style="color: rgb(0, 0, 0);">Lentil stew</h2>
+                    <p style="color: rgb(0, 0, 0);">Lentil stew with potatoes and carrots</p>
+                  </div>
+                </div>
+                <div id="Kartoffeleintopf" class="rezept-vorschau versteckt">
+                  <img id="kartoffeleintopf" src="kartoffeleintopf.png" alt="Kartoffeleintopf" class="rezept-bilder">
+                  <div id="Kartoffeleintopf" class="rezept-informationen">
+                    <h2 style="color: rgb(0, 0, 0);">Potato stew</h2>
+                    <p style="color: rgb(0, 0, 0);">Potato stew with onions and sausages</p>
+                  </div>
+                </div>
+                <div id="Bohneneintopf" class="rezept-vorschau versteckt">
+                  <!-- <img id="bohneneintopf" src="bohneneintopf.png" class="rezept-bilder"> -->
+                  <div id="Bohneneintopf" class="rezept-informationen">
+                    <h2 style="color: rgb(0, 0, 0);">Bean stew</h2>
+                    <p style="color: rgb(0, 0, 0);">Bean stew with onions and bacon</p>
+                  </div>
+                </div>
+            </div>
+            <div id="bread" class="rezepte-auswahl">
+              <p id="bread-schrift">Choose your bread type!</p>
+                <div id="Vollkornbrot" class="rezept-vorschau versteckt">
+                  <img id="vollkornbrot" src="vollkornbrot.png" alt="Vollkornbrot" class="rezept-bilder">
+                  <div id="vollkornbrot" class="rezept-informationen">
+                    <h2 style="color: rgb(0, 0, 0);">Whole grain bread</h2>
+                    <p style="color: rgb(0, 0, 0);">Healthy and nutritious whole grain bread</p>
+                  </div>
+                </div>
+                <div id="Weißbrot" class="rezept-vorschau versteckt">
+                  <!--<img id="weißbrot" src="weißbrot.png" class="rezept-bilder"> -->
+                  <div id="weißbrot" class="rezept-informationen">
+                    <h2 style="color: rgb(0, 0, 0);">White Bread</h2>
+                    <p style="color: rgb(0, 0, 0)">A white bread out of wheat</p>
+                  </div>
+                </div>
+            </div>
+            <div id="cake" class="rezepte-auswahl">
+              <p id="cake-schrift">Choose your cake type!</p>
+                <div id="brownies" class="rezept-vorschau versteckt">
+                  <img src="brownies.png" class="rezept-bilder">
+                  <div class="rezept-informationen">
+                    <h2 style="color:rgb(0, 0, 0)">Brownies</h2>
+                  </div>
+                </div>
+                <!-- <div id="Muffins" class="rezepte-auswahl">
+                  <img src="Muffins.png" class="rezept-bilder">
+                  <div class="rezept-informationen">
+
+                  </div>
+                </div> -->
+
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Mapscreen -->
