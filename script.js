@@ -4,7 +4,6 @@ function updateTime() {
   timetext.innerHTML = currentTime;}
 setInterval(updateTime, 1000);
 
-// Make the DIV element draggable:
 dragElement(document.getElementById("Hauptseite"));
 dragElement(document.getElementById("trumpetscreen")); 
 dragElement(document.getElementById("notescreen"));
@@ -53,26 +52,18 @@ document.addEventListener("fullscreenchange", () => {
   });
 
 
-// Step 1: Define a function called `dragElement` that makes an HTML element draggable.
 function dragElement(element) {
-  // Step 2: Set up variables to keep track of the element's position.
   var initialX = 0;
   var initialY = 0;
   var currentX = 0;
   var currentY = 0;
 
-  // Step 3: Check if there is a special header element associated with the draggable element.
   if (document.getElementById(element.id + "header")) {
-    // Step 4: If present, assign the `dragMouseDown` function to the header's `onmousedown` event.
-    // This allows you to drag the window around by its header.
     document.getElementById(element.id + "header").onmousedown = startDragging;
   } else {
-    // Step 5: If not present, assign the function directly to the draggable element's `onmousedown` event.
-    // This allows you to drag the window by holding down anywhere on the window.
     element.onmousedown = startDragging;
   }
 
-  // Step 6: Define the `startDragging` function to capture the initial mouse position and set up event listeners.
   function startDragging(e) {
     e = e || window.event;
     e.preventDefault();
@@ -81,16 +72,14 @@ function dragElement(element) {
     // Step 7: Get the mouse cursor position at startup.
     initialX = e.clientX;
     initialY = e.clientY;
-    // Step 8: Set up event listeners for mouse movement (`elementDrag`) and mouse button release (`closeDragElement`).
+  
     document.onmouseup = stopDragging;
     document.onmousemove = Elementdrag;
   }
-
-  // Step 9: Define the `elementDrag` function to calculate the new position of the element based on mouse movement.
   function Elementdrag(e) {
     e = e || window.event;
     e.preventDefault();
-    // Step 10: Calculate the new cursor position.
+
     currentX = initialX - e.clientX;
     currentY = initialY - e.clientY;
     initialX = e.clientX;
@@ -104,16 +93,13 @@ function dragElement(element) {
     let targetTop = element.offsetTop - currentY;
     let targetLeft = element.offsetLeft - currentX;
 
-    // Maximale Grenzen (Bildschirm minus Fenstergröße)
-    const maxTop = window.innerHeight - element.offsetHeight - 70; // 70px Taskleiste unten
+    const maxTop = window.innerHeight - element.offsetHeight - 70; 
     const maxLeft = window.innerWidth - element.offsetWidth;
 
-    // Exakte mathematische Begrenzung für alle 4 Seiten
     element.style.top = Math.max(0, Math.min(targetTop, maxTop)) + "px";
     element.style.left = Math.max(0, Math.min(targetLeft, maxLeft)) + "px";
   }
 
-  // Step 12: Define the `stopDragging` function to stop tracking mouse movement by removing the event listeners.
   function stopDragging() {
     document.onmouseup = null;
     document.onmousemove = null;
@@ -198,7 +184,6 @@ function openwindow(element, underline) {
 
       renderCustomPins();
 
-      // Klick-Event auf der Karte mit Emoji-Dropdown
       osmMap.on('click', function (e) {
         let popupContent = document.createElement('div');
         popupContent.style.cssText = "display: flex; flex-direction: column; gap: 8px; padding: 4px; width: 350px; box-sizing: border-box;";
@@ -546,10 +531,7 @@ if (maximizeMapScreenButton) {
   })
 }
 
-
-// ==========================================
-// NOTIZEN SPEICHERN & LADEN (localStorage)
-// ==========================================
+// Save notes 
 
 document.addEventListener("DOMContentLoaded", function() {
     var notesTextarea = document.querySelector("#notes-textarea");
@@ -570,11 +552,10 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-// YouTube-Suchleiste
+// YouTube-Surchbar
 
 const API_KEY = "AIzaSyBPTc_wbo3dpmEYEd-g-zNu7vmv8oYLFUQ";
 
-// DOM-Elemente für YouTube auswählen
 var ytSearchInput = document.querySelector("#yt-search-input");
 var ytSearchBtn = document.querySelector("#yt-search-btn");
 var ytPlayerContainer = document.querySelector("#yt-player-container");
@@ -589,7 +570,6 @@ async function performYtSearch() {
   const query = ytSearchInput.value.trim();
   if (!query) return;
 
-  // Beim Start einer neuen Suche das Logo und den Player zurücksetzen
   if (ytLogo) ytLogo.style.display = "none";
   if (pContainer) pContainer.style.display = 'none';
   if (pIframe) {
@@ -637,11 +617,9 @@ async function performYtSearch() {
           var ytPlayername = document.querySelector("#yt-playername");
           var activeLogo = document.querySelector("#yt-logo");
 
-          // Logo komplett ausblenden
           if (activeLogo) activeLogo.style.display = "none";
 
           if (activeContainer && activeIframe) {
-            // Wichtig: Den Container und das Iframe jetzt sichtbar machen!
             activeContainer.style.display = 'block';
             activeIframe.style.display = 'block';
             activeIframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`;
@@ -665,7 +643,6 @@ async function performYtSearch() {
   }
 }
 
-// Event-Listener für YouTube Suche aktivieren
 if (ytSearchBtn && ytSearchInput) {
   ytSearchBtn.addEventListener("click", performYtSearch);
   ytSearchInput.addEventListener("keypress", function(e) {
@@ -719,9 +696,8 @@ cakeButton.addEventListener("click", function() {
   togglehideRecipes(cakeschrift);
 });
 
-// ==========================================
-// WALDSEARCH (Native Wikipedia API)
-// ==========================================
+// Waldsearch
+
 var searchInputSearchapp = document.querySelector("#waldos-search-input");
 var searchBtnSearchapp = document.querySelector("#waldos-search-btn");
 var resultsContainerSearchapp = document.querySelector("#search-results-container");
@@ -733,7 +709,6 @@ function runWaldosSearch() {
 
   resultsContainerSearchapp.innerHTML = "<p style='text-align: center; color: #aaa;'>Diving into the W(ald)hormhole...</p>";
 
-  // Kostenlose Wikipedia-API abfragen (erlaubt direkte Anfragen ohne Blockaden)
   var apiUrl = "https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=" 
                + encodeURIComponent(query) 
                + "&format=json&origin=*";
@@ -770,7 +745,6 @@ function runWaldosSearch() {
           var wikipediascreen = document.querySelector("#wikipediascreen");
 
           if (wikiIframe && wikipediascreen) {
-            // Nutzt die mobile Wikipedia-URL (wird im iFrame nicht blockiert)
             wikiIframe.src = "https://en.m.wikipedia.org/wiki/" + encodeURIComponent(item.title);
             openwindow(wikipediascreen);
           }
@@ -803,10 +777,7 @@ if (searchBtnSearchapp && searchInputSearchapp && resultsContainerSearchapp) {
 }
 
 
-// ==========================================
-// MOONCALENDAR LOGIK
-// ==========================================
-
+// Mooncalendar
 
 (function () {
   document.addEventListener("DOMContentLoaded", function () {
@@ -820,7 +791,6 @@ if (searchBtnSearchapp && searchInputSearchapp && resultsContainerSearchapp) {
 
     var STORAGE_KEY = "waldos_mooncalendar_events";
 
-    // 1. Events aus localStorage auslesen
     function getStoredEvents() {
       var saved = localStorage.getItem(STORAGE_KEY);
       try {
@@ -830,12 +800,10 @@ if (searchBtnSearchapp && searchInputSearchapp && resultsContainerSearchapp) {
       }
     }
 
-    // 2. Events in localStorage schreiben
     function setStoredEvents(events) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(events));
     }
 
-    // 3. Liste im HTML zeichnen
     function renderEvents() {
       var events = getStoredEvents();
       listContainer.innerHTML = "";
@@ -845,14 +813,12 @@ if (searchBtnSearchapp && searchInputSearchapp && resultsContainerSearchapp) {
         return;
       }
 
-      // Chronologisch nach Datum und Zeit sortieren
       events.sort(function (a, b) {
         var keyA = (a.date || "") + " " + (a.time || "00:00");
         var keyB = (b.date || "") + " " + (b.time || "00:00");
         return keyA.localeCompare(keyB);
       });
 
-      // HTML-Elemente für jeden Eintrag erstellen
       events.forEach(function (eventItem, index) {
         var card = document.createElement("div");
         card.style.cssText = "background: #282828; color: #fff; padding: 10px; margin-bottom: 8px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid rgb(8, 155, 155);"
@@ -879,7 +845,6 @@ if (searchBtnSearchapp && searchInputSearchapp && resultsContainerSearchapp) {
       });
     }
 
-    // 4. Klick-Event für den Hinzufügen-Button
     addButton.addEventListener("click", function () {
       var dateVal = dateInput ? dateInput.value : "";
       var timeVal = timeInput ? timeInput.value : "";
@@ -904,47 +869,40 @@ if (searchBtnSearchapp && searchInputSearchapp && resultsContainerSearchapp) {
 
       setStoredEvents(events);
 
-      // Eingabefelder leeren
       if (textInput) textInput.value = "";
       if (timeInput) timeInput.value = "";
 
       renderEvents();
     });
 
-    // Beim Laden der Seite direkt rendern
     renderEvents();
   });
 })();
 
-// ==========================================
-// MAP LOGIC
-// ==========================================
+// Waldlas
+
 let osmMap = null;
 
 // Speicher für eigene Pins initialisieren
 let customPinsData = JSON.parse(localStorage.getItem('waldos_custom_pins')) || [];
 let customMarkers = [];
 
-// Funktion zum Rendern der Pins mit Emojis als Marker
 function renderCustomPins() {
-  // Alte Marker von der Karte entfernen
   customMarkers.forEach(m => osmMap.removeLayer(m));
   customMarkers = [];
 
   customPinsData.forEach((pin, index) => {
-    let pinEmoji = pin.emoji || '📍'; // Fallback für ältere Pins ohne Emoji
+    let pinEmoji = pin.emoji || '📍';
 
-    // Erstellt ein Custom Leaflet-Icon mit dem gewählten Emoji
     let emojiIcon = L.divIcon({
       className: 'custom-emoji-pin',
       html: `<div style="font-size: 28px; line-height: 1; text-align: center; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)); cursor: pointer;">${pinEmoji}</div>`,
       iconSize: [32, 32],
-      iconAnchor: [16, 16] // Zentriert das Emoji exakt auf den Koordinaten
+      iconAnchor: [16, 16]
     });
 
     let marker = L.marker([pin.lat, pin.lng], { icon: emojiIcon }).addTo(osmMap);
 
-    // Popup mit Namen und Lösch-Button
     let container = document.createElement('div');
     container.innerHTML = `<strong style="color: #333; font-size: 14px;">${pinEmoji} ${pin.name}</strong><br>`;
 
@@ -1014,10 +972,9 @@ function performMapSearch() {
       console.error("Your Spaceship is lost in the W(ald)hormhole.", err);
     });
 }
-// Variable zum Speichern der aktuellen Routen-Linie
+
 let currentRouteLayer = null;
 
-// Seitenleiste ein-/ausklappen
 function toggleRouteSidebar() {
   let sidebar = document.getElementById('route-sidebar');
   if (sidebar) {
@@ -1025,7 +982,6 @@ function toggleRouteSidebar() {
   }
 }
 
-// Hilfsfunktion: Adresse zu Koordinaten über Nominatim (ohne verbotene Header)
 async function geocodeAddress(query) {
   let url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
   
@@ -1041,7 +997,6 @@ async function geocodeAddress(query) {
   throw new Error(`Ort nicht gefunden: "${query}". Bitte eine reale Adresse eingeben.`);
 }
 
-// Auto-Route berechnen und auf der Karte zeichnen
 async function calculateCarRoute() {
   let startInput = document.getElementById('route-start').value.trim();
   let endInput = document.getElementById('route-end').value.trim();
@@ -1081,7 +1036,6 @@ async function calculateCarRoute() {
       document.getElementById('route-duration').innerText = durationText;
       document.getElementById('route-info').style.display = 'flex';
 
-      // Route auf der Karte darstellen
       currentRouteLayer = L.geoJSON(routeGeoJSON, {
         style: {
           color: '#089b9b',
