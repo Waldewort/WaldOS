@@ -78,7 +78,7 @@ body {
     border-color: rgb(0, 0, 0);
     border-width: 3px;
     border-radius: 3px;
-    background-color: rgba(2, 10, 69, 0.5);
+    background: radial-gradient(circle at center,  rgba(34, 38, 73, 0.5) 0%,  rgba(34, 38, 73, 0.7) 100%);
     padding: 0px;
     height: 30px;
     margin-top: auto;
@@ -91,7 +91,7 @@ body {
     left: 0;
     width: 100%;
     height: 70px;
-    background-color: rgba(212, 208, 160, 0.0);
+    background: radial-gradient(circle at center, rgba(212, 208, 160, 0.0) 0%, rgba(212, 208, 160, 0.0) 100%);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -393,48 +393,11 @@ body {
 .yt-window {
     min-height: 925px;
 }
-.yt-card {
-    background-color: #1f1f1f;
-    border-radius: 8px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.2s ease;
-    display: flex;
-    flex-direction: column;
-}
-.yt-card:hover {
-    transform: translateY(-3px);
-    background-color: #2e2e2e;
-}
-.yt-card img {
-    width: 100%;
-    height: 110px;
-    object-fit: cover;
-}
-.yt-card-info {
-    padding: 8px;
-}
-.yt-card-title {
-    font-size: 13px;
-    font-weight: bold;
-    color: #ffffff;
-    display: -webkit-box;
-    overflow-y: hidden;
-    margin-bottom: 4px;
-}
-.yt-card-channel {
-    font-size: 11px;
-    color: #aaa;
-}
 .yt-output-line {
     grid-column: 1 / -1;
     text-align: center;
     font-size: 11px;
     color: #888;
-}
-.window.maximized.yt-logo {
-    width: 2400px;
-    height: 1440px;
 }
 .youtubescreen {
     display: flex;
@@ -489,7 +452,7 @@ body {
 
 
 #calendarscreen {
-    background-color: rgb(230, 230, 230);
+    background-color: rgba(34, 38, 73, 0.2);
     border: 1px solid #888888;
     border-radius: 8px;
     color: #ffffff;
@@ -513,17 +476,17 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    background-color: #262626;
+    background-color: rgba(22, 28, 52, 0.7);
     padding: 12px;
     border-radius: 6px;
-    border: 1px solid #383838;
+    /*border: 1px solid #383838; */
 }
 .calendar-date-input,
 .calendar-time-input,
 .calendar-text-input {
-    background-color: #5f5f5f;
+    background-color:rgba(22, 28, 52, 0.9);
     color: #ffffff;
-    border: 1px solid #444;
+    border: 1px solid #000000;
     border-radius: 4px;
     padding: 8px 12px;
     font-size: 13px;
@@ -556,7 +519,7 @@ body {
     transition: background-color 0.2s ease, transform 0.1s ease;
 }
 #calendar-add-button:hover {
-    background-color: rgb(10, 180, 180);
+    background-color: rgb(0, 0, 0);
 }
 #calendar-add-button:active {
     transform: scale(0.98);
@@ -570,7 +533,7 @@ body {
     margin: 0;
     font-size: 14px;
     font-weight: 500;
-    color: #000000;
+    color: #fefefe;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -586,11 +549,11 @@ body {
     background: transparent;
 }
 .calendarscreencontent::-webkit-scrollbar-thumb {
-    background: #a0a0a0;
+    background: #2d3254;
     border-radius: 3px;
 }
 .calendarscreencontent::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: #1b1e32;
 }
 
 .mapscreen {

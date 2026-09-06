@@ -985,7 +985,7 @@ if (searchBtnSearchapp && searchInputSearchapp && resultsContainerSearchapp) {
       listContainer.innerHTML = "";
 
       if (events.length === 0) {
-        listContainer.innerHTML = '<p style="color: #888; text-align: center; margin: 10px 0;">No takeoff dates saved yet.</p>';
+        listContainer.innerHTML = '<p style="color: rgba(22, 28, 52, 0.7); text-align: center; margin: 10px 0;">No takeoff dates saved yet.</p>';
         return;
       }
 
@@ -997,7 +997,7 @@ if (searchBtnSearchapp && searchInputSearchapp && resultsContainerSearchapp) {
 
       events.forEach(function (eventItem, index) {
         var card = document.createElement("div");
-        card.style.cssText = "background: #282828; color: #fff; padding: 10px; margin-bottom: 8px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid rgb(8, 155, 155);"
+        card.style.cssText = "background: rgba(22, 28, 52, 0.7); color: #fff; padding: 10px; margin-bottom: 8px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid rgb(8, 155, 155);"
 
         var infoContainer = document.createElement("div");
         var safeText = eventItem.text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
