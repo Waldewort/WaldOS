@@ -9,6 +9,8 @@
     <title>WaldOS&copy;</title>
   </head>
   <body>
+    <h1 class="title">WaldOS&copy;</h1>
+    <canvas id="starfield"></canvas>
     
     <!--Maximieren-->
       <div id="maximize-button-WaldOS">
@@ -363,6 +365,17 @@ Something chill for studying... look up Lofi Rain tracks tonight.
       <!-- Karten-Container -->
       <div id="mapcontent-container" class="mapcontent-container">
         <div id="mapcontent" class="mapcontent"></div>
+      </div>
+    </div>
+
+    <!-- Spiel-Fenster -->
+    <div id="gamescreen" class="window">
+      <div class="window-header">
+        <span>🎮 WaldGame</span>
+        <button class="close-btn" onclick="toggleWindow('gamescreen')">✕</button>
+      </div>
+      <div class="game-container">
+        <iframe src="game.html" class="game-frame"></iframe>
       </div>
     </div>
 

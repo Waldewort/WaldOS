@@ -7,12 +7,32 @@ body {
     font-family: sans-serif;
     background-color: rgb(8, 155, 155);
     font-family: Snell Roundhand, cursive;
-    background-image: url('WaldOS.png');
+    background-image: url('WaldOS_background.png');
     background-size: cover;
-    width: 200vh;
-    height: 100vh;
+    /* width: 200vh; 
+    height: 100vh; */
     background-repeat: no-repeat;
     overflow: hidden;
+}
+.title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-family: Arial;
+}
+#starfield {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; 
+    background: radial-gradient(circle at center, #10151d -20%, #05070a 100%);
+    pointer-events: none; 
 }
 .fullscreen-btn-WaldOS.hidden {
   display: none;
@@ -100,7 +120,7 @@ body {
     padding: 10px;
     border-radius: 10px;
     border-color: rgb(238, 238, 239);
-    background-color: rgba(230, 230, 230, 0.2);
+    background-color: rgba(34, 38, 73, 0.2);
     overflow: hidden;
     overflow-y: hidden;
     margin: 0px;
@@ -136,14 +156,24 @@ body {
     border-radius: 0px;
     box-sizing: border-box;
 }
-.window.maximized.iframe-container iframe {
+
+#trumpet-iframe.maximized {
+    position: relative;
+    flex-grow: 1;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+#trumpet-iframe-container.maximized {
     margin-top: 0px;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     transform: scale(1.2);
     transform-origin: center center;
 }
-.iframe-container {
+.trumpet-iframe-container {
     position: relative;
     flex-grow: 1;
     overflow: hidden;
@@ -152,7 +182,7 @@ body {
     align-items: center;
 }
 .window.maximized iframe {
-    zoom: 1.5;
+    zoom: 1.73;
 }
 .window.maximized #searchmachinescreencontent {
     transform-origin: center top;
@@ -437,7 +467,7 @@ body {
     text-align: center;
     margin: 10px 0; 
     font-family: sans-serif; 
-    color: rgb(0, 0, 0); 
+    color: rgb(255, 255, 255); 
     font-weight: bold; 
     font-size: 30px;
 }

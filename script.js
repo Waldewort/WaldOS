@@ -1,3 +1,179 @@
+document.addEventListener("DOMContentLoaded", function () {
+  const canvas = document.getElementById("starfield");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+
+  let width = 0;
+  let height = 0;
+  const taskbarHeight = 70;
+
+  const stars = [];
+  const numStars = 230;
+  const connectionRadius = 120;
+  const cursorRadius = 160;
+
+  const shootingStars = [];
+
+  let mouse = { x: null, y: null };
+  let lastTime = performance.now();
+
+  function resizeCanvas() {
+    const oldWidth = width;
+    const oldHeight = height;
+
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+
+    if (oldWidth > 0 && oldHeight > 0 && stars.length > 0) {
+      const scaleX = width / oldWidth;
+      const scaleY = (height - taskbarHeight) / (oldHeight - taskbarHeight);
+
+      for (let i = 0; i < stars.length; i++) {
+        stars[i].x *= scaleX;
+        stars[i].y *= scaleY;
+      }
+    }
+  }
+
+  resizeCanvas();
+
+  for (let i = 0; i < numStars; i++) {
+    stars.push({
+      x: Math.random() * width,
+      y: Math.random() * (height - taskbarHeight),
+      vx: (Math.random() - 0.5) * 0.2,
+      vy: (Math.random() - 0.5) * 0.2,
+      radius: Math.random() * 1.5 + 1
+    });
+  }
+
+  function spawnShootingStar() {
+    const startFromTop = Math.random() > 0.5;
+    shootingStars.push({
+      x: startFromTop ? Math.random() * width : 0,
+      y: startFromTop ? 0 : Math.random() * (height - taskbarHeight) * 0.5,
+      len: Math.random() * 80 + 50,
+      speed: Math.random() * 8 + 6,
+      size: Math.random() * 1.2 + 0.8,
+      angle: (Math.PI / 180) * (Math.random() * 15 + 35),
+      alpha: 1
+    });
+  }
+
+  window.addEventListener("resize", resizeCanvas);
+  window.addEventListener("mousemove", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  window.addEventListener("mouseleave", () => { mouse.x = null; mouse.y = null; });
+  // Setzt die Mauskoordinaten auch zurück, wenn das Fenster den Fokus verliert
+  window.addEventListener("blur", () => { mouse.x = null; mouse.y = null; });
+
+  function animate(currentTime) {
+    requestAnimationFrame(animate);
+
+    // 1. Schützt vor Render-Aufstauung: Stoppt die Berechnung komplett, wenn der Tab inaktiv ist
+    if (document.hidden) {
+      lastTime = currentTime;
+      return;
+    }
+
+    // 2. Fängt große Zeitsprünge ab, falls der Browser beim Tab-Wechsel laggt
+    let deltaTime = (currentTime - lastTime) / 1000;
+    lastTime = currentTime;
+
+    if (deltaTime > 0.1) {
+      deltaTime = 0.016; // Setzt die Berechnung auf Standard ~60 FPS zurück
+    }
+
+    ctx.clearRect(0, 0, width, height);
+
+    // Sternschnuppen erzeugen
+    if (Math.random() < 0.015 && shootingStars.length < 2) {
+      spawnShootingStar();
+    }
+
+    // Sternschnuppen zeichnen
+    for (let i = shootingStars.length - 1; i >= 0; i--) {
+      let ss = shootingStars[i];
+
+      ss.x += Math.cos(ss.angle) * ss.speed;
+      ss.y += Math.sin(ss.angle) * ss.speed;
+      ss.alpha -= 0.008;
+
+      let tailX = ss.x - Math.cos(ss.angle) * ss.len;
+      let tailY = ss.y - Math.sin(ss.angle) * ss.len;
+
+      let gradient = ctx.createLinearGradient(ss.x, ss.y, tailX, tailY);
+      gradient.addColorStop(0, `rgba(255, 255, 255, ${ss.alpha})`);
+      gradient.addColorStop(0.2, `rgba(8, 155, 155, ${ss.alpha * 0.8})`);
+      gradient.addColorStop(1, `rgba(8, 155, 155, 0)`);
+
+      ctx.beginPath();
+      ctx.moveTo(ss.x, ss.y);
+      ctx.lineTo(tailX, tailY);
+      ctx.strokeStyle = gradient;
+      ctx.lineWidth = ss.size;
+      ctx.stroke();
+
+      if (ss.alpha <= 0 || ss.x > width || ss.y > height - taskbarHeight) {
+        shootingStars.splice(i, 1);
+      }
+    }
+
+    // Sterne & Sternbilder zeichnen
+    for (let i = 0; i < stars.length; i++) {
+      let star = stars[i];
+      star.x += star.vx;
+      star.y += star.vy;
+
+      if (star.x < 0 || star.x > width) star.vx *= -1;
+      if (star.y < 0 || star.y > height - taskbarHeight) {
+        star.vy *= -1;
+        if (star.y > height - taskbarHeight) star.y = height - taskbarHeight;
+      }
+
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+      ctx.fillStyle = "#ffffff";
+      ctx.fill();
+
+      if (mouse.x !== null) {
+        let dxMouse = star.x - mouse.x;
+        let dyMouse = star.y - mouse.y;
+        let distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+
+        if (distMouse < cursorRadius) {
+          let alphaCursor = 1 - distMouse / cursorRadius;
+
+          ctx.beginPath();
+          ctx.moveTo(star.x, star.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(8, 155, 155, ${alphaCursor * 0.4})`;
+          ctx.lineWidth = 1.3;
+          ctx.stroke();
+
+          for (let j = i + 1; j < stars.length; j++) {
+            let otherStar = stars[j];
+            let dx = star.x - otherStar.x;
+            let dy = star.y - otherStar.y;
+            let distStars = Math.sqrt(dx * dx + dy * dy);
+
+            if (distStars < connectionRadius) {
+              let alphaLines = (1 - distStars / connectionRadius) * alphaCursor;
+              ctx.beginPath();
+              ctx.moveTo(star.x, star.y);
+              ctx.lineTo(otherStar.x, otherStar.y);
+              ctx.strokeStyle = `rgba(8, 135, 155, ${alphaLines * 0.8})`;
+              ctx.lineWidth = 1.6;
+              ctx.stroke();
+            }
+          }
+        }
+      }
+    }
+  }
+
+  animate(performance.now());
+});
+
 function updateTime() {
   var currentTime = new Date().toLocaleString();
   var timetext = document.querySelector("#time");
@@ -599,7 +775,7 @@ async function performYtSearch() {
         const thumbnail = item.snippet.thumbnails.medium.url;
 
         const card = document.createElement('div');
-        card.style.cssText = "cursor: pointer; background: #222; padding: 8px; margin-bottom: 8px; border-radius: 4px; display: flex; align-items: center; gap: 10px;";
+        card.style.cssText = "cursor: pointer; background: rgba(34, 38, 73, 0.7); padding: 8px; margin-bottom: 8px; border-radius: 4px; display: flex; align-items: center; gap: 10px;";
         card.innerHTML = `
           <img src="${thumbnail}" style="width: 120px; height: 68px; object-fit: cover; border-radius: 4px;">
           <div>
