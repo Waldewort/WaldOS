@@ -8,10 +8,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const taskbarHeight = 70;
 
   const stars = [];
-  const numStars = 230;
+  const numStars = 300;
   const connectionRadius = 120;
   const cursorRadius = 160;
 
+  let maxShootingStars = 5;
+  let speedMultiplier = 1;
+  let currStarColor = { r: 255, g: 255, b: 255 };
+  let currLineColor = { r: 8, g: 155, b: 155 };
   const shootingStars = [];
 
   let mouse = { x: null, y: null };
@@ -49,8 +53,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function spawnShootingStar() {
     const startFromTop = Math.random() > 0.5;
+
     shootingStars.push({
-      x: startFromTop ? Math.random() * width : 0,
+      // Startpositionen auf den sichtbaren Bereich eingrenzen
+      x: startFromTop ? Math.random() * (width * 0.8) : 0,
       y: startFromTop ? 0 : Math.random() * (height - taskbarHeight) * 0.5,
       len: Math.random() * 80 + 50,
       speed: Math.random() * 8 + 6,
@@ -63,48 +69,53 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("resize", resizeCanvas);
   window.addEventListener("mousemove", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
   window.addEventListener("mouseleave", () => { mouse.x = null; mouse.y = null; });
-  // Setzt die Mauskoordinaten auch zurück, wenn das Fenster den Fokus verliert
   window.addEventListener("blur", () => { mouse.x = null; mouse.y = null; });
 
   function animate(currentTime) {
     requestAnimationFrame(animate);
 
-    // 1. Schützt vor Render-Aufstauung: Stoppt die Berechnung komplett, wenn der Tab inaktiv ist
     if (document.hidden) {
       lastTime = currentTime;
       return;
     }
 
-    // 2. Fängt große Zeitsprünge ab, falls der Browser beim Tab-Wechsel laggt
     let deltaTime = (currentTime - lastTime) / 1000;
     lastTime = currentTime;
 
     if (deltaTime > 0.1) {
-      deltaTime = 0.016; // Setzt die Berechnung auf Standard ~60 FPS zurück
+      deltaTime = 0.016;
     }
 
     ctx.clearRect(0, 0, width, height);
 
     // Sternschnuppen erzeugen
-    if (Math.random() < 0.015 && shootingStars.length < 2) {
+    if (maxShootingStars > 0 && Math.random() < 0.03 && shootingStars.length < maxShootingStars) {
       spawnShootingStar();
     }
 
-    // Sternschnuppen zeichnen
+    // Sternschnuppen verarbeiten & zeichnen
     for (let i = shootingStars.length - 1; i >= 0; i--) {
       let ss = shootingStars[i];
 
-      ss.x += Math.cos(ss.angle) * ss.speed;
-      ss.y += Math.sin(ss.angle) * ss.speed;
-      ss.alpha -= 0.008;
+      ss.x += Math.cos(ss.angle) * ss.speed * speedMultiplier;
+      ss.y += Math.sin(ss.angle) * ss.speed * speedMultiplier;
+      
+      // Alpha nach unten hin auf 0 begrenzen
+      ss.alpha = Math.max(0, ss.alpha - 0.008);
+
+      // Entfernen, falls unsichtbar oder aus dem Bild geflogen
+      if (ss.alpha <= 0 || ss.x > width || ss.y > height - taskbarHeight) {
+        shootingStars.splice(i, 1);
+        continue;
+      }
 
       let tailX = ss.x - Math.cos(ss.angle) * ss.len;
       let tailY = ss.y - Math.sin(ss.angle) * ss.len;
 
       let gradient = ctx.createLinearGradient(ss.x, ss.y, tailX, tailY);
-      gradient.addColorStop(0, `rgba(255, 255, 255, ${ss.alpha})`);
-      gradient.addColorStop(0.2, `rgba(8, 155, 155, ${ss.alpha * 0.8})`);
-      gradient.addColorStop(1, `rgba(8, 155, 155, 0)`);
+      gradient.addColorStop(0, `rgba(${Math.round(currStarColor.r)}, ${Math.round(currStarColor.g)}, ${Math.round(currStarColor.b)}, ${ss.alpha})`);
+      gradient.addColorStop(0.2, `rgba(${Math.round(currLineColor.r)}, ${Math.round(currLineColor.g)}, ${Math.round(currLineColor.b)}, ${ss.alpha * 0.8})`);
+      gradient.addColorStop(1, `rgba(${Math.round(currLineColor.r)}, ${Math.round(currLineColor.g)}, ${Math.round(currLineColor.b)}, 0)`);
 
       ctx.beginPath();
       ctx.moveTo(ss.x, ss.y);
@@ -112,10 +123,6 @@ document.addEventListener("DOMContentLoaded", function () {
       ctx.strokeStyle = gradient;
       ctx.lineWidth = ss.size;
       ctx.stroke();
-
-      if (ss.alpha <= 0 || ss.x > width || ss.y > height - taskbarHeight) {
-        shootingStars.splice(i, 1);
-      }
     }
 
     // Sterne & Sternbilder zeichnen
@@ -290,6 +297,7 @@ var youtubescreen = document.querySelector("#youtubescreen");
 var rezeptescreen = document.querySelector("#rezeptescreen");
 var wikipediascreen = document.querySelector("#wikipediascreen");
 var mapscreen = document.querySelector("#mapscreen");
+var settingscreen = document.querySelector("#settingscreen");
 
 var welcome = document.querySelector("#welcome");
 var trumpet = document.querySelector("#trumpet");
@@ -298,6 +306,7 @@ var searchmachine = document.querySelector("#searchmachine");
 var youtube = document.querySelector("#youtube");
 var rezepte = document.querySelector("#rezepte");
 var map = document.querySelector("#map");
+var settings = document.querySelector("#settings");
 
 var openwelcomescreen = document.querySelector("#openwelcomescreen");
 var opentrumpetscreen = document.querySelector("#opentrumpetscreen");
@@ -306,6 +315,7 @@ var opensearchmachinescreen = document.querySelector("#opensearchmachinescreen")
 var openyoutubescreen = document.querySelector("#openyoutubescreen");
 var openrezeptescreen = document.querySelector("#openrezeptescreen");
 var openmapscreen = document.querySelector("#openmapscreen");
+var opensettingscreen = document.querySelector("#opensettingscreen");
 
 var closewelcomescreen = document.querySelector("#closewelcomescreen");
 var closetrumpetscreen = document.querySelector("#closetrumpetscreen");
@@ -314,6 +324,8 @@ var closesearchmachinescreen = document.querySelector("#closesearchmachinescreen
 var closeyoutubescreen = document.querySelector("#closeyoutubescreen");
 var closerezeptescreen = document.querySelector("#closerezeptescreen");
 var closemapscreen = document.querySelector("#closemapscreen");
+var closecallendarscreen = document.querySelector("#closecalendarscreen");
+var closesettingscreen = document.querySelector("#closesettingscreen");
 
 function closewindow(element, underline) {
   if (!element) return;
@@ -326,7 +338,7 @@ function closewindow(element, underline) {
 
 function openwindow(element, underline) {
   if (!element) return;
-  element.style.display = "block";
+  element.style.display = "flex";
   
   biggestIndex++;
   element.style.zIndex = biggestIndex;
@@ -352,22 +364,22 @@ function openwindow(element, underline) {
         
         mapResizeObserver.observe(mapElement);
 }
-
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
         keepBuffer: 200,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> Mitwirkende'
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(osmMap);
 
       renderCustomPins();
 
       osmMap.on('click', function (e) {
         let popupContent = document.createElement('div');
-        popupContent.style.cssText = "display: flex; flex-direction: column; gap: 8px; padding: 4px; width: 350px; box-sizing: border-box;";
+        popupContent.className = 'map-popup-content';
 
         popupContent.innerHTML = `
-          <strong style="font-size: 13px; color: #333; line-height: 1.3; display: block;">Setup your Launchpad to save it for the rocketstart!</strong>
-          <div style="display: flex; gap: 6px; width: 100%; box-sizing: border-box;">
-            <select id="new-pin-emoji" style="flex: 0 0 95px; padding: 6px 2px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; background: #fff; cursor: pointer; box-sizing: border-box;">
+          <strong class="map-popup-title">Setup your Launchpad to save it for the rocketstart!</strong>
+          <div class="map-popup-input-row">
+            <select id="new-pin-emoji" class="map-popup-select">
               <option value="📍">📍 Marker</option>
               <option value="🏠">🏠 Home</option>
               <option value="🚀">🚀 Rocketcenter</option>
@@ -389,12 +401,12 @@ function openwindow(element, underline) {
               <option value="🏰">🏰 Castle</option>
               <option value="⚡">⚡ Energy</option>
             </select>
-            <input type="text" id="new-pin-name" placeholder="Name your Launchpad..." style="flex: 1; min-width: 0; padding: 6px 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; outline: none; box-sizing: border-box;">
+            <input type="text" id="new-pin-name" class="map-popup-input" placeholder="Name your Launchpad...">
           </div>
-          <button id="save-pin-btn" style="width: 100%; padding: 8px 10px; background: #089b9b; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; box-sizing: border-box;">Save the location to start the rocket!</button>
+          <button id="save-pin-btn" class="map-popup-save-btn">Save the location to start the rocket!</button>
         `;
 
-        let popup = L.popup({ minWidth: 350, maxWidth: 360 })
+        let popup = L.popup({ minWidth: 500, maxWidth: 600 })
           .setLatLng(e.latlng)
           .setContent(popupContent)
           .openOn(osmMap);
@@ -467,7 +479,19 @@ function openwindow(element, underline) {
 }
 }
 
-function visible(element){ return window.getComputedStyle(element).display === "block"};
+function visible(element) { 
+  return window.getComputedStyle(element).display !== "none"; 
+}
+
+// Settingscreen
+opensettingscreen.addEventListener("click", function() {
+  if (visible(settingsscreen)){
+    closewindow(settingsscreen, settings);
+  }
+  else{
+    openwindow(settingsscreen, settings);
+  }
+})
 
 // Welcomescreen
 openwelcomescreen.addEventListener("click", function() {
@@ -529,6 +553,7 @@ openrezeptescreen.addEventListener("click", function() {
   }
 });
 
+//Mapscreen
 openmapscreen.addEventListener("click", function() {
   if (visible(mapscreen)) {
     closewindow(mapscreen, map);
@@ -537,6 +562,12 @@ openmapscreen.addEventListener("click", function() {
     openwindow(mapscreen, map);
   }
 });
+
+if (closesettingscreen) {
+  closesettingscreen.addEventListener("click", function() {
+    closewindow(settingsscreen, settings);
+  });
+}
 
 if (closewelcomescreen) {
   closewelcomescreen.addEventListener("click", function() {
@@ -586,6 +617,12 @@ if (closewikipediascreen) {
   });
 }
 
+if (closecallendarscreen) {
+  closecallendarscreen.addEventListener("click", function() {
+    closewindow(calendarscreen);
+  });
+}
+
 var clockelement = document.querySelector("#togglecalendarscreen");
 var calendarscreen = document.querySelector("#calendarscreen");
 
@@ -622,6 +659,7 @@ addwindowtaphandling(rezeptescreen);
 addwindowtaphandling(wikipediascreen);
 addwindowtaphandling(calendarscreen);
 addwindowtaphandling(mapscreen);
+addwindowtaphandling(settingsscreen);
 
 
 function handleWindowTap(element) {
@@ -630,15 +668,6 @@ function handleWindowTap(element) {
   Blurscreen.style.zIndex = biggestIndex + 1;
   topbar.style.zIndex = biggestIndex + 2;
 }
-
-//function openwindow(element) {
-//  element.style.display ="block";
-//  biggestIndex++;
-//  element.style.zIndex = biggestIndex;
-//  Blurscreen.style.zIndex = biggestIndex + 1;
-//  topbar.style.zIndex = biggestIndex + 2;
-
-//}
 
 var trumpetscreen = document.querySelector("#trumpetscreen");
 var maximizeTrumpetScreenButton = document.querySelector("#maximizetrumpetscreen");
@@ -753,7 +782,7 @@ async function performYtSearch() {
     pIframe.src = '';
   }
 
-  ytResultsContainer.innerHTML = '<p style="color: #888; text-align: center;">Spaceship is diving into the W(ald)hormhole...</p>';
+  ytResultsContainer.innerHTML = '<p class="yt-msg-info">Spaceship is diving into the W(ald)wormhole...</p>';
 
   const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${encodeURIComponent(query)}&type=video&key=${API_KEY}`;
 
@@ -762,7 +791,7 @@ async function performYtSearch() {
     const data = await response.json();
 
     if (data.error) {
-      ytResultsContainer.innerHTML = `<p style="color: #ff6b6b; text-align: center;">API-Fehler: ${data.error.message}</p>`;
+      ytResultsContainer.innerHTML = `<p class="yt-msg-error">API-Fehler: ${data.error.message}</p>`;
       return;
     }
 
@@ -775,22 +804,19 @@ async function performYtSearch() {
         const thumbnail = item.snippet.thumbnails.medium.url;
 
         const card = document.createElement('div');
-        card.style.cssText = "cursor: pointer; background: rgba(34, 38, 73, 0.7); padding: 8px; margin-bottom: 8px; border-radius: 4px; display: flex; align-items: center; gap: 10px;";
+        card.className = 'yt-card';
         card.innerHTML = `
-          <img src="${thumbnail}" style="width: 120px; height: 68px; object-fit: cover; border-radius: 4px;">
-          <div>
-            <div style="font-weight: bold; color: #fff; font-size: 14px;">${title}</div>
-            <div style="color: #aaa; font-size: 12px;">${author}</div>
+          <img src="${thumbnail}" class="yt-card-thumb">
+          <div class="yt-card-info">
+            <div class="yt-card-title">${title}</div>
+            <div class="yt-card-author">${author}</div>
           </div>
         `;
         
-        
         card.addEventListener('click', () => {
-          console.log("Video geklickt, ID:", videoId);
           var activeContainer = document.querySelector("#yt-player-container");
           var activeIframe = document.querySelector("#yt-player");
           var ytApp = document.querySelector(".youtube-app");
-          var ytPlayername = document.querySelector("#yt-playername");
           var activeLogo = document.querySelector("#yt-logo");
 
           if (activeLogo) activeLogo.style.display = "none";
@@ -800,10 +826,6 @@ async function performYtSearch() {
             activeIframe.style.display = 'block';
             activeIframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`;
             
-            if (ytPlayername) {
-              ytPlayername.style.display = "none";
-            }
-            
             if (ytApp) {
               ytApp.scrollTo({ top: 0, behavior: 'smooth' });
             }
@@ -812,10 +834,10 @@ async function performYtSearch() {
         ytResultsContainer.appendChild(card);
       });
     } else {
-      ytResultsContainer.innerHTML = '<p style="color: #ff6b6b; text-align: center;">This part of the W(ald)hormhole is empty.</p>';
+      ytResultsContainer.innerHTML = '<p class="yt-msg-error">This part of the W(ald)wormhole is empty.</p>';
     }
   } catch (err) {
-    ytResultsContainer.innerHTML = '<p style="color: #ff6b6b; text-align: center;">Your Spaceship has a problem by reaching the W(ald)hormhole.</p>';
+    ytResultsContainer.innerHTML = '<p class="yt-msg-error">Your Spaceship has a problem by reaching the W(ald)wormhole.</p>';
   }
 }
 
@@ -878,12 +900,11 @@ var searchInputSearchapp = document.querySelector("#waldos-search-input");
 var searchBtnSearchapp = document.querySelector("#waldos-search-btn");
 var resultsContainerSearchapp = document.querySelector("#search-results-container");
 
-
 function runWaldosSearch() {
   var query = searchInputSearchapp.value.trim();
   if (!query) return;
 
-  resultsContainerSearchapp.innerHTML = "<p style='text-align: center; color: #aaa;'>Diving into the W(ald)hormhole...</p>";
+  resultsContainerSearchapp.innerHTML = '<p class="search-msg-info">Diving into the W(ald)wormhole...</p>';
 
   var apiUrl = "https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=" 
                + encodeURIComponent(query) 
@@ -898,20 +919,20 @@ function runWaldosSearch() {
       var results = data.query.search;
 
       if (results.length === 0) {
-        resultsContainerSearchapp.innerHTML = "<p style='text-align: center; color: #ff6b6b;'>The W(ald)hormhole is empty.</p>";
+        resultsContainerSearchapp.innerHTML = '<p class="search-msg-error">The W(ald)wormhole is empty.</p>';
         return;
       }
 
       results.forEach(function(item) {
         var card = document.createElement("div");
-        card.style.cssText = "background: #282828; padding: 12px 15px; margin-bottom: 12px; border-radius: 8px; border-left: 4px solid rgb(8, 155, 155);";
+        card.className = "search-card";
 
         var title = document.createElement("h3");
-        title.style.cssText = "margin: 0 0 5px 0; font-size: 16px;";
+        title.className = "search-card-title";
         
         var link = document.createElement("a");
         link.href = "#";
-        link.style.cssText = "color: #58a6ff; text-decoration: none;";
+        link.className = "search-card-link";
         link.textContent = item.title;
 
         link.addEventListener("click", function(e) {
@@ -929,7 +950,7 @@ function runWaldosSearch() {
         title.appendChild(link);
 
         var snippet = document.createElement("p");
-        snippet.style.cssText = "margin: 0; font-size: 13px; color: #ccc; line-height: 1.4;";
+        snippet.className = "search-card-snippet";
         snippet.innerHTML = item.snippet + "...";
 
         card.appendChild(title);
@@ -938,7 +959,7 @@ function runWaldosSearch() {
       });
     })
     .catch(function(error) {
-      resultsContainerSearchapp.innerHTML = "<p style='text-align: center; color: #ff6b6b;'>No Results!</p>";
+      resultsContainerSearchapp.innerHTML = '<p class="search-msg-error">No Results!</p>';
     });
 }
 
@@ -954,7 +975,6 @@ if (searchBtnSearchapp && searchInputSearchapp && resultsContainerSearchapp) {
 
 
 // Mooncalendar
-
 (function () {
   document.addEventListener("DOMContentLoaded", function () {
     var dateInput = document.querySelector("#calendar-date");
@@ -985,7 +1005,7 @@ if (searchBtnSearchapp && searchInputSearchapp && resultsContainerSearchapp) {
       listContainer.innerHTML = "";
 
       if (events.length === 0) {
-        listContainer.innerHTML = '<p style="color: rgba(22, 28, 52, 0.7); text-align: center; margin: 10px 0;">No takeoff dates saved yet.</p>';
+        listContainer.innerHTML = '<p class="calendar-empty-msg">No takeoff dates saved yet.</p>';
         return;
       }
 
@@ -997,16 +1017,18 @@ if (searchBtnSearchapp && searchInputSearchapp && resultsContainerSearchapp) {
 
       events.forEach(function (eventItem, index) {
         var card = document.createElement("div");
-        card.style.cssText = "background: rgba(22, 28, 52, 0.7); color: #fff; padding: 10px; margin-bottom: 8px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid rgb(8, 155, 155);"
+        card.className = "calendar-item";
 
         var infoContainer = document.createElement("div");
+        infoContainer.className = "calendar-item-info";
+
         var safeText = eventItem.text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        infoContainer.innerHTML = '<strong style="font-size: 15px; color: #58a6ff;">' + safeText + '</strong><br>' +
-                                  '<small style="color: #aaa;">📅 ' + (eventItem.date || "Kein Datum") + (eventItem.time ? ' ⏰ ' + eventItem.time : '') + '</small>';
+        infoContainer.innerHTML = '<strong class="calendar-item-text">' + safeText + '</strong>' +
+                                  '<small class="calendar-item-date">📅 ' + (eventItem.date || "Kein Datum") + (eventItem.time ? ' ⏰ ' + eventItem.time : '') + '</small>';
 
         var deleteBtn = document.createElement("button");
         deleteBtn.textContent = "✖";
-        deleteBtn.style.cssText = "background: transparent; border: none; color: #ff6b6b; cursor: pointer; font-size: 16px; padding: 4px 8px;";
+        deleteBtn.className = "calendar-delete-btn";
 
         deleteBtn.addEventListener("click", function () {
           var currentEvents = getStoredEvents();
@@ -1072,7 +1094,7 @@ function renderCustomPins() {
 
     let emojiIcon = L.divIcon({
       className: 'custom-emoji-pin',
-      html: `<div style="font-size: 28px; line-height: 1; text-align: center; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)); cursor: pointer;">${pinEmoji}</div>`,
+      html: `<div class="map-emoji-icon">${pinEmoji}</div>`,
       iconSize: [32, 32],
       iconAnchor: [16, 16]
     });
@@ -1080,11 +1102,12 @@ function renderCustomPins() {
     let marker = L.marker([pin.lat, pin.lng], { icon: emojiIcon }).addTo(osmMap);
 
     let container = document.createElement('div');
-    container.innerHTML = `<strong style="color: #333; font-size: 14px;">${pinEmoji} ${pin.name}</strong><br>`;
+    container.className = 'map-pin-popup-container';
+    container.innerHTML = `<strong class="map-pin-popup-title">${pinEmoji} ${pin.name}</strong><br>`;
 
     let deleteBtn = document.createElement('button');
     deleteBtn.innerText = "Delete this pin";
-    deleteBtn.style.cssText = "margin-top: 8px; padding: 4px 8px; background: #ff6b6b; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;";
+    deleteBtn.className = "map-delete-pin-btn";
 
     deleteBtn.onclick = function () {
       customPinsData.splice(index, 1);
@@ -1239,3 +1262,430 @@ function clearCarRoute() {
     infoBox.style.display = 'none';
   }
 }
+
+// Hilfsfunktionen für Farbumwandlungen und Weichzeichnung (Lerp)
+function hexToRgb(hex) {
+  let c = hex.replace('#', '');
+  if (c.length === 3) c = c.split('').map(x => x + x).join('');
+  const num = parseInt(c, 16);
+  return { r: (num >> 16) & 255, g: (num >> 8) & 255, b: num & 255 };
+}
+
+function rgbToHex(r, g, b) {
+  const toHex = (n) => Math.round(Math.max(0, Math.min(255, n))).toString(16).padStart(2, '0');
+  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+}
+
+function lerp(start, end, factor = 0.05) {
+  return start + (end - start) * factor;
+}
+
+// Globaler Zustand & Parameter
+let speedMultiplier = 1.0;
+let connectionRadius = 120;
+let cursorRadius = 160;
+let numStars = 230;
+let maxShootingStars = 5;
+
+let currStarColor = { r: 255, g: 255, b: 255 };
+let currLineColor = { r: 8, g: 155, b: 155 };
+let currBgInner = { r: 16, g: 21, b: 29 };
+let currBgOuter = { r: 5, g: 7, b: 10 };
+
+// Zielwerte für sanfte Lerp-Übergänge
+let targetSpeed = 1.0;
+let targetConnRadius = 120;
+let targetCursorRadius = 160;
+let targetStarColor = { r: 255, g: 255, b: 255 };
+let targetLineColor = { r: 8, g: 155, b: 155 };
+let targetBgInner = { r: 16, g: 21, b: 29 };
+let targetBgOuter = { r: 5, g: 7, b: 10 };
+
+const stars = [];
+const shootingStars = [];
+
+// Presets
+const presets = {
+  classic: {
+    stars: 300,
+    connRadius: 120,
+    cursorRadius: 160,
+    speed: 1.0,
+    starColor: { r: 255, g: 255, b: 255 },
+    lineColor: { r: 8, g: 155, b: 155 },
+    bgInner: { r: 16, g: 21, b: 29 },
+    bgOuter: { r: 5, g: 7, b: 10 }
+  },
+  supernova: {
+    stars: 280,
+    connRadius: 140,
+    cursorRadius: 180,
+    speed: 1.2,
+    starColor: { r: 255, g: 51, b: 51 },
+    lineColor: { r: 255, g: 102, b: 0 },
+    bgInner: { r: 40, g: 0, b: 0 },
+    bgOuter: { r: 10, g: 0, b: 0 }
+  },
+  cyberpunk: {
+    stars: 350,
+    connRadius: 150,
+    cursorRadius: 200,
+    speed: 1.5,
+    starColor: { r: 255, g: 0, b: 127 },
+    lineColor: { r: 0, g: 243, b: 255 },
+    bgInner: { r: 30, g: 5, b: 50 },
+    bgOuter: { r: 13, g: 2, b: 26 }
+  },
+  deepspace: {
+    stars: 120,
+    connRadius: 100,
+    cursorRadius: 130,
+    speed: 0.5,
+    starColor: { r: 130, g: 170, b: 255 },
+    lineColor: { r: 199, g: 146, b: 234 },
+    bgInner: { r: 10, g: 20, b: 40 },
+    bgOuter: { r: 2, g: 4, b: 8 }
+  },
+  matrix: {
+    stars: 700,
+    connRadius: 300,
+    cursorRadius: 170,
+    speed: 2.0,
+    starColor: { r: 0, g: 255, b: 102 },
+    lineColor: { r: 0, g: 204, b: 68 },
+    bgInner: { r: 0, g: 30, b: 12 },
+    bgOuter: { r: 0, g: 10, b: 4 }
+  }
+};
+
+function updateStarsArray(targetCount) {
+  const canvas = document.getElementById("starfield");
+  const width = canvas ? canvas.width : window.innerWidth;
+  const height = canvas ? canvas.height : window.innerHeight;
+
+  while (stars.length < targetCount) {
+    stars.push({
+      x: Math.random() * width,
+      y: Math.random() * (height - 70),
+      vx: (Math.random() - 0.5) * 0.2,
+      vy: (Math.random() - 0.5) * 0.2,
+      radius: Math.random() * 1.5 + 1
+    });
+  }
+  while (stars.length > targetCount) {
+    stars.pop();
+  }
+}
+
+function spawnShootingStar() {
+  const canvas = document.getElementById("starfield");
+  const width = canvas ? canvas.width : window.innerWidth;
+  const height = canvas ? canvas.height : window.innerHeight;
+  const startFromTop = Math.random() > 0.5;
+
+  shootingStars.push({
+    x: startFromTop ? Math.random() * (width * 0.8) : 0,
+    y: startFromTop ? 0 : Math.random() * (height - 70) * 0.5,
+    len: Math.random() * 80 + 50,
+    speed: Math.random() * 8 + 6,
+    size: Math.random() * 1.2 + 0.8,
+    angle: (Math.PI / 180) * (Math.random() * 15 + 35),
+    alpha: 1
+  });
+}
+
+function applyPreset(presetKey) {
+  const p = presets[presetKey];
+  if (!p) return;
+
+  targetSpeed = p.speed;
+  targetConnRadius = p.connRadius;
+  targetCursorRadius = p.cursorRadius;
+  targetStarColor = p.starColor;
+  targetLineColor = p.lineColor;
+  targetBgInner = p.bgInner;
+  targetBgOuter = p.bgOuter;
+  numStars = p.stars;
+
+  updateStarsArray(numStars);
+
+  const sliderNumStars = document.getElementById("slider-num-stars");
+  const sliderConnRadius = document.getElementById("slider-conn-radius");
+  const sliderCursorRadius = document.getElementById("slider-cursor-radius");
+  const sliderStarSpeed = document.getElementById("slider-star-speed");
+  const colorStars = document.getElementById("color-stars");
+  const colorLines = document.getElementById("color-lines");
+  const colorBg = document.getElementById("color-bg");
+  const titleEl = document.getElementById("main-title");
+  const inputTitle = document.getElementById("input-title");
+
+  if (sliderNumStars) sliderNumStars.value = p.stars;
+  if (sliderConnRadius) sliderConnRadius.value = p.connRadius;
+  if (sliderCursorRadius) sliderCursorRadius.value = p.cursorRadius;
+  if (sliderStarSpeed) sliderStarSpeed.value = p.speed;
+
+  if (colorStars) colorStars.value = rgbToHex(p.starColor.r, p.starColor.g, p.starColor.b);
+  if (colorLines) colorLines.value = rgbToHex(p.lineColor.r, p.lineColor.g, p.lineColor.b);
+  if (colorBg) colorBg.value = rgbToHex(p.bgOuter.r, p.bgOuter.g, p.bgOuter.b);
+
+  if (document.getElementById("val-num-stars")) document.getElementById("val-num-stars").innerText = p.stars;
+  if (document.getElementById("val-conn-radius")) document.getElementById("val-conn-radius").innerText = p.connRadius + " px";
+  if (document.getElementById("val-cursor-radius")) document.getElementById("val-cursor-radius").innerText = p.cursorRadius + " px";
+  if (document.getElementById("val-star-speed")) document.getElementById("val-star-speed").innerText = p.speed.toFixed(1) + "x";
+
+  if (titleEl && p.titleText) titleEl.textContent = p.titleText;
+  if (inputTitle && p.titleText) inputTitle.value = p.titleText;
+}
+
+// Hauptinitialisierung
+document.addEventListener("DOMContentLoaded", function () {
+  const canvas = document.getElementById("starfield");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+
+  let width = 0;
+  let height = 0;
+  const taskbarHeight = 70;
+  let mouse = { x: null, y: null };
+  let lastTime = performance.now();
+
+  function resizeCanvas() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  }
+
+  window.addEventListener("resize", () => {
+    resizeCanvas();
+    stars.forEach(star => {
+      if (star.x > width) star.x = Math.random() * width;
+      if (star.y > height - taskbarHeight) star.y = Math.random() * (height - taskbarHeight);
+    });
+  });
+
+  window.addEventListener("mousemove", (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+
+  window.addEventListener("mouseleave", () => { mouse.x = null; mouse.y = null; });
+  window.addEventListener("blur", () => { mouse.x = null; mouse.y = null; });
+
+  resizeCanvas();
+  updateStarsArray(numStars);
+
+  // UI Event Listener
+  const sliderNumStars = document.getElementById("slider-num-stars");
+  const sliderConnRadius = document.getElementById("slider-conn-radius");
+  const sliderCursorRadius = document.getElementById("slider-cursor-radius");
+  const sliderStarSpeed = document.getElementById("slider-star-speed");
+  const sliderShootingStars = document.getElementById("slider-shooting-stars");
+  const colorStars = document.getElementById("color-stars");
+  const colorLines = document.getElementById("color-lines");
+  const colorBg = document.getElementById("color-bg");
+  const inputTitle = document.getElementById("input-title");
+  const titleEl = document.getElementById("main-title");
+
+  if (sliderNumStars) {
+    sliderNumStars.addEventListener("input", (e) => {
+      numStars = parseInt(e.target.value);
+      document.getElementById("val-num-stars").innerText = numStars;
+      updateStarsArray(numStars);
+    });
+  }
+
+  if (sliderConnRadius) {
+    sliderConnRadius.addEventListener("input", (e) => {
+      targetConnRadius = parseInt(e.target.value);
+      document.getElementById("val-conn-radius").innerText = targetConnRadius + " px";
+    });
+  }
+
+  if (sliderCursorRadius) {
+    sliderCursorRadius.addEventListener("input", (e) => {
+      targetCursorRadius = parseInt(e.target.value);
+      document.getElementById("val-cursor-radius").innerText = targetCursorRadius + " px";
+    });
+  }
+
+  if (sliderStarSpeed) {
+    sliderStarSpeed.addEventListener("input", (e) => {
+      targetSpeed = parseFloat(e.target.value);
+      document.getElementById("val-star-speed").innerText = targetSpeed.toFixed(1) + "x";
+    });
+  }
+
+  if (sliderShootingStars) {
+    sliderShootingStars.addEventListener("input", (e) => {
+      maxShootingStars = parseInt(e.target.value);
+      document.getElementById("val-shooting-stars").innerText = maxShootingStars;
+    });
+  }
+
+  if (colorStars) {
+    colorStars.addEventListener("input", (e) => { targetStarColor = hexToRgb(e.target.value); });
+  }
+
+  if (colorLines) {
+    colorLines.addEventListener("input", (e) => { targetLineColor = hexToRgb(e.target.value); });
+  }
+
+  if (colorBg) {
+    colorBg.addEventListener("input", (e) => {
+      const rgb = hexToRgb(e.target.value);
+      targetBgOuter = rgb;
+      targetBgInner = { r: Math.min(255, rgb.r + 20), g: Math.min(255, rgb.g + 20), b: Math.min(255, rgb.b + 20) };
+    });
+  }
+
+  if (inputTitle && titleEl) {
+    inputTitle.addEventListener("input", (e) => {
+      titleEl.textContent = e.target.value;
+    });
+  }
+
+  const presetButtons = document.querySelectorAll(".preset-btn");
+  presetButtons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const presetKey = e.target.getAttribute("data-preset");
+      applyPreset(presetKey);
+    });
+  });
+
+  // Einzige Render-Schleife
+  function animate(currentTime) {
+    requestAnimationFrame(animate);
+
+    if (document.hidden) {
+      lastTime = currentTime;
+      return;
+    }
+
+    let deltaTime = (currentTime - lastTime) / 1000;
+    lastTime = currentTime;
+    if (deltaTime > 0.1) deltaTime = 0.016;
+
+    // Werte sanft anpassen (Lerp)
+    speedMultiplier = lerp(speedMultiplier, targetSpeed, 0.05);
+    connectionRadius = lerp(connectionRadius, targetConnRadius, 0.05);
+    cursorRadius = lerp(cursorRadius, targetCursorRadius, 0.05);
+
+    currStarColor.r = lerp(currStarColor.r, targetStarColor.r, 0.05);
+    currStarColor.g = lerp(currStarColor.g, targetStarColor.g, 0.05);
+    currStarColor.b = lerp(currStarColor.b, targetStarColor.b, 0.05);
+
+    currLineColor.r = lerp(currLineColor.r, targetLineColor.r, 0.05);
+    currLineColor.g = lerp(currLineColor.g, targetLineColor.g, 0.05);
+    currLineColor.b = lerp(currLineColor.b, targetLineColor.b, 0.05);
+
+    currBgInner.r = lerp(currBgInner.r, targetBgInner.r, 0.05);
+    currBgInner.g = lerp(currBgInner.g, targetBgInner.g, 0.05);
+    currBgInner.b = lerp(currBgInner.b, targetBgInner.b, 0.05);
+
+    currBgOuter.r = lerp(currBgOuter.r, targetBgOuter.r, 0.05);
+    currBgOuter.g = lerp(currBgOuter.g, targetBgOuter.g, 0.05);
+    currBgOuter.b = lerp(currBgOuter.b, targetBgOuter.b, 0.05);
+
+    // Dynamic Gradient Hintergrund zeichnen
+    let gradient = ctx.createRadialGradient(
+      width / 2, height / 2, 0,
+      width / 2, height / 2, Math.max(width, height) / 1.2
+    );
+    gradient.addColorStop(0, `rgb(${Math.round(currBgInner.r)}, ${Math.round(currBgInner.g)}, ${Math.round(currBgInner.b)})`);
+    gradient.addColorStop(1, `rgb(${Math.round(currBgOuter.r)}, ${Math.round(currBgOuter.g)}, ${Math.round(currBgOuter.b)})`);
+
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, width, height);
+
+    // Sternschnuppen erzeugen
+    if (maxShootingStars > 0 && Math.random() < 0.03 && shootingStars.length < maxShootingStars) {
+      spawnShootingStar();
+    }
+
+    // Sternschnuppen zeichnen & bewegen
+    for (let i = shootingStars.length - 1; i >= 0; i--) {
+      let ss = shootingStars[i];
+
+      ss.x += Math.cos(ss.angle) * ss.speed * speedMultiplier;
+      ss.y += Math.sin(ss.angle) * ss.speed * speedMultiplier;
+      ss.alpha = Math.max(0, ss.alpha - 0.008);
+
+      if (ss.alpha <= 0 || ss.x > width || ss.y > height - taskbarHeight) {
+        shootingStars.splice(i, 1);
+        continue;
+      }
+
+      let tailX = ss.x - Math.cos(ss.angle) * ss.len;
+      let tailY = ss.y - Math.sin(ss.angle) * ss.len;
+
+      let ssGradient = ctx.createLinearGradient(ss.x, ss.y, tailX, tailY);
+      ssGradient.addColorStop(0, `rgba(${Math.round(currStarColor.r)}, ${Math.round(currStarColor.g)}, ${Math.round(currStarColor.b)}, ${ss.alpha})`);
+      ssGradient.addColorStop(0.2, `rgba(${Math.round(currLineColor.r)}, ${Math.round(currLineColor.g)}, ${Math.round(currLineColor.b)}, ${ss.alpha * 0.8})`);
+      ssGradient.addColorStop(1, `rgba(${Math.round(currLineColor.r)}, ${Math.round(currLineColor.g)}, ${Math.round(currLineColor.b)}, 0)`);
+
+      ctx.beginPath();
+      ctx.moveTo(ss.x, ss.y);
+      ctx.lineTo(tailX, tailY);
+      ctx.strokeStyle = ssGradient;
+      ctx.lineWidth = ss.size;
+      ctx.stroke();
+    }
+
+    // Sterne & Sternbilder zeichnen
+    const activeStarColor = `rgb(${Math.round(currStarColor.r)}, ${Math.round(currStarColor.g)}, ${Math.round(currStarColor.b)})`;
+    const activeLineRgb = `${Math.round(currLineColor.r)}, ${Math.round(currLineColor.g)}, ${Math.round(currLineColor.b)}`;
+
+    for (let i = 0; i < stars.length; i++) {
+      let star = stars[i];
+      star.x += star.vx * speedMultiplier;
+      star.y += star.vy * speedMultiplier;
+
+      if (star.x < 0 || star.x > width) star.vx *= -1;
+      if (star.y < 0 || star.y > height - taskbarHeight) {
+        star.vy *= -1;
+        if (star.y > height - taskbarHeight) star.y = height - taskbarHeight;
+      }
+
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+      ctx.fillStyle = activeStarColor;
+      ctx.fill();
+
+      if (mouse.x !== null) {
+        let dxMouse = star.x - mouse.x;
+        let dyMouse = star.y - mouse.y;
+        let distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+
+        if (distMouse < cursorRadius) {
+          let alphaCursor = 1 - distMouse / cursorRadius;
+
+          ctx.beginPath();
+          ctx.moveTo(star.x, star.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(${activeLineRgb}, ${alphaCursor * 0.4})`;
+          ctx.lineWidth = 1.3;
+          ctx.stroke();
+
+          for (let j = i + 1; j < stars.length; j++) {
+            let otherStar = stars[j];
+            let dx = star.x - otherStar.x;
+            let dy = star.y - otherStar.y;
+            let distStars = Math.sqrt(dx * dx + dy * dy);
+
+            if (distStars < connectionRadius) {
+              let alphaLines = (1 - distStars / connectionRadius) * alphaCursor;
+              ctx.beginPath();
+              ctx.moveTo(star.x, star.y);
+              ctx.lineTo(otherStar.x, otherStar.y);
+              ctx.strokeStyle = `rgba(${activeLineRgb}, ${alphaLines * 0.8})`;
+              ctx.lineWidth = 1.6;
+              ctx.stroke();
+            }
+          }
+        }
+      }
+    }
+  }
+
+  animate(performance.now());
+});

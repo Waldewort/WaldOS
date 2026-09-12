@@ -1,0 +1,143 @@
+.about-window {
+    width: 680px;
+    background: rgba(18, 22, 28, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(8, 155, 155, 0.3);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(8, 155, 155, 0.15);
+    color: #e0e0e0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow: hidden;
+}
+
+.window-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #089b9b;
+    letter-spacing: 0.5px;
+}
+
+.about-container {
+    display: flex;
+    padding: 20px;
+    gap: 24px;
+}
+
+.about-sidebar {
+    flex: 0 0 200px;
+}
+
+.profile-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(8, 155, 155, 0.4);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.profile-img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    display: block;
+}
+
+.profile-badge {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 8px 0;
+    background: rgba(10, 14, 20, 0.85);
+    backdrop-filter: blur(4px);
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: #089b9b;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 0 0 10px 10px;
+}
+
+.about-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.about-heading {
+    margin: 0 0 12px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.tag-cloud:hover .tag {
+    background: rgba(8, 155, 155, 0.2);
+    border-color: rgba(8, 155, 155, 0.5);
+    color: #4dd0e1;
+}
+
+.tag {
+    background: rgba(8, 155, 155, 0.12);
+    border: 1px solid rgba(8, 155, 155, 0.3);
+    color: #4dd0e1;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+    user-select: none;
+}
+
+.about-text {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #b0bec5;
+    margin: 0 0 16px 0;
+}
+
+.about-text strong {
+    color: #089b9b;
+}
+
+.about-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.info-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 10px 12px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #78909c;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.info-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.info-value small {
+    font-size: 10px;
+    color: #607d8b;
+    font-weight: normal;
+}
