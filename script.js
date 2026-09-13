@@ -1,186 +1,3 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const canvas = document.getElementById("starfield");
-  if (!canvas) return;
-  const ctx = canvas.getContext("2d");
-
-  let width = 0;
-  let height = 0;
-  const taskbarHeight = 70;
-
-  const stars = [];
-  const numStars = 300;
-  const connectionRadius = 120;
-  const cursorRadius = 160;
-
-  let maxShootingStars = 5;
-  let speedMultiplier = 1;
-  let currStarColor = { r: 255, g: 255, b: 255 };
-  let currLineColor = { r: 8, g: 155, b: 155 };
-  const shootingStars = [];
-
-  let mouse = { x: null, y: null };
-  let lastTime = performance.now();
-
-  function resizeCanvas() {
-    const oldWidth = width;
-    const oldHeight = height;
-
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-
-    if (oldWidth > 0 && oldHeight > 0 && stars.length > 0) {
-      const scaleX = width / oldWidth;
-      const scaleY = (height - taskbarHeight) / (oldHeight - taskbarHeight);
-
-      for (let i = 0; i < stars.length; i++) {
-        stars[i].x *= scaleX;
-        stars[i].y *= scaleY;
-      }
-    }
-  }
-
-  resizeCanvas();
-
-  for (let i = 0; i < numStars; i++) {
-    stars.push({
-      x: Math.random() * width,
-      y: Math.random() * (height - taskbarHeight),
-      vx: (Math.random() - 0.5) * 0.2,
-      vy: (Math.random() - 0.5) * 0.2,
-      radius: Math.random() * 1.5 + 1
-    });
-  }
-
-  function spawnShootingStar() {
-    const startFromTop = Math.random() > 0.5;
-
-    shootingStars.push({
-      // Startpositionen auf den sichtbaren Bereich eingrenzen
-      x: startFromTop ? Math.random() * (width * 0.8) : 0,
-      y: startFromTop ? 0 : Math.random() * (height - taskbarHeight) * 0.5,
-      len: Math.random() * 80 + 50,
-      speed: Math.random() * 8 + 6,
-      size: Math.random() * 1.2 + 0.8,
-      angle: (Math.PI / 180) * (Math.random() * 15 + 35),
-      alpha: 1
-    });
-  }
-
-  window.addEventListener("resize", resizeCanvas);
-  window.addEventListener("mousemove", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
-  window.addEventListener("mouseleave", () => { mouse.x = null; mouse.y = null; });
-  window.addEventListener("blur", () => { mouse.x = null; mouse.y = null; });
-
-  function animate(currentTime) {
-    requestAnimationFrame(animate);
-
-    if (document.hidden) {
-      lastTime = currentTime;
-      return;
-    }
-
-    let deltaTime = (currentTime - lastTime) / 1000;
-    lastTime = currentTime;
-
-    if (deltaTime > 0.1) {
-      deltaTime = 0.016;
-    }
-
-    ctx.clearRect(0, 0, width, height);
-
-    // Sternschnuppen erzeugen
-    if (maxShootingStars > 0 && Math.random() < 0.03 && shootingStars.length < maxShootingStars) {
-      spawnShootingStar();
-    }
-
-    // Sternschnuppen verarbeiten & zeichnen
-    for (let i = shootingStars.length - 1; i >= 0; i--) {
-      let ss = shootingStars[i];
-
-      ss.x += Math.cos(ss.angle) * ss.speed * speedMultiplier;
-      ss.y += Math.sin(ss.angle) * ss.speed * speedMultiplier;
-      
-      // Alpha nach unten hin auf 0 begrenzen
-      ss.alpha = Math.max(0, ss.alpha - 0.008);
-
-      // Entfernen, falls unsichtbar oder aus dem Bild geflogen
-      if (ss.alpha <= 0 || ss.x > width || ss.y > height - taskbarHeight) {
-        shootingStars.splice(i, 1);
-        continue;
-      }
-
-      let tailX = ss.x - Math.cos(ss.angle) * ss.len;
-      let tailY = ss.y - Math.sin(ss.angle) * ss.len;
-
-      let gradient = ctx.createLinearGradient(ss.x, ss.y, tailX, tailY);
-      gradient.addColorStop(0, `rgba(${Math.round(currStarColor.r)}, ${Math.round(currStarColor.g)}, ${Math.round(currStarColor.b)}, ${ss.alpha})`);
-      gradient.addColorStop(0.2, `rgba(${Math.round(currLineColor.r)}, ${Math.round(currLineColor.g)}, ${Math.round(currLineColor.b)}, ${ss.alpha * 0.8})`);
-      gradient.addColorStop(1, `rgba(${Math.round(currLineColor.r)}, ${Math.round(currLineColor.g)}, ${Math.round(currLineColor.b)}, 0)`);
-
-      ctx.beginPath();
-      ctx.moveTo(ss.x, ss.y);
-      ctx.lineTo(tailX, tailY);
-      ctx.strokeStyle = gradient;
-      ctx.lineWidth = ss.size;
-      ctx.stroke();
-    }
-
-    // Sterne & Sternbilder zeichnen
-    for (let i = 0; i < stars.length; i++) {
-      let star = stars[i];
-      star.x += star.vx;
-      star.y += star.vy;
-
-      if (star.x < 0 || star.x > width) star.vx *= -1;
-      if (star.y < 0 || star.y > height - taskbarHeight) {
-        star.vy *= -1;
-        if (star.y > height - taskbarHeight) star.y = height - taskbarHeight;
-      }
-
-      ctx.beginPath();
-      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-      ctx.fillStyle = "#ffffff";
-      ctx.fill();
-
-      if (mouse.x !== null) {
-        let dxMouse = star.x - mouse.x;
-        let dyMouse = star.y - mouse.y;
-        let distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
-
-        if (distMouse < cursorRadius) {
-          let alphaCursor = 1 - distMouse / cursorRadius;
-
-          ctx.beginPath();
-          ctx.moveTo(star.x, star.y);
-          ctx.lineTo(mouse.x, mouse.y);
-          ctx.strokeStyle = `rgba(8, 155, 155, ${alphaCursor * 0.4})`;
-          ctx.lineWidth = 1.3;
-          ctx.stroke();
-
-          for (let j = i + 1; j < stars.length; j++) {
-            let otherStar = stars[j];
-            let dx = star.x - otherStar.x;
-            let dy = star.y - otherStar.y;
-            let distStars = Math.sqrt(dx * dx + dy * dy);
-
-            if (distStars < connectionRadius) {
-              let alphaLines = (1 - distStars / connectionRadius) * alphaCursor;
-              ctx.beginPath();
-              ctx.moveTo(star.x, star.y);
-              ctx.lineTo(otherStar.x, otherStar.y);
-              ctx.strokeStyle = `rgba(8, 135, 155, ${alphaLines * 0.8})`;
-              ctx.lineWidth = 1.6;
-              ctx.stroke();
-            }
-          }
-        }
-      }
-    }
-  }
-
-  animate(performance.now());
-});
-
 function updateTime() {
   var currentTime = new Date().toLocaleString();
   var timetext = document.querySelector("#time");
@@ -1285,7 +1102,7 @@ let speedMultiplier = 1.0;
 let connectionRadius = 120;
 let cursorRadius = 160;
 let numStars = 230;
-let maxShootingStars = 5;
+let maxShootingStars = 3;
 
 let currStarColor = { r: 255, g: 255, b: 255 };
 let currLineColor = { r: 8, g: 155, b: 155 };
@@ -1300,6 +1117,7 @@ let targetStarColor = { r: 255, g: 255, b: 255 };
 let targetLineColor = { r: 8, g: 155, b: 155 };
 let targetBgInner = { r: 16, g: 21, b: 29 };
 let targetBgOuter = { r: 5, g: 7, b: 10 };
+let targetShootingStars = 3;
 
 const stars = [];
 const shootingStars = [];
@@ -1314,7 +1132,8 @@ const presets = {
     starColor: { r: 255, g: 255, b: 255 },
     lineColor: { r: 8, g: 155, b: 155 },
     bgInner: { r: 16, g: 21, b: 29 },
-    bgOuter: { r: 5, g: 7, b: 10 }
+    bgOuter: { r: 5, g: 7, b: 10 },
+    shootingStars: 3
   },
   supernova: {
     stars: 280,
@@ -1324,7 +1143,8 @@ const presets = {
     starColor: { r: 255, g: 51, b: 51 },
     lineColor: { r: 255, g: 102, b: 0 },
     bgInner: { r: 40, g: 0, b: 0 },
-    bgOuter: { r: 10, g: 0, b: 0 }
+    bgOuter: { r: 10, g: 0, b: 0 },
+    shootingStars: 4
   },
   cyberpunk: {
     stars: 350,
@@ -1334,7 +1154,8 @@ const presets = {
     starColor: { r: 255, g: 0, b: 127 },
     lineColor: { r: 0, g: 243, b: 255 },
     bgInner: { r: 30, g: 5, b: 50 },
-    bgOuter: { r: 13, g: 2, b: 26 }
+    bgOuter: { r: 13, g: 2, b: 26 },
+    shootingStars: 100
   },
   deepspace: {
     stars: 120,
@@ -1344,7 +1165,8 @@ const presets = {
     starColor: { r: 130, g: 170, b: 255 },
     lineColor: { r: 199, g: 146, b: 234 },
     bgInner: { r: 10, g: 20, b: 40 },
-    bgOuter: { r: 2, g: 4, b: 8 }
+    bgOuter: { r: 2, g: 4, b: 8 },
+    shootingStars: 2
   },
   matrix: {
     stars: 700,
@@ -1354,7 +1176,19 @@ const presets = {
     starColor: { r: 0, g: 255, b: 102 },
     lineColor: { r: 0, g: 204, b: 68 },
     bgInner: { r: 0, g: 30, b: 12 },
-    bgOuter: { r: 0, g: 10, b: 4 }
+    bgOuter: { r: 0, g: 10, b: 4 },
+    shootingStars: 5
+  },
+  night: {
+    stars: 700,
+    connRadius: 100,
+    cursorRadius: 400,
+    speed: 0.2,
+    starColor: { r: 255, g: 0, b: 127 },
+    lineColor: { r: 0, g: 10, b: 200 },
+    bgInner: { r: 255, g: 0, b: 127 },
+    bgOuter: { r: 15, g: 12, b: 30 },
+    shootingStars: 2
   }
 };
 
@@ -1406,6 +1240,7 @@ function applyPreset(presetKey) {
   targetBgInner = p.bgInner;
   targetBgOuter = p.bgOuter;
   numStars = p.stars;
+  maxShootingStars = p.shootingStars;
 
   updateStarsArray(numStars);
 
@@ -1418,11 +1253,13 @@ function applyPreset(presetKey) {
   const colorBg = document.getElementById("color-bg");
   const titleEl = document.getElementById("main-title");
   const inputTitle = document.getElementById("input-title");
+  const sliderShootingStars = document.getElementById("slider-shooting-stars");
 
   if (sliderNumStars) sliderNumStars.value = p.stars;
   if (sliderConnRadius) sliderConnRadius.value = p.connRadius;
   if (sliderCursorRadius) sliderCursorRadius.value = p.cursorRadius;
   if (sliderStarSpeed) sliderStarSpeed.value = p.speed;
+  if (sliderShootingStars) sliderShootingStars.value = p.shootingStars;
 
   if (colorStars) colorStars.value = rgbToHex(p.starColor.r, p.starColor.g, p.starColor.b);
   if (colorLines) colorLines.value = rgbToHex(p.lineColor.r, p.lineColor.g, p.lineColor.b);
@@ -1432,6 +1269,7 @@ function applyPreset(presetKey) {
   if (document.getElementById("val-conn-radius")) document.getElementById("val-conn-radius").innerText = p.connRadius + " px";
   if (document.getElementById("val-cursor-radius")) document.getElementById("val-cursor-radius").innerText = p.cursorRadius + " px";
   if (document.getElementById("val-star-speed")) document.getElementById("val-star-speed").innerText = p.speed.toFixed(1) + "x";
+  if (document.getElementById("val-shooting-stars")) document.getElementById("val-shooting-stars").innerText = p.shootingStars;
 
   if (titleEl && p.titleText) titleEl.textContent = p.titleText;
   if (inputTitle && p.titleText) inputTitle.value = p.titleText;
@@ -1461,6 +1299,17 @@ document.addEventListener("DOMContentLoaded", function () {
       if (star.y > height - taskbarHeight) star.y = Math.random() * (height - taskbarHeight);
     });
   });
+
+  document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) {
+        lastTime = performance.now();
+      }
+    });
+
+  const resetTime = () => { lastTime = performance.now(); };
+  window.addEventListener("focus", resetTime);
+  window.addEventListener("blur", resetTime);
+  document.addEventListener("visibilitychange", resetTime);
 
   window.addEventListener("mousemove", (e) => {
     const rect = canvas.getBoundingClientRect();
@@ -1561,9 +1410,17 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
+    // Echtes Delta Time in Sekunden berechnen
     let deltaTime = (currentTime - lastTime) / 1000;
     lastTime = currentTime;
-    if (deltaTime > 0.1) deltaTime = 0.016;
+
+    // Extremsprünge oder ungültige Werte abfangen (auf 60 FPS Basis normieren)
+    if (deltaTime > 0.1 || deltaTime <= 0 || isNaN(deltaTime)) {
+      deltaTime = 1 / 60;
+    }
+
+    // Faktor: 1.0 entspricht exakt 60 FPS
+    const deltaFactor = deltaTime * 60;
 
     // Werte sanft anpassen (Lerp)
     speedMultiplier = lerp(speedMultiplier, targetSpeed, 0.05);
@@ -1602,13 +1459,13 @@ document.addEventListener("DOMContentLoaded", function () {
       spawnShootingStar();
     }
 
-    // Sternschnuppen zeichnen & bewegen
+    // Sternschnuppen zeichnen & bewegen (mit deltaFactor)
     for (let i = shootingStars.length - 1; i >= 0; i--) {
       let ss = shootingStars[i];
 
-      ss.x += Math.cos(ss.angle) * ss.speed * speedMultiplier;
-      ss.y += Math.sin(ss.angle) * ss.speed * speedMultiplier;
-      ss.alpha = Math.max(0, ss.alpha - 0.008);
+      ss.x += Math.cos(ss.angle) * ss.speed * speedMultiplier * deltaFactor;
+      ss.y += Math.sin(ss.angle) * ss.speed * speedMultiplier * deltaFactor;
+      ss.alpha = Math.max(0, ss.alpha - 0.008 * deltaFactor);
 
       if (ss.alpha <= 0 || ss.x > width || ss.y > height - taskbarHeight) {
         shootingStars.splice(i, 1);
@@ -1631,14 +1488,19 @@ document.addEventListener("DOMContentLoaded", function () {
       ctx.stroke();
     }
 
-    // Sterne & Sternbilder zeichnen
+    // Sterne & Sternbilder zeichnen (mit deltaFactor)
     const activeStarColor = `rgb(${Math.round(currStarColor.r)}, ${Math.round(currStarColor.g)}, ${Math.round(currStarColor.b)})`;
     const activeLineRgb = `${Math.round(currLineColor.r)}, ${Math.round(currLineColor.g)}, ${Math.round(currLineColor.b)}`;
 
+    const cursorRadiusSq = cursorRadius * cursorRadius;
+    const connRadiusSq = connectionRadius * connectionRadius;
+
     for (let i = 0; i < stars.length; i++) {
       let star = stars[i];
-      star.x += star.vx * speedMultiplier;
-      star.y += star.vy * speedMultiplier;
+
+      // Position zeitbasiert aktualisieren
+      star.x += star.vx * speedMultiplier * deltaFactor;
+      star.y += star.vy * speedMultiplier * deltaFactor;
 
       if (star.x < 0 || star.x > width) star.vx *= -1;
       if (star.y < 0 || star.y > height - taskbarHeight) {
@@ -1654,9 +1516,10 @@ document.addEventListener("DOMContentLoaded", function () {
       if (mouse.x !== null) {
         let dxMouse = star.x - mouse.x;
         let dyMouse = star.y - mouse.y;
-        let distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+        let distMouseSq = dxMouse * dxMouse + dyMouse * dyMouse;
 
-        if (distMouse < cursorRadius) {
+        if (distMouseSq < cursorRadiusSq) {
+          let distMouse = Math.sqrt(distMouseSq);
           let alphaCursor = 1 - distMouse / cursorRadius;
 
           ctx.beginPath();
@@ -1670,10 +1533,12 @@ document.addEventListener("DOMContentLoaded", function () {
             let otherStar = stars[j];
             let dx = star.x - otherStar.x;
             let dy = star.y - otherStar.y;
-            let distStars = Math.sqrt(dx * dx + dy * dy);
+            let distStarsSq = dx * dx + dy * dy;
 
-            if (distStars < connectionRadius) {
+            if (distStarsSq < connRadiusSq) {
+              let distStars = Math.sqrt(distStarsSq);
               let alphaLines = (1 - distStars / connectionRadius) * alphaCursor;
+
               ctx.beginPath();
               ctx.moveTo(star.x, star.y);
               ctx.lineTo(otherStar.x, otherStar.y);
