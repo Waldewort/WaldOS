@@ -6,6 +6,7 @@
     <link rel="icon" type="image/x-icon" href="WaldOS_W.png" style="border-radius: 50px;">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <title>WaldOS&copy;</title>
   </head>
   <body>
@@ -24,31 +25,35 @@
       <div id="applications" class="applications"> 
         <!-- Notizen App-Aufruf-->
         <div id="notes" class="unselected">
-          <img id="opennotescreen" src="notizen.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="opennotescreen" src="icons/notizen.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
         </div> 
         <!-- Trompeten App-Aufruf -->
         <div id="trumpet" class="unselected">
-          <img id="opentrumpetscreen" src="trompete.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="opentrumpetscreen" src="icons/trumpet.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
         </div>
         <!-- Hauptseite App-Aufruf -->
         <div id="welcome" class="unselected">
-          <img id="openwelcomescreen" src="WaldOS_W.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="openwelcomescreen" src="icons/WaldOS_W.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
         </div>
         <!-- Suchmaschine App-Aufruf -->
         <div id="searchmachine" class="unselected">
-          <img id="opensearchmachinescreen" src="suchmaschine.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="opensearchmachinescreen" src="icons/suchmaschine.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
         </div>
         <!--YouTube App-Aufruf -->
         <div id="youtube" class="unselected">
-          <img id="openyoutubescreen" src="WaldVideo1.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="openyoutubescreen" src="icons/WaldVideo1.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
         </div>
-        <!--Rezepte App-Aufruf -->
-        <div id="rezepte" class="unselected">
-          <img id="openrezeptescreen" src="rezepte.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
-        </div> 
         <!--Maps App-Aufruf-->
-        <div id="maps" class="unselected">
-          <img id="openmapscreen" src="maps.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+        <div id="map" class="unselected">
+          <img id="openmapscreen" src="icons/maps.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+        </div>
+        <!--Taschenrechner App-Aufruf-->
+        <div id="calculator" class="unselected">
+          <img id="opencalculatorscreen" src="icons/taschenrechner.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+        </div>
+        <!--Stargazer App-Aufruf-->
+        <div id="stargazer" class="unselected">
+          <img id="openstargazerscreen" src="icons/stargazer.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
         </div>
       </div>
 
@@ -83,7 +88,7 @@
         </div>
 
         <div class="setting-group">
-          <label class="settings-label">Presets:</label>
+          <label class="settings-label">Galaxies:</label>
             <div class="preset-buttons">
               <button class="preset-btn" data-preset="classic">The WaldOS&copy;</button>
               <button class="preset-btn" data-preset="supernova">Mount Doom </button>
@@ -92,13 +97,20 @@
               <button class="preset-btn" data-preset="matrix">Posion</button>
               <button class="preset-btn" data-preset="night">Anime</button>
             </div>
+          <div class="custom-preset-builder">
+            <input type="text" id="input-preset-name" placeholder="Your Galaxy Name..." />
+            <button id="btn-save-preset">Save your Galaxy 💫</button>
+          </div>
+
+          <div id="custom-presets-container"></div>
+
           <label for="slider-num-stars">More Stars!!! <span id="val-num-stars" class="setting-value">300</span></label>
           <input type="range" id="slider-num-stars" min="100" max="2000" value="300">
         </div>
 
         <div class="setting-group">
           <label for="slider-conn-radius">Bigger Constallations (Intensive Graphic Design) <span id="val-conn-radius" class="setting-value">120 px</span></label>
-          <input type="range" id="slider-conn-radius" min="20" max="3000" value="120">
+          <input type="range" id="slider-conn-radius" min="20" max="400" value="120">
         </div>
 
         <div class="setting-group">
@@ -152,14 +164,14 @@
           <div class="profile-card">
             <img src="Waldewort.png" alt="Developer" draggable="false" class="profile-img">
             <div class="profile-badge">
-              <span>Developer</span> 🙃
+              <span>Waldewort</span> 🙃
             </div>
           </div>
         </div>
 
         <!-- Rechte Spalte: Info & Stats -->
         <div class="about-main">
-          <h2 class="about-heading">The Head Behind WaldOS</h2>
+          <h2 class="about-heading">The Head Behind WaldOS&copy;</h2>
           
           <!-- Quick-Stats / Tags -->
           <div class="tag-cloud">
@@ -388,86 +400,8 @@
 
     </div>
 
-    <!-- Recepy-Screen -->
-    <div class="window" id="rezeptescreen">
-      
-      <!-- Header des Rezepte-Screens-->
-      <div class="header" id="rezeptescreenheader">
-        <svg class="maximize-button" id="maximizerezeptescreen" width="24" height="30">
-          <rect y="10" x="2.5" width="12px" height="12px" fill="none" stroke="black" stroke-width="2.5"/>
-        </svg>
-        <p class="close-button" id="closerezeptescreen">X</p>
-      </div>
-
-      <div class="rezepte-app" style="height: calc(100% - 30px); display: flex; flex-direction: column; background-color: #ffffff; color: white;">
-        <div class="rezept-container" id="recipe-list-container">
-          <div class="titel_Waldskitchen">
-            <h1 style="color: rgb(0, 0, 0);">Waldskitchen- Work in Progress, don´t rate this! </h1>
-            <!--<img src="" style =" height: 500px; width: 500px; border-radius: 250px;"> -->
-          </div>
-            <div id="stews" class="rezepte-auswahl">
-              <p id="stews-schrift">Choose your stew type!</p>
-                <div id="Linseneintopf" class="rezept-vorschau versteckt">
-                  <img id="linseneintopf" src="linseneintopf.png" alt="Linseneintopf" class="rezept-bilder">
-                  <div id="Linseneintopf" class="rezept-informationen">
-                    <h2 style="color: rgb(0, 0, 0);">Lentil stew</h2>
-                    <p style="color: rgb(0, 0, 0);">Lentil stew with potatoes and carrots</p>
-                  </div>
-                </div>
-                <div id="Kartoffeleintopf" class="rezept-vorschau versteckt">
-                  <img id="kartoffeleintopf" src="kartoffeleintopf.png" alt="Kartoffeleintopf" class="rezept-bilder">
-                  <div id="Kartoffeleintopf" class="rezept-informationen">
-                    <h2 style="color: rgb(0, 0, 0);">Potato stew</h2>
-                    <p style="color: rgb(0, 0, 0);">Potato stew with onions and sausages</p>
-                  </div>
-                </div>
-                <div id="Bohneneintopf" class="rezept-vorschau versteckt">
-                  <!-- <img id="bohneneintopf" src="bohneneintopf.png" class="rezept-bilder"> -->
-                  <div id="Bohneneintopf" class="rezept-informationen">
-                    <h2 style="color: rgb(0, 0, 0);">Bean stew</h2>
-                    <p style="color: rgb(0, 0, 0);">Bean stew with onions and bacon</p>
-                  </div>
-                </div>
-            </div>
-            <div id="bread" class="rezepte-auswahl">
-              <p id="bread-schrift">Choose your bread type!</p>
-                <div id="Vollkornbrot" class="rezept-vorschau versteckt">
-                  <img id="vollkornbrot" src="vollkornbrot.png" alt="Vollkornbrot" class="rezept-bilder">
-                  <div id="vollkornbrot" class="rezept-informationen">
-                    <h2 style="color: rgb(0, 0, 0);">Whole grain bread</h2>
-                    <p style="color: rgb(0, 0, 0);">Healthy and nutritious whole grain bread</p>
-                  </div>
-                </div>
-                <div id="Weißbrot" class="rezept-vorschau versteckt">
-                  <!--<img id="weißbrot" src="weißbrot.png" class="rezept-bilder"> -->
-                  <div id="weißbrot" class="rezept-informationen">
-                    <h2 style="color: rgb(0, 0, 0);">White Bread</h2>
-                    <p style="color: rgb(0, 0, 0)">A white bread out of wheat</p>
-                  </div>
-                </div>
-            </div>
-            <div id="cake" class="rezepte-auswahl">
-              <p id="cake-schrift">Choose your cake type!</p>
-                <div id="brownies" class="rezept-vorschau versteckt">
-                  <img src="brownies.png" class="rezept-bilder">
-                  <div class="rezept-informationen">
-                    <h2 style="color:rgb(0, 0, 0)">Brownies</h2>
-                  </div>
-                </div>
-                <!-- <div id="Muffins" class="rezepte-auswahl">
-                  <img src="Muffins.png" class="rezept-bilder">
-                  <div class="rezept-informationen">
-
-                  </div>
-                </div> -->
-
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Mapscreen -->
-      <div id="mapscreen" class="window">
+    <div id="mapscreen" class="window">
         <div class="window-header" id="mapscreenheader">
           <div class="window-title">
             <span>🗺️</span> Mapscreen
@@ -528,18 +462,125 @@
       </div>
     </div>
 
-    <!-- Spiel-Fenster -->
-    <div id="gamescreen" class="window">
-      <div class="window-header">
-        <span>🎮 WaldGame</span>
-        <button class="close-btn" onclick="toggleWindow('gamescreen')">✕</button>
+    <!-- Calculator-Screen -->
+    <div class="window calc-window" id="calculatorscreen">
+      <div class="window-header" id="calculatorscreenheader">
+        <div class="window-title">
+          <span class="window-icon">🧮</span> WaldCalc
+        </div>
+        <div class="window-controls">
+          <button id="toggle-calc-mode" class="calc-mode-toggle" type="button">🧪 Sci-Mode</button>
+          <button class="close-button" id="closecalculatorscreen" type="button">✕</button>
+        </div>
       </div>
-      <div class="game-container">
-        <iframe src="game.html" class="game-frame"></iframe>
+
+      <div class="calc-container">
+        <div class="calc-display">
+          <div id="calc-history" class="calc-history"></div>
+          <input type="text" id="calc-input" class="calc-input" value="0" readonly>
+        </div>
+
+        <div class="calc-body">
+          <!-- Wissenschaftlicher Bereich (links, nur im Sci-Mode aktiv) -->
+          <div class="sci-grid">
+            <button class="calc-btn btn-op" type="button" data-action="sin">sin</button>
+            <button class="calc-btn btn-op" type="button" data-action="cos">cos</button>
+            <button class="calc-btn btn-op" type="button" data-action="tan">tan</button>
+            <button class="calc-btn btn-op" type="button" data-action="sqrt">√</button>
+            <button class="calc-btn btn-op" type="button" data-action="pow">x²</button>
+            <button class="calc-btn btn-op" type="button" data-action="log">log</button>
+            <button class="calc-btn btn-op" type="button" data-value="Math.PI">π</button>
+            <button class="calc-btn btn-op" type="button" data-value="Math.E">e</button>
+            <button class="calc-btn btn-op" type="button" data-value="(">(</button>
+            <button class="calc-btn btn-op" type="button" data-value=")">)</button>
+          </div>
+
+          <!-- Standard-Tastatur (4-Spalten-Grid) -->
+          <div class="standard-grid">
+            <button class="calc-btn btn-clear" type="button" data-action="clear">C</button>
+            <button class="calc-btn btn-clear" type="button" data-action="backspace">⌫</button>
+            <button class="calc-btn btn-op" type="button" data-value="%">%</button>
+            <button class="calc-btn btn-op" type="button" data-value="/">÷</button>
+
+            <button class="calc-btn" type="button" data-value="7">7</button>
+            <button class="calc-btn" type="button" data-value="8">8</button>
+            <button class="calc-btn" type="button" data-value="9">9</button>
+            <button class="calc-btn btn-op" type="button" data-value="*">×</button>
+
+            <button class="calc-btn" type="button" data-value="4">4</button>
+            <button class="calc-btn" type="button" data-value="5">5</button>
+            <button class="calc-btn" type="button" data-value="6">6</button>
+            <button class="calc-btn btn-op" type="button" data-value="-">-</button>
+
+            <button class="calc-btn" type="button" data-value="1">1</button>
+            <button class="calc-btn" type="button" data-value="2">2</button>
+            <button class="calc-btn" type="button" data-value="3">3</button>
+            <button class="calc-btn btn-op" type="button" data-value="+">+</button>
+
+            <button class="calc-btn" type="button" data-action="plusminus">±</button>
+            <button class="calc-btn" type="button" data-value="0">0</button>
+            <button class="calc-btn" type="button" data-value="." >,</button>
+            <button class="calc-btn btn-equals" type="button" data-action="calculate">=</button>
+          </div>
+        </div>
       </div>
     </div>
 
-    
+    <!-- WaldSky (Stellarium Exact Interface) -->
+    <div class="window sky-window stellarium-style" id="stargazerscreen">
+      <div class="window-header" id="stargazerscreenheader">
+        <div class="window-title">
+          <span class="window-icon">🌌</span> WaldSky / Stellarium 3D
+        </div>
+        <div class="window-controls">
+           <svg class="maximize-button" id="maximizestargazerscreen" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="4.5" y="4.5" width="14" height="14" rx="1" ry="1"/>
+            </svg>
+          <button class="close-button" id="closestargazerscreen" type="button">✕</button>
+        </div>
+      </div>
+
+      <div class="sky-container">
+        <div class="sky-canvas-wrapper" id="sky-3d-container">
+          <div class="stellarium-top-controls" id="sky-top-controls">
+            <button id="sky-toggle-controls-btn" title="Menü ein-/ausklappen" class="stellarium-icon-btn toggle-btn">▶</button>
+
+            <div class="sky-controls-content">
+              <button id="sky-constellations-btn" title="Sternbilder" class="stellarium-icon-btn active">✨</button>
+              <button id="sky-grid-btn" title="Äquatorialnetz" class="stellarium-icon-btn">🌐</button>
+              <button id="sky-timelapse-btn" title="Zeitraffer Pause/Play" class="stellarium-icon-btn active">▶</button>
+              
+              <div class="sky-location-search">
+                <input type="text" id="sky-search-input" placeholder="Search for your dream place...">
+                <button id="sky-search-btn">Teleport to your starview location</button>
+                <button id="sky-geolocation-btn" title="GPS-Standort abfragen">📍 GPS</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+          <div class="stellarium-bottom-bar">
+            <div class="stellarium-left-info">
+              <span id="sky-location-name">Earth, N50.11°, E8.68°, 112 m</span> | 
+              <span>FOV 60.0°</span> | 
+              <span id="sky-fps-counter">60 FPS</span> | 
+              <span id="sky-current-time">2026-09-14 21:10:00 UTC</span>
+            </div>
+            <div class="stellarium-right-controls">
+              <input type="datetime-local" id="sky-datetime-picker">
+              <select id="sky-speed-select">
+                <option value="1">1x</option>
+                <option value="100" selected>100x</option>
+                <option value="1000">1000x</option>
+                <option value="10000">10000x</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="script.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -549,9 +590,11 @@
     <link rel="stylesheet" type="text/css" href="css/style_calendarscreen.css">
     <link rel="stylesheet" type="text/css" href="css/style_searchmachinescreen.css">
     <link rel="stylesheet" type="text/css" href="css/style_youtubescreen.css">
-    <!--<link rel="stylesheet" type="text/css" href="css/style_rezeptescreen.css"> -->
+    <link rel="stylesheet" type="text/css" href="css/style_calculator.css">
     <link rel="stylesheet" type="text/css" href="css/style_mapscreen.css"> 
     <link rel="stylesheet" type="text/css" href="css/style_settings.css">
+    <link rel="stylesheet" type="text/css" href="css/style_skyscreen.css">
+    <script src="js/script_stargazer.js"></script>
   </body>
 
 </html>

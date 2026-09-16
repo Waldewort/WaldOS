@@ -9,9 +9,9 @@ dragElement(document.getElementById("trumpetscreen"));
 dragElement(document.getElementById("notescreen"));
 dragElement(document.getElementById("searchmachinescreen"));
 dragElement(document.getElementById("youtubescreen"));
-dragElement(document.getElementById("rezeptescreen"));
 dragElement(document.getElementById("wikipediascreen"));
 dragElement(document.getElementById("mapscreen"));
+dragElement(document.getElementById("stargazerscreen"));
 
 
 const fullscreenBtn = document.getElementById("fullscreen-btn-WaldOS");
@@ -39,10 +39,12 @@ document.addEventListener("fullscreenchange", () => {
         { element: notescreen, underline: notes },
         { element: searchmachinescreen, underline: searchmachine },
         { element: youtubescreen, underline: youtube },
-        { element: rezeptescreen, underline: rezepte },
         { element: wikipediascreen},
         { element: calendarscreen},
         { element: mapscreen, underline: map },
+        { element: settingscreen, underline: settings },
+        { element: calculatorscreen, underline: calculator },
+        { element: Stargazerscreen, underline: stargazer },
       ];
 
       windowMappings.forEach(item => {
@@ -111,38 +113,42 @@ var trumpetscreen = document.querySelector("#trumpetscreen");
 var notescreen = document.querySelector("#notescreen");
 var searchmachinescreen = document.querySelector("#searchmachinescreen");
 var youtubescreen = document.querySelector("#youtubescreen");
-var rezeptescreen = document.querySelector("#rezeptescreen");
 var wikipediascreen = document.querySelector("#wikipediascreen");
 var mapscreen = document.querySelector("#mapscreen");
 var settingscreen = document.querySelector("#settingscreen");
+var calculatorscreen = document.querySelector("#calculatorscreen");
+var Stargazerscreen = document.querySelector("#stargazerscreen");
 
 var welcome = document.querySelector("#welcome");
 var trumpet = document.querySelector("#trumpet");
 var notes = document.querySelector("#notes");
 var searchmachine = document.querySelector("#searchmachine");
 var youtube = document.querySelector("#youtube");
-var rezepte = document.querySelector("#rezepte");
 var map = document.querySelector("#map");
 var settings = document.querySelector("#settings");
+var calculator = document.querySelector("#calculator");
+var stargazer = document.querySelector("#stargazer");
 
 var openwelcomescreen = document.querySelector("#openwelcomescreen");
 var opentrumpetscreen = document.querySelector("#opentrumpetscreen");
 var opennotescreen = document.querySelector("#opennotescreen");
 var opensearchmachinescreen = document.querySelector("#opensearchmachinescreen");
 var openyoutubescreen = document.querySelector("#openyoutubescreen");
-var openrezeptescreen = document.querySelector("#openrezeptescreen");
 var openmapscreen = document.querySelector("#openmapscreen");
 var opensettingscreen = document.querySelector("#opensettingscreen");
+var opencalculatorscreen = document.querySelector("#opencalculatorscreen");
+var openstargazerscreen = document.querySelector("#openstargazerscreen");
 
 var closewelcomescreen = document.querySelector("#closewelcomescreen");
 var closetrumpetscreen = document.querySelector("#closetrumpetscreen");
 var closenotescreen = document.querySelector("#closenotescreen");
 var closesearchmachinescreen = document.querySelector("#closesearchmachinescreen");
 var closeyoutubescreen = document.querySelector("#closeyoutubescreen");
-var closerezeptescreen = document.querySelector("#closerezeptescreen");
 var closemapscreen = document.querySelector("#closemapscreen");
 var closecallendarscreen = document.querySelector("#closecalendarscreen");
 var closesettingscreen = document.querySelector("#closesettingscreen");
+var closecalculatorscreen = document.querySelector("#closecalculatorscreen");
+var closestargazerscreen = document.querySelector("#closestargazerscreen");
 
 function closewindow(element, underline) {
   if (!element) return;
@@ -360,16 +366,6 @@ openyoutubescreen.addEventListener("click", function() {
   }
 });
 
-// Rezeptescreen
-openrezeptescreen.addEventListener("click", function() {
-  if (visible(rezeptescreen)) {
-    closewindow(rezeptescreen, rezepte);
-  }
-  else{
-    openwindow(rezeptescreen, rezepte);
-  }
-});
-
 //Mapscreen
 openmapscreen.addEventListener("click", function() {
   if (visible(mapscreen)) {
@@ -379,6 +375,25 @@ openmapscreen.addEventListener("click", function() {
     openwindow(mapscreen, map);
   }
 });
+
+//Calculatorscreen
+opencalculatorscreen.addEventListener("click", function() {
+  if (visible(calculatorscreen)) {
+    closewindow(calculatorscreen, calculator);
+  } 
+  else{
+    openwindow(calculatorscreen, calculator);
+  }
+});
+
+openstargazerscreen.addEventListener("click", function() {
+  if (visible(stargazerscreen)) {
+    closewindow(stargazerscreen, stargazer);
+  } 
+  else{
+    openwindow(stargazerscreen, stargazer);
+  }
+})
 
 if (closesettingscreen) {
   closesettingscreen.addEventListener("click", function() {
@@ -416,12 +431,6 @@ if (closeyoutubescreen) {
   });
 }
 
-if (closerezeptescreen) {
-  closerezeptescreen.addEventListener("click", function() {
-    closewindow(rezeptescreen, rezepte);
-  });
-}
-
 if (closemapscreen) {
   closemapscreen.addEventListener("click", function() {
     closewindow(mapscreen, map);
@@ -437,6 +446,18 @@ if (closewikipediascreen) {
 if (closecallendarscreen) {
   closecallendarscreen.addEventListener("click", function() {
     closewindow(calendarscreen);
+  });
+}
+
+if (closecalculatorscreen) {
+  closecalculatorscreen.addEventListener("click", function() {
+    closewindow(calculatorscreen);
+  });
+}
+
+if (closestargazerscreen) {
+  closestargazerscreen.addEventListener("click", function() {
+    closewindow(stargazerscreen);
   });
 }
 
@@ -462,6 +483,7 @@ var Blurscreen = document.querySelector("#fullscreen-btn-WaldOS");
 var biggestIndex = 1;
 
 function addwindowtaphandling(element) {
+  if (!element) return;
   element.addEventListener("mousedown", function() {
     handleWindowTap(element);
   });
@@ -472,11 +494,12 @@ addwindowtaphandling(trumpetscreen);
 addwindowtaphandling(notescreen);
 addwindowtaphandling(searchmachinescreen);
 addwindowtaphandling(youtubescreen);
-addwindowtaphandling(rezeptescreen);
 addwindowtaphandling(wikipediascreen);
 addwindowtaphandling(calendarscreen);
 addwindowtaphandling(mapscreen);
 addwindowtaphandling(settingsscreen);
+addwindowtaphandling(calculatorscreen);
+addwindowtaphandling(stargazerscreen);
 
 
 function handleWindowTap(element) {
@@ -492,14 +515,15 @@ var notescreen = document.querySelector("#notescreen");
 var maximizeNoteScreenButton = document.querySelector("#maximizenotescreen");
 var youtubescreen = document.querySelector("#youtubescreen");
 var maximizeYoutubeScreenButton = document.querySelector("#maximizeyoutubescreen");
-var rezeptescreen = document.querySelector("#rezeptescreen");
-var maximizeRezepteScreenButton = document.querySelector("#maximizerezeptescreen");
 var searchmachinescreen = document.querySelector("#searchmachinescreen");
 var maximizeSearchmachineScreenButton = document.querySelector("#maximizesearchmachinescreen");
 var wikipediascreen = document.querySelector("#wikipediascreen");
 var maximizeWikipediaScreenButton = document.querySelector("#maximizewikipediascreen");
 var mapscreen = document.querySelector("#mapscreen");
 var maximizeMapScreenButton = document.querySelector("#maximizemapscreen");
+var stargazerscreen = document.querySelector("#stargazerscreen");
+var maximizeStargazerScreenButton = document.querySelector("#maximizestargazerscreen");
+
 
 function maximizeWindow(element) {
   element.classList.toggle("maximized");
@@ -529,12 +553,6 @@ if (maximizeYoutubeScreenButton) {
   });
 }
 
-if (maximizeRezepteScreenButton) {
-  maximizeRezepteScreenButton.addEventListener("click", function() {
-    maximizeWindow(rezeptescreen);
-  });
-} 
-
 if (maximizeSearchmachineScreenButton) {
   maximizeSearchmachineScreenButton.addEventListener("click", function(){
     maximizeWindow(searchmachinescreen);
@@ -551,6 +569,12 @@ if (maximizeMapScreenButton) {
   maximizeMapScreenButton.addEventListener("click", function(){
     maximizeWindow(mapscreen);
   })
+}
+
+if (maximizeStargazerScreenButton) {
+  maximizeStargazerScreenButton.addEventListener("click", function(){
+    maximizeWindow(stargazerscreen);
+  })  
 }
 
 // Save notes 
@@ -666,50 +690,6 @@ if (ytSearchBtn && ytSearchInput) {
     }
   });
 }
-
-var eintöpfeButton = document.querySelector("#stews");
-var breadButton = document.querySelector("#bread");
-var cakeButton = document.querySelector("#cake");
-
-var linseneintopf = document.querySelector("#Linseneintopf");
-var kartoffeleintopf = document.querySelector("#Kartoffeleintopf");
-var bohneneintopf = document.querySelector("#Bohneneintopf");
-
-var vollkornbrot = document.querySelector("#Vollkornbrot");
-var weißbrot = document.querySelector("#Weißbrot");
-
-var brownies = document.querySelector("#brownies");
-
-
-var stewsschrift = document.querySelector("#stews-schrift");
-var breadschrift = document.querySelector("#bread-schrift");
-var cakeschrift = document.querySelector("#cake-schrift");
-
-function togglehideRecipes(element){
-  if (element.classList.contains("versteckt")) {
-    element.classList.remove("versteckt");
-  } else {
-    element.classList.add("versteckt");
-  }
-}
-
-eintöpfeButton.addEventListener("click", function() {
-  togglehideRecipes(linseneintopf);
-  togglehideRecipes(kartoffeleintopf);
-  togglehideRecipes(bohneneintopf);
-  togglehideRecipes(stewsschrift);
-});
-
-breadButton.addEventListener("click", function() {
-  togglehideRecipes(vollkornbrot);
-  togglehideRecipes(breadschrift);
-  togglehideRecipes(weißbrot);
-});
-
-cakeButton.addEventListener("click", function() {
-  togglehideRecipes(brownies);
-  togglehideRecipes(cakeschrift);
-});
 
 // Waldsearch
 
@@ -1079,7 +1059,6 @@ function clearCarRoute() {
     infoBox.style.display = 'none';
   }
 }
-
 // Hilfsfunktionen für Farbumwandlungen und Weichzeichnung (Lerp)
 function hexToRgb(hex) {
   let c = hex.replace('#', '');
@@ -1159,8 +1138,8 @@ const presets = {
   },
   deepspace: {
     stars: 120,
-    connRadius: 100,
-    cursorRadius: 130,
+    connRadius: 300,
+    cursorRadius: 230,
     speed: 0.5,
     starColor: { r: 130, g: 170, b: 255 },
     lineColor: { r: 199, g: 146, b: 234 },
@@ -1191,6 +1170,50 @@ const presets = {
     shootingStars: 2
   }
 };
+
+// Geladene Custom-Presets aus dem localStorage
+let customPresets = JSON.parse(localStorage.getItem("starfield_custom_presets")) || {};
+
+// Funktion zum Rendern der gespeicherten Buttons
+function renderCustomPresetButtons() {
+  const container = document.getElementById("custom-presets-container");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  Object.keys(customPresets).forEach((key) => {
+    const p = customPresets[key];
+    
+    // In das globale presets-Objekt integrieren, damit applyPreset() es findet
+    presets[key] = p;
+
+    const btnWrapper = document.createElement("div");
+    btnWrapper.style.display = "inline-flex";
+    btnWrapper.style.margin = "2px";
+
+    const btn = document.createElement("button");
+    btn.className = "preset-btn";
+    btn.setAttribute("data-preset", key);
+    btn.textContent = p.presetName || "Custom";
+    btn.addEventListener("click", () => applyPreset(key));
+
+    // Löschen-Button für einzelne Presets
+    const delBtn = document.createElement("button");
+    delBtn.textContent = "✕";
+    delBtn.style.marginLeft = "2px";
+    delBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      delete customPresets[key];
+      delete presets[key];
+      localStorage.setItem("starfield_custom_presets", JSON.stringify(customPresets));
+      renderCustomPresetButtons();
+    });
+
+    btnWrapper.appendChild(btn);
+    btnWrapper.appendChild(delBtn);
+    container.appendChild(btnWrapper);
+  });
+}
 
 function updateStarsArray(targetCount) {
   const canvas = document.getElementById("starfield");
@@ -1300,12 +1323,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  document.addEventListener("visibilitychange", () => {
-      if (!document.hidden) {
-        lastTime = performance.now();
-      }
-    });
-
   const resetTime = () => { lastTime = performance.now(); };
   window.addEventListener("focus", resetTime);
   window.addEventListener("blur", resetTime);
@@ -1323,6 +1340,9 @@ document.addEventListener("DOMContentLoaded", function () {
   resizeCanvas();
   updateStarsArray(numStars);
 
+  // Custom-Presets beim Start laden & rendern
+  renderCustomPresetButtons();
+
   // UI Event Listener
   const sliderNumStars = document.getElementById("slider-num-stars");
   const sliderConnRadius = document.getElementById("slider-conn-radius");
@@ -1334,6 +1354,40 @@ document.addEventListener("DOMContentLoaded", function () {
   const colorBg = document.getElementById("color-bg");
   const inputTitle = document.getElementById("input-title");
   const titleEl = document.getElementById("main-title");
+
+  // Save Preset Listener
+  const btnSave = document.getElementById("btn-save-preset");
+  const inputPresetName = document.getElementById("input-preset-name");
+
+  if (btnSave) {
+    btnSave.addEventListener("click", () => {
+      const name = inputPresetName ? inputPresetName.value.trim() : "";
+      if (!name) {
+        alert("Bitte geben Sie einen Namen für das Preset ein.");
+        return;
+      }
+
+      const presetKey = "custom_" + Date.now();
+      const newPreset = {
+        presetName: name,
+        stars: numStars,
+        connRadius: targetConnRadius,
+        cursorRadius: targetCursorRadius,
+        speed: targetSpeed,
+        starColor: { ...targetStarColor },
+        lineColor: { ...targetLineColor },
+        bgInner: { ...targetBgInner },
+        bgOuter: { ...targetBgOuter },
+        shootingStars: maxShootingStars
+      };
+
+      customPresets[presetKey] = newPreset;
+      localStorage.setItem("starfield_custom_presets", JSON.stringify(customPresets));
+
+      renderCustomPresetButtons();
+      if (inputPresetName) inputPresetName.value = "";
+    });
+  }
 
   if (sliderNumStars) {
     sliderNumStars.addEventListener("input", (e) => {
@@ -1401,7 +1455,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Einzige Render-Schleife
+  // Render-Schleife
   function animate(currentTime) {
     requestAnimationFrame(animate);
 
@@ -1410,19 +1464,15 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    // Echtes Delta Time in Sekunden berechnen
     let deltaTime = (currentTime - lastTime) / 1000;
     lastTime = currentTime;
 
-    // Extremsprünge oder ungültige Werte abfangen (auf 60 FPS Basis normieren)
     if (deltaTime > 0.1 || deltaTime <= 0 || isNaN(deltaTime)) {
       deltaTime = 1 / 60;
     }
 
-    // Faktor: 1.0 entspricht exakt 60 FPS
     const deltaFactor = deltaTime * 60;
 
-    // Werte sanft anpassen (Lerp)
     speedMultiplier = lerp(speedMultiplier, targetSpeed, 0.05);
     connectionRadius = lerp(connectionRadius, targetConnRadius, 0.05);
     cursorRadius = lerp(cursorRadius, targetCursorRadius, 0.05);
@@ -1443,7 +1493,6 @@ document.addEventListener("DOMContentLoaded", function () {
     currBgOuter.g = lerp(currBgOuter.g, targetBgOuter.g, 0.05);
     currBgOuter.b = lerp(currBgOuter.b, targetBgOuter.b, 0.05);
 
-    // Dynamic Gradient Hintergrund zeichnen
     let gradient = ctx.createRadialGradient(
       width / 2, height / 2, 0,
       width / 2, height / 2, Math.max(width, height) / 1.2
@@ -1454,12 +1503,10 @@ document.addEventListener("DOMContentLoaded", function () {
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, width, height);
 
-    // Sternschnuppen erzeugen
     if (maxShootingStars > 0 && Math.random() < 0.03 && shootingStars.length < maxShootingStars) {
       spawnShootingStar();
     }
 
-    // Sternschnuppen zeichnen & bewegen (mit deltaFactor)
     for (let i = shootingStars.length - 1; i >= 0; i--) {
       let ss = shootingStars[i];
 
@@ -1488,7 +1535,6 @@ document.addEventListener("DOMContentLoaded", function () {
       ctx.stroke();
     }
 
-    // Sterne & Sternbilder zeichnen (mit deltaFactor)
     const activeStarColor = `rgb(${Math.round(currStarColor.r)}, ${Math.round(currStarColor.g)}, ${Math.round(currStarColor.b)})`;
     const activeLineRgb = `${Math.round(currLineColor.r)}, ${Math.round(currLineColor.g)}, ${Math.round(currLineColor.b)}`;
 
@@ -1498,7 +1544,6 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let i = 0; i < stars.length; i++) {
       let star = stars[i];
 
-      // Position zeitbasiert aktualisieren
       star.x += star.vx * speedMultiplier * deltaFactor;
       star.y += star.vy * speedMultiplier * deltaFactor;
 
@@ -1554,3 +1599,98 @@ document.addEventListener("DOMContentLoaded", function () {
 
   animate(performance.now());
 });
+
+
+// --- WaldCalc Logik ---
+(function initWaldCalc() {
+  const calcScreen = document.getElementById("calculatorscreen");
+  const modeToggleBtn = document.getElementById("toggle-calc-mode");
+
+  if (!calcScreen) return;
+
+  // Fensterverwaltung
+  if (typeof dragElement === "function") dragElement(calcScreen);
+  if (typeof addwindowtaphandling === "function") addwindowtaphandling(calcScreen);
+
+  // Umschalten Standard / Scientific
+  if (modeToggleBtn) {
+    modeToggleBtn.addEventListener("click", () => {
+      calcScreen.classList.toggle("scientific-mode");
+      modeToggleBtn.textContent = calcScreen.classList.contains("scientific-mode")
+        ? "🔢 Standard"
+        : "🧪 Sci-Mode";
+    });
+  }
+
+  // Rechenlogik
+  const displayInput = document.getElementById("calc-input");
+  const displayHistory = document.getElementById("calc-history");
+  const buttons = calcScreen.querySelectorAll(".calc-btn");
+
+  let currentExpr = "0";
+  let resetOnNextInput = false;
+
+  function updateDisplay() {
+    displayInput.value = currentExpr;
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const val = btn.getAttribute("data-value");
+      const action = btn.getAttribute("data-action");
+
+      if (action === "clear") {
+        currentExpr = "0";
+        displayHistory.innerText = "";
+      } else if (action === "backspace") {
+        if (currentExpr.length > 1) {
+          currentExpr = currentExpr.slice(0, -1);
+        } else {
+          currentExpr = "0";
+        }
+      } else if (action === "plusminus") {
+        if (currentExpr !== "0") {
+          currentExpr = currentExpr.startsWith("-") ? currentExpr.substring(1) : "-" + currentExpr;
+        }
+      } else if (action === "calculate") {
+        try {
+          displayHistory.innerText = currentExpr + " =";
+          let evalExpr = currentExpr.replace(/÷/g, "/").replace(/×/g, "*").replace(/%/g, "/100");
+          let result = Function('"use strict"; return (' + evalExpr + ')')();
+          currentExpr = String(Number(result.toFixed(8)));
+          resetOnNextInput = true;
+        } catch (e) {
+          displayHistory.innerText = currentExpr;
+          currentExpr = "Fehler";
+          resetOnNextInput = true;
+        }
+      } else if (["sin", "cos", "tan", "sqrt", "log"].includes(action)) {
+        try {
+          let evalExpr = currentExpr.replace(/÷/g, "/").replace(/×/g, "*");
+          let num = Function('"use strict"; return (' + evalExpr + ')')();
+          let mathFunc = action === "log" ? "Math.log10" : action === "sqrt" ? "Math.sqrt" : "Math." + action;
+          displayHistory.innerText = `${action}(${currentExpr})`;
+          let result = Function('"use strict"; return ' + mathFunc + '(' + num + ')')();
+          currentExpr = String(Number(result.toFixed(8)));
+          resetOnNextInput = true;
+        } catch (e) {
+          currentExpr = "Fehler";
+          resetOnNextInput = true;
+        }
+      } else if (action === "pow") {
+        currentExpr += "**2";
+      } else if (val) {
+        if (currentExpr === "0" || resetOnNextInput) {
+          currentExpr = (val === ".") ? "0." : val;
+          resetOnNextInput = false;
+        } else {
+          currentExpr += val;
+        }
+      }
+
+      updateDisplay();
+    });
+  });
+})();
+
+
