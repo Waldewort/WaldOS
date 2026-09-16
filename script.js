@@ -451,7 +451,7 @@ if (closecallendarscreen) {
 
 if (closecalculatorscreen) {
   closecalculatorscreen.addEventListener("click", function() {
-    closewindow(calculatorscreen);
+    closewindow(calculatorscreen, calculator);
   });
 }
 
