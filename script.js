@@ -422,6 +422,7 @@ if (closenotescreen) {
 if (closesearchmachinescreen) {
   closesearchmachinescreen.addEventListener("click", function() {
     closewindow(searchmachinescreen, searchmachine);
+    closewindow(wikipediascreen);
   });
 }
 
@@ -821,7 +822,7 @@ if (searchBtnSearchapp && searchInputSearchapp && resultsContainerSearchapp) {
 
         var safeText = eventItem.text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
         infoContainer.innerHTML = '<strong class="calendar-item-text">' + safeText + '</strong>' +
-                                  '<small class="calendar-item-date">📅 ' + (eventItem.date || "Kein Datum") + (eventItem.time ? ' ⏰ ' + eventItem.time : '') + '</small>';
+                                  '<small class="calendar-item-date">📅 ' + (eventItem.date || "No date") + (eventItem.time ? ' ⏰ ' + eventItem.time : '') + '</small>';
 
         var deleteBtn = document.createElement("button");
         deleteBtn.textContent = "✖";
@@ -846,12 +847,12 @@ if (searchBtnSearchapp && searchInputSearchapp && resultsContainerSearchapp) {
       var textVal = textInput ? textInput.value.trim() : "";
 
       if (!textVal) {
-        alert("Bitte gib einen Text für das Event ein!");
+        alert("Your litle catbaby needs a name! 😸");
         return;
       }
 
       if (!dateVal) {
-        alert("Bitte wähle ein Datum aus!");
+        alert("How shall it work without a date, stupid!");
         return;
       }
 
@@ -1059,6 +1060,8 @@ function clearCarRoute() {
     infoBox.style.display = 'none';
   }
 }
+
+
 // Hilfsfunktionen für Farbumwandlungen und Weichzeichnung (Lerp)
 function hexToRgb(hex) {
   let c = hex.replace('#', '');
@@ -1171,10 +1174,8 @@ const presets = {
   }
 };
 
-// Geladene Custom-Presets aus dem localStorage
 let customPresets = JSON.parse(localStorage.getItem("starfield_custom_presets")) || {};
 
-// Funktion zum Rendern der gespeicherten Buttons
 function renderCustomPresetButtons() {
   const container = document.getElementById("custom-presets-container");
   if (!container) return;
@@ -1183,8 +1184,6 @@ function renderCustomPresetButtons() {
 
   Object.keys(customPresets).forEach((key) => {
     const p = customPresets[key];
-    
-    // In das globale presets-Objekt integrieren, damit applyPreset() es findet
     presets[key] = p;
 
     const btnWrapper = document.createElement("div");
@@ -1197,7 +1196,6 @@ function renderCustomPresetButtons() {
     btn.textContent = p.presetName || "Custom";
     btn.addEventListener("click", () => applyPreset(key));
 
-    // Löschen-Button für einzelne Presets
     const delBtn = document.createElement("button");
     delBtn.textContent = "✕";
     delBtn.style.marginLeft = "2px";
@@ -1223,7 +1221,7 @@ function updateStarsArray(targetCount) {
   while (stars.length < targetCount) {
     stars.push({
       x: Math.random() * width,
-      y: Math.random() * (height - 70),
+      y: Math.random() * height - 70,
       vx: (Math.random() - 0.5) * 0.2,
       vy: (Math.random() - 0.5) * 0.2,
       radius: Math.random() * 1.5 + 1
@@ -1242,7 +1240,7 @@ function spawnShootingStar() {
 
   shootingStars.push({
     x: startFromTop ? Math.random() * (width * 0.8) : 0,
-    y: startFromTop ? 0 : Math.random() * (height - 70) * 0.5,
+    y: startFromTop ? 0 : Math.random() * height * 0.5,
     len: Math.random() * 80 + 50,
     speed: Math.random() * 8 + 6,
     size: Math.random() * 1.2 + 0.8,
@@ -1306,7 +1304,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let width = 0;
   let height = 0;
-  const taskbarHeight = 70;
   let mouse = { x: null, y: null };
   let lastTime = performance.now();
 
@@ -1315,12 +1312,19 @@ document.addEventListener("DOMContentLoaded", function () {
     height = canvas.height = window.innerHeight;
   }
 
+  // Korrigiertes Resize-Event: Verteilt die Sterne proportional neu
   window.addEventListener("resize", () => {
+    const prevWidth = width;
+    const prevHeight = height;
+
     resizeCanvas();
-    stars.forEach(star => {
-      if (star.x > width) star.x = Math.random() * width;
-      if (star.y > height - taskbarHeight) star.y = Math.random() * (height - taskbarHeight);
-    });
+
+    if (prevWidth > 0 && prevHeight > 0) {
+      stars.forEach(star => {
+        star.x = (star.x / prevWidth) * width;
+        star.y = (star.y / prevHeight) * height - 70;
+      });
+    }
   });
 
   const resetTime = () => { lastTime = performance.now(); };
@@ -1332,7 +1336,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const rect = canvas.getBoundingClientRect();
     mouse.x = e.clientX - rect.left;
     mouse.y = e.clientY - rect.top;
-  });
+  }, { passive: true });
 
   window.addEventListener("mouseleave", () => { mouse.x = null; mouse.y = null; });
   window.addEventListener("blur", () => { mouse.x = null; mouse.y = null; });
@@ -1340,10 +1344,8 @@ document.addEventListener("DOMContentLoaded", function () {
   resizeCanvas();
   updateStarsArray(numStars);
 
-  // Custom-Presets beim Start laden & rendern
   renderCustomPresetButtons();
 
-  // UI Event Listener
   const sliderNumStars = document.getElementById("slider-num-stars");
   const sliderConnRadius = document.getElementById("slider-conn-radius");
   const sliderCursorRadius = document.getElementById("slider-cursor-radius");
@@ -1355,7 +1357,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const inputTitle = document.getElementById("input-title");
   const titleEl = document.getElementById("main-title");
 
-  // Save Preset Listener
   const btnSave = document.getElementById("btn-save-preset");
   const inputPresetName = document.getElementById("input-preset-name");
 
@@ -1514,7 +1515,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ss.y += Math.sin(ss.angle) * ss.speed * speedMultiplier * deltaFactor;
       ss.alpha = Math.max(0, ss.alpha - 0.008 * deltaFactor);
 
-      if (ss.alpha <= 0 || ss.x > width || ss.y > height - taskbarHeight) {
+      if (ss.alpha <= 0 || ss.x > width || ss.y > height) {
         shootingStars.splice(i, 1);
         continue;
       }
@@ -1548,9 +1549,9 @@ document.addEventListener("DOMContentLoaded", function () {
       star.y += star.vy * speedMultiplier * deltaFactor;
 
       if (star.x < 0 || star.x > width) star.vx *= -1;
-      if (star.y < 0 || star.y > height - taskbarHeight) {
+      if (star.y < 0 || star.y > height - 70) {
         star.vy *= -1;
-        if (star.y > height - taskbarHeight) star.y = height - taskbarHeight;
+        if (star.y > height) star.y = height;
       }
 
       ctx.beginPath();
@@ -1617,7 +1618,7 @@ document.addEventListener("DOMContentLoaded", function () {
     modeToggleBtn.addEventListener("click", () => {
       calcScreen.classList.toggle("scientific-mode");
       modeToggleBtn.textContent = calcScreen.classList.contains("scientific-mode")
-        ? "🔢 Standard"
+        ? "🔢 Noob-Mode"
         : "🧪 Sci-Mode";
     });
   }
