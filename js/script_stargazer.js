@@ -7,6 +7,24 @@
 
   if (!windowEl || !container) return;
 
+  // --- Schließen-Funktion & Markierung entfernen ---
+  if (closeBtn) {
+    closeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+
+      windowEl.style.display = "none";
+      windowEl.classList.remove("active", "open", "show");
+
+      [taskbarItem, iconEl].forEach((el) => {
+        if (!el) return;
+        el.classList.remove("active", "selected", "open", "running", "active-app");
+        if (el.parentElement) {
+          el.parentElement.classList.remove("active", "selected", "open");
+        }
+      });
+    });
+  }
+
   // --- Ortsfinder mit Suchleiste & Geocoding ---
   const searchInput = document.getElementById("sky-search-input");
   const searchBtn = document.getElementById("sky-search-btn");
@@ -214,10 +232,39 @@
     celestialSphere.add(sprite);
   }
 
-  // --- Echte IAU-Sternbildlinien ---
+  // --- IAU Kürzel zu englischen Namen ---
+  const constellationNamesMap = {
+    "And": "Andromeda", "Ant": "Antlia", "Aps": "Apus", "Aqr": "Aquarius", "Aql": "Aquila",
+    "Ara": "Ara", "Ari": "Aries", "Aur": "Auriga", "Boo": "Boötes", "Cae": "Caelum",
+    "Cam": "Camelopardalis", "Cnc": "Cancer", "CVn": "Canes Venatici", "CMa": "Canis Major",
+    "CMi": "Canis Minor", "Cap": "Capricornus", "Car": "Carina", "Cas": "Cassiopeia",
+    "Cen": "Centaurus", "Cep": "Cepheus", "Cet": "Cetus", "Cha": "Chamaeleon",
+    "Cir": "Circinus", "Col": "Columba", "Com": "Coma Berenices", "CrA": "Corona Australis",
+    "CrB": "Corona Borealis", "Crv": "Corvus", "Crt": "Crater", "Cru": "Crux",
+    "Cyg": "Cygnus", "Del": "Delphinus", "Dor": "Dorado", "Dra": "Draco",
+    "Equ": "Equuleus", "Eri": "Eridanus", "For": "Fornax", "Gem": "Gemini",
+    "Gru": "Grus", "Her": "Hercules", "Hor": "Horologium", "Hya": "Hydra",
+    "Hyi": "Hydrus", "Ind": "Indus", "Lac": "Lacerta", "Leo": "Leo",
+    "LMi": "Leo Minor", "Lep": "Lepus", "Lib": "Libra", "Lup": "Lupus",
+    "Lyn": "Lynx", "Lyr": "Lyra", "Men": "Mensa", "Mic": "Microscopium",
+    "Mon": "Monoceros", "Mus": "Musca", "Nor": "Norma", "Oct": "Octans",
+    "Oph": "Ophiuchus", "Ori": "Orion", "Pav": "Pavo", "Peg": "Pegasus",
+    "Per": "Perseus", "Phe": "Phoenix", "Pic": "Pictor", "Psc": "Pisces",
+    "PsA": "Piscis Austrinus", "Pup": "Puppis", "Pyx": "Pyxis", "Ret": "Reticulum",
+    "Sge": "Sagitta", "Sgr": "Sagittarius", "Sco": "Scorpius", "Scl": "Sculptor",
+    "Sct": "Scutum", "Ser": "Serpens", "Sex": "Sextans", "Tau": "Taurus",
+    "Tel": "Telescopium", "Tri": "Triangulum", "TrA": "Triangulum Australe",
+    "Tuc": "Tucana", "UMa": "Ursa Major", "UMi": "Ursa Minor", "Vel": "Vela",
+    "Vir": "Virgo", "Vol": "Volans", "Vul": "Vulpecula"
+  };
+
+  // --- Sternbildlinien & Interaktive Klick-Bereiche ---
   let constellationLinesMesh = null;
+  let constellationRanges = [];
+
   async function loadRealConstellations() {
     const linePositions = [];
+    constellationRanges = [];
 
     try {
       const res = await fetch("https://raw.githubusercontent.com/ofrohn/d3-celestial/master/data/constellations.lines.json");
@@ -228,12 +275,17 @@
         const geom = feature.geometry;
         if (!geom) return;
 
+        const rawName = feature.id || (feature.properties && feature.properties.name) || "";
+        const englishName = constellationNamesMap[rawName] || rawName || "Constellation";
+
         let paths = [];
         if (geom.type === "LineString") {
           paths = [geom.coordinates];
         } else if (geom.type === "MultiLineString") {
           paths = geom.coordinates;
         }
+
+        const startVertex = linePositions.length / 3;
 
         paths.forEach(path => {
           if (!Array.isArray(path) || path.length < 2) return;
@@ -256,6 +308,15 @@
             );
           }
         });
+
+        const endVertex = linePositions.length / 3;
+        if (endVertex > startVertex) {
+          constellationRanges.push({
+            name: englishName,
+            startVertex: startVertex,
+            endVertex: endVertex
+          });
+        }
       });
 
       buildConstellationMesh(linePositions);
@@ -295,32 +356,15 @@
       "Aquila": [[[297.7, 8.8], [296.2, 0.7]], [[296.2, 0.7], [289.3, -4.7]], [[296.2, 0.7], [302.8, -3.1]], [[297.7, 8.8], [290.7, 13.9]]],
       "Taurus": [[[68.9, 16.5], [67.1, 15.9]], [[68.9, 16.5], [84.4, 28.6]], [[67.1, 15.9], [79.2, 19.2]]],
       "Gemini": [[[116.4, 31.9], [113.6, 28.3]], [[113.6, 28.3], [99.3, 16.4]], [[116.4, 31.9], [107.6, 25.1]], [[107.6, 25.1], [95.7, 20.1]]],
-      "Leo": [[[152.1, 11.9], [155.5, 19.8]], [[155.5, 19.8], [153.4, 26.0]], [[153.4, 26.0], [146.5, 23.8]], [[146.5, 23.8], [147.9, 14.6]], [[147.9, 14.6], [152.1, 11.9]], [[152.1, 11.9], [175.9, 14.6]], [[175.9, 14.6], [177.3, 20.5]], [[177.3, 20.5], [168.5, 20.5]], [[168.5, 20.5], [155.5, 19.8]]],
-      "Pegasus": [[[346.1, 15.2], [345.9, 28.1]], [[345.9, 28.1], [2.1, 29.1]], [[2.1, 29.1], [0.2, 15.2]], [[0.2, 15.2], [346.1, 15.2]]],
-      "Andromeda": [[[2.1, 29.1], [17.4, 35.6]], [[17.4, 35.6], [30.9, 42.3]], [[17.4, 35.6], [14.1, 41.4]]],
-      "Perseus": [[[51.0, 49.9], [47.0, 40.9]], [[47.0, 40.9], [41.9, 38.8]], [[47.0, 40.9], [38.2, 42.6]], [[51.0, 49.9], [58.8, 47.8]], [[58.8, 47.8], [69.4, 48.6]]],
-      "Auriga": [[[79.2, 46.0], [74.8, 41.1]], [[74.8, 41.1], [68.9, 30.1]], [[68.9, 30.1], [84.4, 28.6]], [[84.4, 28.6], [88.6, 37.2]], [[88.6, 37.2], [79.2, 46.0]]],
-      "Bootes": [[[213.9, 19.2], [218.0, 27.1]], [[218.0, 27.1], [221.2, 40.4]], [[221.2, 40.4], [226.6, 38.3]], [[226.6, 38.3], [221.4, 33.3]], [[221.4, 33.3], [213.9, 19.2]], [[218.0, 27.1], [221.4, 33.3]]],
-      "Hercules": [[[247.0, 14.4], [257.2, 14.4]], [[257.2, 14.4], [260.6, 24.8]], [[260.6, 24.8], [250.4, 27.6]], [[250.4, 27.6], [247.0, 14.4]], [[260.6, 24.8], [262.6, 31.6]], [[250.4, 27.6], [244.4, 36.9]]],
-      "Scorpius": [[[247.4, -26.4], [241.7, -19.8]], [[241.7, -19.8], [239.6, -22.6]], [[247.4, -26.4], [253.5, -34.3]], [[253.5, -34.3], [258.6, -37.1]], [[258.6, -37.1], [264.4, -39.0]], [[264.4, -39.0], [268.2, -43.0]], [[268.2, -43.0], [263.4, -43.0]]],
-      "Sagittarius": [[[275.4, -29.9], [273.7, -21.0]], [[273.7, -21.0], [281.0, -26.9]], [[281.0, -26.9], [275.4, -29.9]], [[281.0, -26.9], [286.0, -21.1]], [[286.0, -21.1], [288.7, -26.3]], [[288.7, -26.3], [281.0, -26.9]]],
-      "Canis Major": [[[101.3, -16.7], [103.5, -23.9]], [[103.5, -23.9], [105.8, -28.9]], [[103.5, -23.9], [97.6, -17.9]], [[103.5, -23.9], [107.1, -20.3]]],
-      "Canis Minor": [[[114.8, 5.2], [111.8, 8.3]]],
-      "Cepheus": [[[325.9, 57.0], [338.2, 63.7]], [[338.2, 63.7], [321.4, 70.6]], [[321.4, 70.6], [352.2, 77.6]], [[352.2, 77.6], [325.9, 57.0]]],
-      "Corona Borealis": [[[233.7, 26.7], [231.2, 29.1]], [[231.2, 29.1], [235.6, 31.4]], [[235.6, 31.4], [238.9, 29.4]], [[238.9, 29.4], [241.8, 26.2]]],
-      "Virgo": [[[201.3, -11.2], [191.0, -1.4]], [[191.0, -1.4], [185.0, 3.4]], [[191.0, -1.4], [195.8, 10.9]], [[201.3, -11.2], [210.8, -0.7]], [[210.8, -0.7], [218.0, 1.7]]],
-      "Libra": [[[222.7, -16.0], [226.6, -9.4]], [[226.6, -9.4], [237.4, -14.8]], [[237.4, -14.8], [232.4, -25.2]], [[232.4, -25.2], [222.7, -16.0]]],
-      "Cancer": [[[130.1, 19.8], [127.8, 18.1]], [[127.8, 18.1], [124.6, 9.2]], [[127.8, 18.1], [133.8, 11.9]]],
-      "Aries": [[[31.7, 19.2], [28.3, 20.8]], [[28.3, 20.8], [29.5, 14.8]]],
-      "Pisces": [[[23.0, 7.6], [356.2, 5.1]], [[356.2, 5.1], [348.5, 7.1]], [[348.5, 7.1], [352.2, 15.3]], [[352.2, 15.3], [2.8, 15.4]]],
-      "Aquarius": [[[331.4, -0.3], [337.3, -7.8]], [[337.3, -7.8], [346.1, -13.8]], [[331.4, -0.3], [323.5, -9.1]]],
-      "Capricornus": [[[304.5, -12.5], [309.9, -17.8]], [[309.9, -17.8], [325.5, -14.8]], [[325.5, -14.8], [326.7, -9.1]], [[326.7, -9.1], [304.5, -12.5]]],
-      "Ophiuchus": [[[263.6, 12.6], [258.1, 2.7]], [[258.1, 2.7], [250.7, -4.6]], [[250.7, -4.6], [244.3, -15.7]], [[263.6, 12.6], [266.6, 2.7]], [[266.6, 2.7], [260.6, -10.4]]]
+      "Leo": [[[152.1, 11.9], [155.5, 19.8]], [[155.5, 19.8], [153.4, 26.0]], [[153.4, 26.0], [146.5, 23.8]], [[146.5, 23.8], [147.9, 14.6]], [[147.9, 14.6], [152.1, 11.9]], [[152.1, 11.9], [175.9, 14.6]], [[175.9, 14.6], [177.3, 20.5]], [[177.3, 20.5], [168.5, 20.5]], [[168.5, 20.5], [155.5, 19.8]]]
     };
 
     const linePositions = [];
+    constellationRanges = [];
 
-    Object.values(famousConstellations).forEach(lines => {
+    Object.entries(famousConstellations).forEach(([name, lines]) => {
+      const startVertex = linePositions.length / 3;
+
       lines.forEach(([p1, p2]) => {
         const r1 = p1[0] * (Math.PI / 180), d1 = p1[1] * (Math.PI / 180);
         const r2 = p2[0] * (Math.PI / 180), d2 = p2[1] * (Math.PI / 180);
@@ -330,9 +374,55 @@
           SPHERE_RADIUS * Math.cos(d2) * Math.cos(r2), SPHERE_RADIUS * Math.sin(d2), SPHERE_RADIUS * Math.cos(d2) * Math.sin(r2)
         );
       });
+
+      const endVertex = linePositions.length / 3;
+      if (endVertex > startVertex) {
+        constellationRanges.push({
+          name: name,
+          startVertex: startVertex,
+          endVertex: endVertex
+        });
+      }
     });
 
     buildConstellationMesh(linePositions);
+  }
+
+  // --- Popup-Anzeige für den englischen Namen ---
+  function showConstellationInfo(name) {
+    let popup = document.getElementById("sky-constellation-toast");
+    if (!popup) {
+      popup = document.createElement("div");
+      popup.id = "sky-constellation-toast";
+      popup.style.cssText = `
+        position: absolute;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(8, 26, 36, 0.92);
+        border: 1px solid #00d8ff;
+        box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+        color: #ffffff;
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: bold;
+        z-index: 100;
+        pointer-events: none;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      `;
+      container.appendChild(popup);
+    }
+
+    popup.textContent = `✨ Constellation: ${name}`;
+    popup.style.opacity = "1";
+    popup.style.transform = "translateX(-50%) translateY(0)";
+
+    clearTimeout(popup.timeout);
+    popup.timeout = setTimeout(() => {
+      popup.style.opacity = "0";
+      popup.style.transform = "translateX(-50%) translateY(-10px)";
+    }, 3200);
   }
 
   // --- Äquatorialnetz (Gitter) ---
@@ -477,14 +567,17 @@
   }
   createStellariumLandscape();
 
-  // --- Kamera- & Maussteuerung ---
+  // --- Kamera- & Maussteuerung sowie Klick-Erkennung ---
   let isDragging = false;
   let prevMouse = { x: 0, y: 0 };
+  let clickStartX = 0, clickStartY = 0;
   let lon = 185, lat = 18;
 
   container.addEventListener('mousedown', (e) => {
     isDragging = true;
     prevMouse = { x: e.clientX, y: e.clientY };
+    clickStartX = e.clientX;
+    clickStartY = e.clientY;
   });
 
   window.addEventListener('mouseup', () => isDragging = false);
@@ -494,12 +587,37 @@
     lon -= (e.clientX - prevMouse.x) * 0.15;
     lat = Math.max(3, Math.min(85, lat + (e.clientY - prevMouse.y) * 0.15));
     prevMouse = { x: e.clientX, y: e.clientY };
+  }, { passive: true });
+
+  container.addEventListener('click', (e) => {
+    const distMoved = Math.hypot(e.clientX - clickStartX, e.clientY - clickStartY);
+    if (distMoved > 6) return; // Nicht als Klick werten, wenn gedreht wurde
+
+    if (!constellationLinesMesh || !constellationLinesMesh.visible) return;
+
+    const rect = container.getBoundingClientRect();
+    const mouseX = ((e.clientX - rect.left) / container.clientWidth) * 2 - 1;
+    const mouseY = -((e.clientY - rect.top) / container.clientHeight) * 2 + 1;
+
+    const raycaster = new THREE.Raycaster();
+    raycaster.params.Line.threshold = 22; // Hohe Klick-Sensitivität
+    raycaster.setFromCamera(new THREE.Vector2(mouseX, mouseY), camera);
+
+    const intersects = raycaster.intersectObject(constellationLinesMesh);
+
+    if (intersects.length > 0) {
+      const hitIndex = intersects[0].index;
+      const found = constellationRanges.find(r => hitIndex >= r.startVertex && hitIndex < r.endVertex);
+      if (found) {
+        showConstellationInfo(found.name);
+      }
+    }
   });
 
   container.addEventListener('wheel', (e) => {
     camera.fov = Math.max(10, Math.min(80, camera.fov + e.deltaY * 0.04));
     camera.updateProjectionMatrix();
-  });
+  }, { passive: true });
 
   // --- Zeit- & Positionssimulation ---
   let currentLat = 49.27;
@@ -542,7 +660,6 @@
 
   window.addEventListener("resize", onWindowResize);
 
-  // Automatische Neu-Skalierung, wenn der Container sichtbar wird
   if (window.ResizeObserver) {
     const resizeObserver = new ResizeObserver(() => {
       if (container.clientWidth > 0 && container.clientHeight > 0) {
@@ -552,7 +669,6 @@
     resizeObserver.observe(container);
   }
 
-  // Event-Trigger beim Öffnen des Fensters
   const triggerResize = () => setTimeout(onWindowResize, 50);
   if (iconEl) iconEl.addEventListener("click", triggerResize);
   if (taskbarItem) taskbarItem.addEventListener("click", triggerResize);
