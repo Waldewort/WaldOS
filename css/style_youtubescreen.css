@@ -1,6 +1,6 @@
 #youtubescreen {
-    width: 1520px;
-    height: 1200px;
+    width: 1320px;
+    height: 1000px;
     flex-direction: column;
     background: rgba(18, 22, 28, 0.85);
     backdrop-filter: blur(16px);
@@ -132,8 +132,8 @@
     position: relative;
     width: 100%;
     aspect-ratio: 16/9;
-    min-height: 100%;
-    height: 100%;
+    min-height: calc(width * 9 / 16);
+    flex-shrink: 0;
     border-radius: 8px;
     overflow: hidden;
     border: 1px solid rgba(8, 155, 155, 0.3);
@@ -151,7 +151,7 @@
     z-index: 1;
 }
 
-.yt-logo:maximized {
+#yt-logo::maximized {
     width: 1920px;
     height: 1080px;
 }

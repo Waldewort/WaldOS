@@ -1,12 +1,12 @@
 #stargazerscreen.stellarium-style {
   width: 900px;
   height: 650px;
-  background: rgba(14, 18, 24, 0.88) !important;
+  background: rgba(14, 18, 24, 0.88);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(8, 155, 155, 0.35) !important;
-  border-radius: 12px !important;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(8, 155, 155, 0.2) !important;
+  border: 1px solid rgba(8, 155, 155, 0.35);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(8, 155, 155, 0.2);
   box-sizing: border-box;
   display: none;
   flex-direction: column;
@@ -14,28 +14,37 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-#sky-3d-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  min-height: 300px;
-  overflow: hidden;
+#stargazerscreen.maximized {
+  width: 100vw;
+  height: calc(100vh - 70px);
+  top: 0;
+  left: 0;
+  border-radius: 0;
 }
 
 .sky-container {
   padding: 0;
   height: 100%;
+  width: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .sky-canvas-wrapper {
   flex: 1;
+  min-height: 0;
   position: relative;
   width: 100%;
-  height: calc(100% - 32px);
   background: #020307;
+  overflow: hidden;
+}
+
+#sky-3d-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -53,13 +62,16 @@
   top: 12px;
   right: 12px;
   z-index: 20;
-  display: flex;
-  gap: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   background: rgba(10, 14, 22, 0.8);
   backdrop-filter: blur(12px);
   padding: 6px 10px;
   border-radius: 8px;
   border: 1px solid rgba(8, 155, 155, 0.35);
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .stellarium-icon-btn {
@@ -85,23 +97,23 @@
   box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
 }
 
-/* WaldOS Bottom-Bar & Formularfelder */
+/* WaldOS Bottom-Bar: Verankert als eigener Flex-Block am unteren Ende */
 .stellarium-bottom-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 32px;
-  background: rgba(10, 14, 22, 0.9);
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  height: 36px;
+  background: rgba(10, 14, 22, 0.95);
   backdrop-filter: blur(12px);
-  border-top: 1px solid rgba(8, 155, 155, 0.3);
+  border-top: 1px solid rgba(8, 155, 155, 0.35);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 12px;
   font-size: 11px;
   color: #b0bec5;
-  z-index: 20;
+  z-index: 30;
+  box-sizing: border-box;
 }
 
 .stellarium-left-info span {
@@ -115,7 +127,6 @@
   align-items: center;
 }
 
-/* Input & Select Custom-Design */
 .stellarium-right-controls input,
 .stellarium-right-controls select {
   background: rgba(18, 26, 36, 0.9) !important;
@@ -148,22 +159,12 @@
   cursor: pointer;
 }
 
-#stargazerscreen.maximized {
-  width: 100% !important;
-  height: calc(100vh - 70px) !important;
-  top: 0 !important;
-  left: 0 !important;
-  border-radius: 0 !important;
-}
-
-/* Container für die Ortssuche */
 .sky-location-search {
   display: inline-flex;
   align-items: center;
   gap: 8px;
 }
 
-/* Gemeinsames Styling für Input und Buttons */
 #sky-search-input,
 #sky-search-btn,
 #sky-geolocation-btn {
@@ -179,7 +180,6 @@
   transition: all 0.2s ease-in-out;
 }
 
-/* Eingabefeld */
 #sky-search-input {
   padding: 0 12px;
   width: 200px;
@@ -195,7 +195,6 @@
   box-shadow: 0 0 8px rgba(0, 216, 255, 0.4);
 }
 
-/* Buttons */
 #sky-search-btn,
 #sky-geolocation-btn {
   padding: 0 14px;
@@ -221,16 +220,6 @@
   background: rgba(0, 216, 255, 0.25);
 }
 
-/* Haupt-Container der Leiste */
-.stellarium-top-controls {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  overflow: hidden;
-  box-sizing: border-box;
-}
-
-/* Inhalts-Wrapper für sanfte Animation */
 .sky-controls-content {
   display: inline-flex;
   align-items: center;
@@ -244,14 +233,12 @@
   white-space: nowrap;
 }
 
-/* Pfeil-Button Ausrichtung & Rotation */
 #sky-toggle-controls-btn {
   flex-shrink: 0;
   cursor: pointer;
   transition: transform 0.3s ease, background 0.2s ease;
 }
 
-/* Status: Eingeklappt */
 .stellarium-top-controls.collapsed .sky-controls-content {
   max-width: 0;
   opacity: 0;
