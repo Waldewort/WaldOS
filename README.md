@@ -28,7 +28,7 @@ WaldOS© comes packed with 10 awesome applications! Here is every single app bro
 
 * **Rename Main Title**: Change the main title in the middle of the WebOS to whatever you want.
 
-### 2. 🌲 About WaldOS© (Dev Bio)
+### 2. 🌲 About WaldOS©
 
 > *“Meet the head behind the code!”*
 
@@ -46,7 +46,7 @@ WaldOS© comes packed with 10 awesome applications! Here is every single app bro
 
 * Practice notes, fingerings, and sheet music directly inside your browser window.
 
-### 4. 📝 Notes (Notizen)
+### 4. 📝 Notes
 
 > *“Jot down your 2 AM brilliant ideas before you forget them.”*
 
@@ -78,7 +78,7 @@ WaldOS© comes packed with 10 awesome applications! Here is every single app bro
 
 * Search for a fantastic video and watch it without opening another browser tab.
 
-### 8. 🗺️ Mapscreen (Waldlas)
+### 8. 🗺️ Waldlas
 
 > *“Never get lost in the digital wilderness.”*
 
@@ -94,7 +94,7 @@ WaldOS© comes packed with 10 awesome applications! Here is every single app bro
 
 * Great for quick math, calculating your graduation grades, or counting how many hours you spent coding!
 
-### 10. 🌌 WaldSky (Stargazer)
+### 10. 🌌 WaldSky
 
 > *“Watch the real stars flying over the sky!”*
 
