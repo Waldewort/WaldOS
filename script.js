@@ -1,3 +1,23 @@
+function saveUserGPS() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        var userGPS = {
+          lat: position.coords.latitude,
+          lon: position.coords.longitude
+        };
+        localStorage.setItem("userGPS", JSON.stringify(userGPS));
+      },
+      function (error) {
+        console.warn("Your Spaceship has no GPS: ", error.message);
+      },
+      { timeout: 10000 }
+    );
+  }
+}
+
+saveUserGPS();
+
 function updateTime() {
   var currentTime = new Date().toLocaleString();
   var timetext = document.querySelector("#time");
@@ -186,7 +206,7 @@ function openwindow(element, underline) {
         });
         
         mapResizeObserver.observe(mapElement);
-}
+      }
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         keepBuffer: 200,
@@ -229,7 +249,7 @@ function openwindow(element, underline) {
           <button id="save-pin-btn" class="map-popup-save-btn">Save the location to start the rocket!</button>
         `;
 
-        let popup = L.popup({ minWidth: 500, maxWidth: 600 })
+        let popup = L.popup({ minWidth: 100, maxWidth: 370 })
           .setLatLng(e.latlng)
           .setContent(popupContent)
           .openOn(osmMap);
@@ -269,28 +289,30 @@ function openwindow(element, underline) {
         };
       });
 
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          function (position) {
-            var userLat = position.coords.latitude;
-            var userLon = position.coords.longitude;
+      const savedLocation = sessionStorage.getItem("waldsky_location") || localStorage.getItem("userGPS");
+      let userLat = null;
+      let userLon = null;
 
-            osmMap.setView([userLat, userLon], 15);
+      if (savedLocation) {
+        try {
+          const coords = JSON.parse(savedLocation);
+          userLat = coords.lat;
+          userLon = coords.lon;
+        } catch (e) {
+          console.warn("Error parsing saved location:", e);
+        }
+      }
 
-            L.marker([defaultLat, defaultLon]).addTo(osmMap)
-              .bindPopup('WaldOS HQ 💻');
-            L.marker([userLat, userLon]).addTo(osmMap)
-              .bindPopup('🚀 Your current spaceship position')
-          },
-          function (error) {
-            console.warn("Your Spaceship has no GPS ", error.message);
-          },
-          { timeout: 10000 }
-        );
-      } else {
-        L.marker([defaultLat, defaultLon]).addTo(osmMap)
-          .bindPopup('WaldOS HQ 💻')
+      L.marker([defaultLat, defaultLon]).addTo(osmMap)
+        .bindPopup('WaldOS HQ 💻');
+
+      if (userLat && userLon) {
+        osmMap.setView([userLat, userLon], 15);
+        L.marker([userLat, userLon]).addTo(osmMap)
+          .bindPopup('🚀 Your current spaceship position')
           .openPopup();
+      } else {
+        osmMap.setView([defaultLat, defaultLon], 13);
       }
     }
 
@@ -299,7 +321,7 @@ function openwindow(element, underline) {
         osmMap.invalidateSize();
       }, 50);
     }
-}
+  }
 }
 
 function visible(element) { 
@@ -584,14 +606,12 @@ document.addEventListener("DOMContentLoaded", function() {
     var notesTextarea = document.querySelector("#notes-textarea");
 
     if (notesTextarea) {
-        // 1. Beim Laden der Seite: Gespeicherten Text aus dem Browser-Speicher holen
         var savedNotes = localStorage.getItem("waldos_notes");
         
         if (savedNotes !== null) {
             notesTextarea.value = savedNotes;
         }
 
-        // 2. Bei jeder Texteingabe: Sofort im Browser speichern
         notesTextarea.addEventListener("input", function() {
             localStorage.setItem("waldos_notes", notesTextarea.value);
         });
@@ -879,7 +899,6 @@ if (searchBtnSearchapp && searchInputSearchapp && resultsContainerSearchapp) {
 
 let osmMap = null;
 
-// Speicher für eigene Pins initialisieren
 let customPinsData = JSON.parse(localStorage.getItem('waldos_custom_pins')) || [];
 let customMarkers = [];
 
@@ -893,8 +912,8 @@ function renderCustomPins() {
     let emojiIcon = L.divIcon({
       className: 'custom-emoji-pin',
       html: `<div class="map-emoji-icon">${pinEmoji}</div>`,
-      iconSize: [32, 32],
-      iconAnchor: [16, 16]
+      iconSize: [40, 40],
+      iconAnchor: [24, 24]
     });
 
     let marker = L.marker([pin.lat, pin.lng], { icon: emojiIcon }).addTo(osmMap);
@@ -991,7 +1010,7 @@ async function geocodeAddress(query) {
   if (data && data.length > 0) {
     return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
   }
-  throw new Error(`Ort nicht gefunden: "${query}". Bitte eine reale Adresse eingeben.`);
+  throw new Error(`No result found for address: "${query}". Please only addresses on earth.`);
 }
 
 async function calculateCarRoute() {
@@ -999,7 +1018,7 @@ async function calculateCarRoute() {
   let endInput = document.getElementById('route-end').value.trim();
 
   if (!startInput || !endInput) {
-    alert("Bitte geben Sie sowohl einen Start- als auch einen Zielort ein.");
+    alert("You need a begin and an end address.");
     return;
   }
 
@@ -1018,7 +1037,6 @@ async function calculateCarRoute() {
       let route = routeData.routes[0];
       let routeGeoJSON = route.geometry;
 
-      // Umrechnung von Meter in KM und Sekunden in Std/Min
       let distanceKm = (route.distance / 1000).toFixed(1);
       let distanceMiles = (route.distance / 1609.34).toFixed(1);
       let totalMinutes = Math.round(route.duration / 60);
@@ -1027,7 +1045,6 @@ async function calculateCarRoute() {
 
       let durationText = hours > 0 ? `${hours} Std. ${minutes} Min.` : `${minutes} Min.`;
 
-      // Werte in der UI anzeigen
       document.getElementById('route-distance').innerText = `${distanceKm} km`;
       document.getElementById('route-distance-miles').innerText = `${distanceMiles} mi`;
       document.getElementById('route-duration').innerText = durationText;
@@ -1043,7 +1060,7 @@ async function calculateCarRoute() {
 
       osmMap.fitBounds(currentRouteLayer.getBounds(), { padding: [50, 50] });
     } else {
-      alert("Es konnte keine Straßenverbindung zwischen diesen Orten gefunden werden.");
+      alert("Your rocket is too big for this route.");
     }
   } catch (error) {
     alert(error.message || "Fehler bei der Routenberechnung.");
@@ -1062,7 +1079,7 @@ function clearCarRoute() {
 }
 
 
-// Hilfsfunktionen für Farbumwandlungen und Weichzeichnung (Lerp)
+// Starbackground
 function hexToRgb(hex) {
   let c = hex.replace('#', '');
   if (c.length === 3) c = c.split('').map(x => x + x).join('');
@@ -1296,7 +1313,6 @@ function applyPreset(presetKey) {
   if (inputTitle && p.titleText) inputTitle.value = p.titleText;
 }
 
-// Hauptinitialisierung
 document.addEventListener("DOMContentLoaded", function () {
   const canvas = document.getElementById("starfield");
   if (!canvas) return;
@@ -1312,7 +1328,6 @@ document.addEventListener("DOMContentLoaded", function () {
     height = canvas.height = window.innerHeight;
   }
 
-  // Korrigiertes Resize-Event: Verteilt die Sterne proportional neu
   window.addEventListener("resize", () => {
     const prevWidth = width;
     const prevHeight = height;
