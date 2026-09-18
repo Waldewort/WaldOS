@@ -35,8 +35,8 @@
   position: fixed;
   bottom: 80px;
   right: 20px;
-  top: auto !important;
-  left: auto !important;
+  top: auto;
+  left: auto;
   z-index: 9999;
 }
 .settings-container {
@@ -65,7 +65,6 @@
   color: #38bdf8;
 }
 
-/* Regler (Range Sliders) */
 .setting-group input[type="range"] {
   appearance: none;
   -webkit-appearance: none;
@@ -93,7 +92,6 @@
   background: #0dbaba;
 }
 
-/* Farbwähler */
 .setting-group-row {
   display: flex;
   justify-content: space-between;

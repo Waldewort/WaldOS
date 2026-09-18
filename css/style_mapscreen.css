@@ -339,12 +339,12 @@
 
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
-    background: rgba(18, 22, 28, 0.95) !important;
-    color: #ffffff !important;
+    background: rgba(18, 22, 28, 0.95);
+    color: #ffffff;
     border: 1px solid rgba(8, 155, 155, 0.4);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(8px);
-    width: 422px !important;
+    width: fit-content;
 }
 
 .map-popup-content {
@@ -403,4 +403,36 @@
 .map-popup-save-btn:hover {
     background: #00bcd4;
     box-shadow: 0 0 10px rgba(8, 155, 155, 0.4);
+}
+
+.map-emoji-icon {
+    font-size: 25px;
+    line-height: 1;
+    text-align: center;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.7));
+}
+
+/* Styling für den Delete-Button im Popup */
+.map-pin-popup-container button,
+.map-popup-delete-btn {
+    background: rgba(220, 53, 69, 0.15);
+    color: #ff6b6b;
+    border: 1px solid rgba(220, 53, 69, 0.4);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    margin-top: 4px;
+    align-self: flex-start;
+}
+
+/* Hover-Effekt */
+.map-pin-popup-container button:hover,
+.map-popup-delete-btn:hover {
+    background: #dc3545;
+    color: #ffffff;
+    border-color: #dc3545;
+    box-shadow: 0 0 10px rgba(220, 53, 69, 0.5);
 }

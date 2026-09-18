@@ -1,10 +1,9 @@
-/* Hauptfenster - Identisch zum WaldOS Screen (Background, Border & Blur) */
 #calculatorscreen.calc-window {
   width: 320px;
-  background: rgba(18, 22, 28, 0.85) !important;
-  border: 1px solid rgba(0, 243, 255, 0.18) !important;
+  background: rgba(18, 22, 28, 0.85);
+  border: 1px solid rgba(0, 243, 255, 0.18);
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65), 0 0 20px rgba(0, 243, 255, 0.08) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65), 0 0 20px rgba(0, 243, 255, 0.08);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   box-sizing: border-box;
@@ -16,9 +15,9 @@
 }
 
 button.calc-mode-toggle {
-  background: rgba(0, 243, 255, 0.1) !important;
-  border: 1px solid rgba(0, 243, 255, 0.3) !important;
-  color: #00f3ff !important;
+  background: rgba(0, 243, 255, 0.1);
+  border: 1px solid rgba(0, 243, 255, 0.3);
+  color: #00f3ff;
   border-radius: 20px;
   padding: 3px 10px;
   font-size: 11px;
@@ -29,12 +28,11 @@ button.calc-mode-toggle {
 }
 
 button.calc-mode-toggle:hover {
-  background: rgba(0, 243, 255, 0.2) !important;
-  border-color: rgba(0, 243, 255, 0.5) !important;
+  background: rgba(0, 243, 255, 0.2);
+  border-color: rgba(0, 243, 255, 0.5);
   box-shadow: 0 0 10px rgba(0, 243, 255, 0.25);
 }
 
-/* Display Container im Stil der WaldOS Info-Karten (CURRENT TIME / FAVORITE GAME) */
 .calc-container {
   padding: 14px;
   display: flex;
@@ -59,21 +57,20 @@ button.calc-mode-toggle:hover {
 }
 
 input.calc-input {
-  width: 100% !important;
-  background: transparent !important;
-  border: none !important;
-  color: #f1f5f9 !important;
-  font-size: 26px !important;
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #f1f5f9;
+  font-size: 26px;
   font-weight: 600;
   text-align: right;
-  outline: none !important;
+  outline: none;
   font-family: monospace;
-  padding: 0 !important;
-  margin: 2px 0 0 0 !important;
-  box-shadow: none !important;
+  padding: 0;
+  margin: 2px 0 0 0;
+  box-shadow: none;
 }
 
-/* Grid-Layout */
 .calc-body {
   display: flex;
   gap: 10px;
@@ -99,7 +96,6 @@ input.calc-input {
   flex: 1;
 }
 
-/* Tasten im WaldOS Karten-Design */
 button.calc-btn {
   appearance: none;
   -webkit-appearance: none;
@@ -131,7 +127,6 @@ button.calc-btn:active {
   transform: scale(0.96);
 }
 
-/* Operatoren (+, -, ×, ÷, %) */
 button.calc-btn.btn-op {
   background: rgba(0, 243, 255, 0.08);
   border-color: rgba(0, 243, 255, 0.22);
@@ -143,7 +138,6 @@ button.calc-btn.btn-op:hover {
   border-color: rgba(0, 243, 255, 0.4);
 }
 
-/* Clear-Tasten (C / ⌫) */
 button.calc-btn.btn-clear {
   background: rgba(239, 68, 68, 0.1);
   border-color: rgba(239, 68, 68, 0.25);
@@ -155,7 +149,6 @@ button.calc-btn.btn-clear:hover {
   border-color: rgba(239, 68, 68, 0.4);
 }
 
-/* Gleich-Taste im Stil der Haupt-Aktionsbuttons */
 button.calc-btn.btn-equals {
   background: #00c9b7;
   border: none;
