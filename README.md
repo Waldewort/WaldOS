@@ -103,8 +103,7 @@ WaldOS© comes packed with 10 awesome applications! Here is every single app bro
 * **Time & Location Picker**: Set custom coordinates (e.g., Earth N50.11°, E8.68°), FOV, FPS counter, and UTC timestamp.
 
 * **Time Speedup**: Scrub time at 1x, 100x, 1000x, or 10000x speed!
-
-* **Stargazing with your Crush**: You can set a time and place so you know where to look with your Crush during the night to see Ursa Minor *(Just joking, we are coders, not touching grass (or girls 😜(just joking again😂)) 😢)*.
+  
 
 ## 🎨 Visuals & Features
 
