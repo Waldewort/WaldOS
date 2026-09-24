@@ -11,13 +11,6 @@
     overflow: hidden;
 }
 
-.window-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: #089b9b;
-    letter-spacing: 0.5px;
-}
-
 .about-container {
     display: flex;
     padding: 20px;

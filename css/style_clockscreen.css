@@ -1,0 +1,246 @@
+.clock-window {
+  width: 480px;
+  background: rgba(14, 18, 24, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 229, 255, 0.25);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 229, 255, 0.15);
+  color: #ffffff;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.clock-container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.clock-nav {
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.clock-tab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #8a99ad;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clock-tab-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.clock-tab-btn.active {
+  background: rgba(0, 229, 255, 0.2);
+  color: #00e5ff;
+  border: 1px solid rgba(0, 229, 255, 0.4);
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
+}
+
+.clock-tab-content {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.clock-tab-content.active {
+  display: flex;
+}
+
+/* Large Clock Display */
+.main-clock-card {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 16px;
+  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.clock-location-title {
+  font-size: 12px;
+  color: #00e5ff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.time-display-large {
+  font-size: 42px;
+  font-weight: 700;
+  font-family: monospace;
+  color: #ffffff;
+  text-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
+  margin: 6px 0;
+}
+
+.date-display {
+  font-size: 13px;
+  color: #a0aec0;
+}
+
+/* World Cities Grid */
+.world-cities-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+
+.city-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 10px 12px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.city-name {
+  font-size: 12px;
+  color: #d1d5db;
+}
+
+.city-time {
+  font-size: 18px;
+  font-weight: bold;
+  font-family: monospace;
+  color: #00e5ff;
+}
+
+.city-diff {
+  font-size: 10px;
+  color: #6b7280;
+}
+
+/* Buttons */
+.clock-btn-group {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  justify-content: center;
+}
+
+.clock-btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 13px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  min-width: 90px;
+}
+
+.btn-start {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.btn-start:hover {
+  background: #10b981;
+  color: #000;
+  box-shadow: 0 0 12px #10b981;
+}
+
+.btn-stop {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.btn-stop:hover {
+  background: #ef4444;
+  color: #fff;
+  box-shadow: 0 0 12px #ef4444;
+}
+
+.btn-lap, .btn-reset {
+  background: rgba(255, 255, 255, 0.08);
+  color: #d1d5db;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-lap:hover:not(:disabled), .btn-reset:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.clock-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Laps List */
+.laps-container {
+  width: 100%;
+  max-height: 120px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lap-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: monospace;
+}
+
+/* Timer Input */
+.timer-inputs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.input-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.input-unit input {
+  width: 60px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  color: #00e5ff;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 6px;
+  padding: 6px;
+  font-family: monospace;
+}
+
+.input-unit label {
+  font-size: 10px;
+  color: #8a99ad;
+}
+
+.timer-colon {
+  font-size: 24px;
+  font-weight: bold;
+  color: #00e5ff;
+}

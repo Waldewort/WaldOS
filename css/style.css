@@ -15,30 +15,6 @@ body {
     overflow: hidden;
 }
 
-.title {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 48px;
-    color: rgb(255, 255, 255);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    font-family: Arial;
-    user-select: none;
-}
-
-.subtitle {
-    position: absolute;
-    top: 54%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 12px;
-    color: rgb(255, 255, 255);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    font-family: Arial;
-    user-select: none;
-}
-
 .window-title {
     font-size: 13px;
     font-weight: 600;
@@ -196,6 +172,7 @@ button, .unselected, .selected, .close-button, .window-header {
     overflow: hidden;
     overflow-y: hidden;
     margin: 0px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(8, 155, 155, 0.2);
 }
 
 .unselected, .selected {
@@ -278,6 +255,18 @@ button, .unselected, .selected, .close-button, .window-header {
     border-radius: 0px;
     box-sizing: border-box;
 }
+
+.window.fullscreen {
+    position: fixed;
+    width: 100%;
+    height: calc(100% - 0px);
+    top: 0;
+    left: 0;
+    transform: none;
+    border-radius: 0px;
+    box-sizing: border-box;
+}
+
 .maximize-button {
     display: block;
     cursor: pointer;
@@ -394,4 +383,87 @@ button, .unselected, .selected, .close-button, .window-header {
 #custom-presets-container button:last-child:hover {
   background: rgba(255, 77, 77, 0.25);
   color: #ff6b6b;
+}
+
+#intro-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    perspective: 1000px;
+    z-index: 0;
+}
+
+.title {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    font-size: 56px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 2px 2px 8px rgba(0, 0, 0, 0.8);
+    font-family: Arial, sans-serif;
+    user-select: none;
+    text-align: center;
+    margin: 0 0 12px 0; /* Erzeugt Abstand zum Subtitel darunter */
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+.subtitle {
+    position: relative ;
+    top: auto;
+    left: auto;
+    transform: none;
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: rgb(255, 255, 255);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 2px 2px 8px rgba(0, 0, 0, 0.8);
+    font-family: Arial, sans-serif;
+    user-select: none;
+    text-align: center;
+    margin: 0;
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+/* Fly-In Animation */
+.fly-in {
+    animation: flyInAccelerate 1.8s cubic-bezier(0.7, 0, 1, 0.5) forwards;
+}
+
+@keyframes flyInAccelerate {
+    0% {
+        opacity: 0;
+        transform: translateZ(-3000px) scale(0.05);
+    }
+    30% {
+        opacity: 1;
+    }
+    90% {
+        transform: translateZ(50px) scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: translateZ(0) scale(1);
+    }
+}
+
+.screen-shake {
+    animation: shake 0.25s ease-out;
+}
+
+@keyframes shake {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-5px, 5px); }
+    50% { transform: translate(5px, -5px); }
+    75% { transform: translate(-3px, 3px); }
+    100% { transform: translate(0, 0); }
 }

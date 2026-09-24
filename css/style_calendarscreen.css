@@ -21,6 +21,7 @@
     padding: 10px 16px;
     background: rgba(255, 255, 255, 0.03);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    cursor: pointer;
 }
 .calendarscreencontent {
     padding: 16px;
@@ -53,7 +54,6 @@
     gap: 8px;
 }
 
-/* Formularfelder */
 .calendar-date-input,
 .calendar-time-input,
 .calendar-text-input {
@@ -82,7 +82,6 @@
     background: rgba(10, 14, 20, 0.9);
 }
 
-/* Absende-Button */
 #calendar-add-button {
     background: #089b9b;
     color: #ffffff;
@@ -108,7 +107,6 @@
     transform: translateY(0);
 }
 
-/* Termin-Liste Container */
 .calendar-container {
     display: flex;
     flex-direction: column;
@@ -130,7 +128,6 @@
     gap: 8px;
 }
 
-/* Dynamisch erzeugte Eintrags-Karten (sofern per JS eingefügt) */
 .calendar-list > div,
 .calendar-item {
     background: rgba(255, 255, 255, 0.03);
@@ -196,7 +193,6 @@
     font-size: 11px;
 }
 
-/* Löschen-Button */
 .calendar-delete-btn {
     background: transparent;
     border: none;
