@@ -1368,7 +1368,7 @@ function updateStarsArray(targetCount) {
   while (stars.length < targetCount) {
     if (isIntroActive) {
       let angle = Math.random() * Math.PI * 2;
-      let initialRadius = Math.random() * 670;
+      let initialRadius = Math.random() * 470;
       let speed = Math.random() * 10 + 4; 
 
       stars.push({
@@ -1476,7 +1476,6 @@ document.addEventListener("DOMContentLoaded", function () {
     height = canvas.height = window.innerHeight;
   }
 
-  // Überwachung des Vollbildmodus
   document.addEventListener("fullscreenchange", () => {
     if (document.fullscreenElement) {
       introTime = 0;
@@ -1484,9 +1483,9 @@ document.addEventListener("DOMContentLoaded", function () {
       screenShakeTriggered = false;
       isstarted = true;
       lastTime = performance.now();
-      updateStarsArray(numStars); // Startet das Intro sauber neu
+      updateStarsArray(numStars);
     } else {
-      isstarted = false; // Pausiert die Sternen-Animation beim Verlassen
+      isstarted = false;
     }
   });
 
@@ -1678,7 +1677,6 @@ document.addEventListener("DOMContentLoaded", function () {
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, width, height);
 
-    // Stop, falls Fullscreen nicht gestartet ist
     if (!isstarted) {
       return;
     }
@@ -1686,7 +1684,6 @@ document.addEventListener("DOMContentLoaded", function () {
     introTime += deltaTime;
     const deltaFactor = deltaTime * 60;
 
-    // Startet die Einflieganimation genau 1.8 Sekunden vor Phase 2 (bei Sekunde 4.2), damit der Titel bei 6.0 Sekunden vorne ankommt
     if (introTime >= 4.33 && !titleFlyInTriggered) {
       titleFlyInTriggered = true;
       triggerTitleFlyIn();
