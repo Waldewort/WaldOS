@@ -401,9 +401,9 @@ button, .unselected, .selected, .close-button, .window-header {
 }
 
 .title {
-    position: relative;
-    top: auto;
-    left: auto;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
     transform: none;
     font-size: 56px;
     font-weight: bold;
@@ -412,13 +412,13 @@ button, .unselected, .selected, .close-button, .window-header {
     font-family: Arial, sans-serif;
     user-select: none;
     text-align: center;
-    margin: 0 0 12px 0; /* Erzeugt Abstand zum Subtitel darunter */
+    margin: 0 0 12px 0;
     opacity: 0;
     will-change: transform, opacity;
 }
 
 .subtitle {
-    position: relative ;
+    position: relative;
     top: auto;
     left: auto;
     transform: none;
@@ -434,7 +434,6 @@ button, .unselected, .selected, .close-button, .window-header {
     will-change: transform, opacity;
 }
 
-/* Fly-In Animation */
 .fly-in {
     animation: flyInAccelerate 1.8s cubic-bezier(0.7, 0, 1, 0.5) forwards;
 }
