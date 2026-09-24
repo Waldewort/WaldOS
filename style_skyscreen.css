@@ -1,0 +1,249 @@
+#stargazerscreen.stellarium-style {
+  width: 900px;
+  height: 650px;
+  background: rgba(14, 18, 24, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(8, 155, 155, 0.35);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(8, 155, 155, 0.2);
+  box-sizing: border-box;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+#stargazerscreen.maximized {
+  width: 100vw;
+  height: calc(100vh - 70px);
+  top: 0;
+  left: 0;
+  border-radius: 0;
+}
+
+.sky-container {
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sky-canvas-wrapper {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  width: 100%;
+  background: #020307;
+  overflow: hidden;
+}
+
+#sky-3d-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.sky-canvas-wrapper canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.stellarium-top-controls {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(10, 14, 22, 0.8);
+  backdrop-filter: blur(12px);
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(8, 155, 155, 0.35);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.stellarium-icon-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: #8fa3ad;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.stellarium-icon-btn:hover {
+  color: #ffffff;
+  background: rgba(8, 155, 155, 0.2);
+}
+
+.stellarium-icon-btn.active {
+  color: #00f3ff;
+  border-color: rgba(0, 243, 255, 0.4);
+  background: rgba(8, 155, 155, 0.25);
+  box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+}
+
+.stellarium-bottom-bar {
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  height: 36px;
+  background: rgba(10, 14, 22, 0.95);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(8, 155, 155, 0.35);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 11px;
+  color: #b0bec5;
+  z-index: 30;
+  box-sizing: border-box;
+}
+
+.stellarium-left-info span {
+  color: #00f3ff;
+  font-weight: 500;
+}
+
+.stellarium-right-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.stellarium-right-controls input,
+.stellarium-right-controls select {
+  background: rgba(18, 26, 36, 0.9) ;
+  border: 1px solid rgba(8, 155, 155, 0.4);
+  color: #e0f7fa ;
+  font-size: 11px;
+  border-radius: 5px;
+  padding: 3px 8px;
+  outline: none;
+  transition: all 0.2s ease;
+  color-scheme: dark;
+}
+
+.stellarium-right-controls input:hover,
+.stellarium-right-controls select:hover,
+.stellarium-right-controls input:focus,
+.stellarium-right-controls select:focus {
+  border-color: #00f3ff;
+  box-shadow: 0 0 6px rgba(0, 243, 255, 0.3);
+}
+
+.stellarium-right-controls select option {
+  background-color: #0e141d;
+  color: #e0f7fa;
+  padding: 4px;
+}
+
+.stellarium-right-controls input::-webkit-calendar-picker-indicator {
+  filter: invert(0.8) sepia(1) saturate(5) hue-rotate(140deg);
+  cursor: pointer;
+}
+
+.sky-location-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#sky-search-input,
+#sky-search-btn,
+#sky-geolocation-btn {
+  height: 38px;
+  background: rgba(8, 26, 33, 0.85);
+  border: 1px solid #00d8ff;
+  border-radius: 8px;
+  color: #00d8ff;
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+}
+
+#sky-search-input {
+  padding: 0 12px;
+  width: 200px;
+  color: #e0f7fc;
+}
+
+#sky-search-input::placeholder {
+  color: #4a7585;
+}
+
+#sky-search-input:focus {
+  border-color: #55efff;
+  box-shadow: 0 0 8px rgba(0, 216, 255, 0.4);
+}
+
+#sky-search-btn,
+#sky-geolocation-btn {
+  padding: 0 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+#sky-search-btn:hover,
+#sky-geolocation-btn:hover {
+  background: rgba(0, 216, 255, 0.15);
+  border-color: #55efff;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 216, 255, 0.35);
+}
+
+#sky-search-btn:active,
+#sky-geolocation-btn:active {
+  transform: scale(0.96);
+  background: rgba(0, 216, 255, 0.25);
+}
+
+.sky-controls-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 800px;
+  opacity: 1;
+  transform: translateX(0);
+  transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.25s ease,
+              transform 0.3s ease;
+  white-space: nowrap;
+}
+
+#sky-toggle-controls-btn {
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.2s ease;
+}
+
+.stellarium-top-controls.collapsed .sky-controls-content {
+  max-width: 0;
+  opacity: 0;
+  transform: translateX(-15px);
+  pointer-events: none;
+}
+
+.stellarium-top-controls.collapsed #sky-toggle-controls-btn {
+  transform: rotate(180deg);
+}

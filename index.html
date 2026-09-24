@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" style="border-radius: 50px;">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="icon" type="image/png" href="icons/favicon.png">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <title>WaldOS&copy;</title>
   </head>
   <body>
-    <h1 class="title" id="main-title">WaldOS&copy; 2.0</h1>
-    <h2 class="subtitle" id="subtitle">The WaldOS&copy; Experience by Waldewort</h2>
+    <div id="intro-container">
+      <h1 class="title" id="main-title">WaldOS&copy; 2.0</h1>
+      <h2 class="subtitle" id="subtitle">The WaldOS&copy; Experience by Waldewort</h2>
+    </div>
     <canvas id="starfield"></canvas>
     
     <!--Maximieren-->
@@ -27,7 +30,11 @@
         <!-- Notizen App-Aufruf-->
         <div id="notes" class="unselected">
           <img id="opennotescreen" src="icons/notizen.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
-        </div> 
+        </div>
+        <!-- Uhr App-Aufruf--> 
+        <div id="clock" class="unselected">
+          <img id="openclockscreen" src="icons/clock.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+        </div>
         <!-- Trompeten App-Aufruf -->
         <div id="trumpet" class="unselected">
           <img id="opentrumpetscreen" src="icons/trumpet.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
@@ -56,7 +63,16 @@
         <div id="stargazer" class="unselected">
           <img id="openstargazerscreen" src="icons/stargazer.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
         </div>
+        <!--WaldAI App-Aufruf-->
+        <div id="waldai" class="unselected">
+          <img id="openwaldaiscreen" src="icons/waldai.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+        </div>
+        <!--Autospiel App-Aufruf-->
+        <div id="racer" class="unselected">
+          <img id="openracerscreen" src="icons/waldracer.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+        </div>
       </div>
+
 
       <!-- Informationen-->
       <div class="information">
@@ -384,7 +400,7 @@
       <!-- Fenster-Inhalt -->
       <div class="youtube-app">
         <div class="yt-search-bar">
-          <input type="text" id="yt-search-input" class="yt-search-input" placeholder="Search to start the W(ald)wormhole...">
+          <input type="text" id="yt-search-input" class="yt-search-input" placeholder="Search to start the W(ald)ormhole...">
           <button id="yt-search-btn" class="yt-search-btn">Start the Engines</button>
         </div>
         
@@ -577,12 +593,147 @@
             </div>
           </div>
         </div>
+    </div>
+
+    <!-- WaldAI-Screen -->
+    <div class="window ai-window" id="aiscreen">
+      <div class="window-header" id="aiscreenheader">
+        <div class="window-title">
+          <span class="window-icon">🤖</span> WaldAI
+        </div>
+        <div class="window-controls">
+           <svg class="maximize-button" id="maximizeaiscreen" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="4.5" y="4.5" width="14" height="14" rx="1" ry="1"/>
+            </svg>
+          <button class="close-button" id="closeaiscreen" type="button">✕</button>
+        </div>
+      </div>
+
+      <!-- Fenster-Inhalt -->
+      <div class="ai-container">
+        <div id="ai-chat-messages" class="ai-chat-messages">
+          <div class="ai-msg bot">Hello! I am WaldAI. Are you lost in the W(ald)ormhole? Just ask me how to repair your spaceship! </div>
+        </div>
+        <div class="ai-input-bar">
+          <input type="text" id="ai-input" class="ai-input" placeholder="Ask the WaldAI anything...">
+          <button id="ai-send-btn" class="ai-send-btn">Send 🚀</button>
+        </div>
+      </div>
+    </div>  
+
+    <!-- Clock-Screen-->
+    <div class="window clock-window" id="clockscreen">
+      <div class="window-header" id="clockscreenheader">
+        <div class="window-title">
+          <span class="window-icon">⏰</span> Waldclock 
+        </div>
+        <div class="window-controls">
+          <svg class="maximize-button" id="maximizeclockscreen" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4.5" y="4.5" width="14" height="14" rx="1" ry="1"/>
+          </svg>
+          <button class="close-button" id="closeclockscreen">✕</button>
+        </div>
+      </div>
+
+      <!-- Clock App Content -->
+      <div class="clock-container">
+        <!-- Navigation Tabs -->
+        <div class="clock-nav">
+          <button class="clock-tab-btn active" data-tab="world-clock">🌐 World Clock</button>
+          <button class="clock-tab-btn" data-tab="stopwatch">⏱️ Stopwatch</button>
+          <button class="clock-tab-btn" data-tab="timer">⏳ Timer</button>
+        </div>
+
+        <div class="clock-tab-content active" id="tab-world-clock">
+          <div class="main-clock-card">
+            <span class="clock-location-title">Local Time</span>
+            <div class="time-display-large" id="local-clock-display">00:00:00</div>
+            <div class="date-display" id="local-date-display">Monday, September 21, 2026</div>
+          </div>
+
+          <div class="world-cities-grid">
+            <div class="city-card">
+              <span class="city-name"> New York</span>
+              <span class="city-time" id="city-ny">00:00:00</span>
+              <span class="city-diff">EDT (UTC-4)</span>
+            </div>
+            <div class="city-card">
+              <span class="city-name"> London</span>
+              <span class="city-time" id="city-london">00:00:00</span>
+              <span class="city-diff">BST (UTC+1)</span>
+            </div>
+            <div class="city-card">
+              <span class="city-name"> Tokyo</span>
+              <span class="city-time" id="city-tokyo">00:00:00</span>
+              <span class="city-diff">JST (UTC+9)</span>
+            </div>
+            <div class="city-card">
+              <span class="city-name"> Sydney</span>
+              <span class="city-time" id="city-sydney">00:00:00</span>
+              <span class="city-diff">AEST (UTC+10)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Stopwatch -->
+        <div class="clock-tab-content" id="tab-stopwatch">
+          <div class="time-display-large" id="stopwatch-display">00:00.00</div>
+          <div class="clock-btn-group">
+            <button class="clock-btn btn-start" id="sw-start-btn">Start</button>
+            <button class="clock-btn btn-lap" id="sw-lap-btn" disabled>Lap</button>
+            <button class="clock-btn btn-reset" id="sw-reset-btn">Reset</button>
+          </div>
+          <div class="laps-container" id="sw-laps-list"></div>
+        </div>
+
+        <!-- Tab 3: Timer -->
+        <div class="clock-tab-content" id="tab-timer">
+          <div class="time-display-large" id="timer-display">05:00</div>
+          
+          <div class="timer-inputs" id="timer-inputs-wrapper">
+            <div class="input-unit">
+              <input type="number" id="timer-min" min="0" max="99" value="5">
+              <label>MIN</label>
+            </div>
+            <span class="timer-colon">:</span>
+            <div class="input-unit">
+              <input type="number" id="timer-sec" min="0" max="59" value="00">
+              <label>SEC</label>
+            </div>
+          </div>
+
+          <div class="clock-btn-group">
+            <button class="clock-btn btn-start" id="timer-start-btn">Start</button>
+            <button class="clock-btn btn-reset" id="timer-reset-btn">Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Waldracer-Screen -->
+    <div class="window racer-window" id="racerscreen">
+      <div class="window-header" id="clockscreenheader">
+        <div class="window-title">
+          <span class="window-icon">🏎</span> Waldracer
+        </div>
+        <div class="window-controls">
+          <svg class="maximize-button" id="maximizeracerscreen" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4.5" y="4.5" width="14" height="14" rx="1" ry="1"/>
+          </svg>
+          <button class="close-button" id="closeracerscreen">✕</button>
+        </div>
+      </div>
+
+      <div class="racer-container">
+        <iframe src="https://slowroads.io/#A3-4532954b@1" class="racer-iframe"></iframe>
       </div>
     </div>
 
 
+
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/style_WaldOS.css">
     <link rel="stylesheet" type="text/css" href="css/style_trumpetscreen.css">
@@ -594,6 +745,9 @@
     <link rel="stylesheet" type="text/css" href="css/style_mapscreen.css"> 
     <link rel="stylesheet" type="text/css" href="css/style_settings.css">
     <link rel="stylesheet" type="text/css" href="css/style_skyscreen.css">
+    <link rel="stylesheet" type="text/css" href="css/style_waldai.css">
+    <link rel="stylesheet" type="text/css" href="css/style_clockscreen.css">
+    <link rel="stylesheet" type="text/css" href="css/style_racerscreen.css">
     <script src="js/script_stargazer.js"></script>
   </body>
 

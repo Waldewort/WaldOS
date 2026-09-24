@@ -32,6 +32,9 @@ dragElement(document.getElementById("youtubescreen"));
 dragElement(document.getElementById("wikipediascreen"));
 dragElement(document.getElementById("mapscreen"));
 dragElement(document.getElementById("stargazerscreen"));
+dragElement(document.getElementById("aiscreen"));
+dragElement(document.getElementById("clockscreen"));
+dragElement(document.getElementById("racerscreen"));
 
 
 const fullscreenBtn = document.getElementById("fullscreen-btn-WaldOS");
@@ -65,6 +68,9 @@ document.addEventListener("fullscreenchange", () => {
         { element: settingscreen, underline: settings },
         { element: calculatorscreen, underline: calculator },
         { element: Stargazerscreen, underline: stargazer },
+        { element: aiscreen, underline: waldai },
+        { element: clockscreen, underline: clock },
+        { element: waldracer, underline: racer },
       ];
 
       windowMappings.forEach(item => {
@@ -91,7 +97,6 @@ function dragElement(element) {
     e.preventDefault();
 
     element.style.transform = "none";
-    // Step 7: Get the mouse cursor position at startup.
     initialX = e.clientX;
     initialY = e.clientY;
   
@@ -138,6 +143,9 @@ var mapscreen = document.querySelector("#mapscreen");
 var settingscreen = document.querySelector("#settingscreen");
 var calculatorscreen = document.querySelector("#calculatorscreen");
 var Stargazerscreen = document.querySelector("#stargazerscreen");
+var aiscreen = document.querySelector("#aiscreen");
+var clockscreen = document.querySelector("#clockscreen");
+var waldracer = document.querySelector("#waldracer");
 
 var welcome = document.querySelector("#welcome");
 var trumpet = document.querySelector("#trumpet");
@@ -148,6 +156,9 @@ var map = document.querySelector("#map");
 var settings = document.querySelector("#settings");
 var calculator = document.querySelector("#calculator");
 var stargazer = document.querySelector("#stargazer");
+var waldai = document.querySelector("#waldai");
+var clock = document.querySelector("#clock");
+var racer = document.querySelector("#racer");
 
 var openwelcomescreen = document.querySelector("#openwelcomescreen");
 var opentrumpetscreen = document.querySelector("#opentrumpetscreen");
@@ -158,6 +169,9 @@ var openmapscreen = document.querySelector("#openmapscreen");
 var opensettingscreen = document.querySelector("#opensettingscreen");
 var opencalculatorscreen = document.querySelector("#opencalculatorscreen");
 var openstargazerscreen = document.querySelector("#openstargazerscreen");
+var openwaldaiscreen = document.querySelector("#openwaldaiscreen");
+var openclockscreen = document.querySelector("#openclockscreen");
+var openracerscreen = document.querySelector("#openracerscreen");
 
 var closewelcomescreen = document.querySelector("#closewelcomescreen");
 var closetrumpetscreen = document.querySelector("#closetrumpetscreen");
@@ -169,6 +183,9 @@ var closecallendarscreen = document.querySelector("#closecalendarscreen");
 var closesettingscreen = document.querySelector("#closesettingscreen");
 var closecalculatorscreen = document.querySelector("#closecalculatorscreen");
 var closestargazerscreen = document.querySelector("#closestargazerscreen");
+var closeaiscreen = document.querySelector("#closeaiscreen");
+var closeclockscreen = document.querySelector("#closeclockscreen");
+var closeracerscreen = document.querySelector("#closeracerscreen");
 
 function closewindow(element, underline) {
   if (!element) return;
@@ -417,6 +434,35 @@ openstargazerscreen.addEventListener("click", function() {
   }
 })
 
+openwaldaiscreen.addEventListener("click", function() {
+  if (visible(aiscreen)) {
+    closewindow(aiscreen, waldai);
+  } 
+  else{
+    openwindow(aiscreen, waldai);
+  }
+})
+
+openclockscreen.addEventListener("click", function() {
+  if (visible(clockscreen)) {
+    closewindow(clockscreen, clock);
+  }
+  else{
+    openwindow(clockscreen, clock);
+  }
+})
+
+openracerscreen.addEventListener("click", function() {
+  if (visible(racerscreen)) {
+    closewindow(racerscreen, racer);
+  }
+  else{
+    openwindow(racerscreen, racer);
+  }
+})
+
+
+
 if (closesettingscreen) {
   closesettingscreen.addEventListener("click", function() {
     closewindow(settingsscreen, settings);
@@ -480,8 +526,26 @@ if (closecalculatorscreen) {
 
 if (closestargazerscreen) {
   closestargazerscreen.addEventListener("click", function() {
-    closewindow(stargazerscreen);
+    closewindow(stargazerscreen, stargazer);
   });
+}
+
+if (closeaiscreen) {
+  closeaiscreen.addEventListener("click", function() {
+    closewindow(aiscreen, waldai);
+  });
+}
+
+if (closeclockscreen) {
+  closeclockscreen.addEventListener("click", function() {
+    closewindow(clockscreen, clock);
+  });
+}
+
+if (closeracerscreen) {
+  closeracerscreen.addEventListener("click", function() {
+    closewindow(racerscreen, racer);
+  })
 }
 
 var clockelement = document.querySelector("#togglecalendarscreen");
@@ -500,7 +564,6 @@ if (clockelement && calendarscreen) {
 
 
 
-var topbar = document.querySelector("#Header");
 var Blurscreen = document.querySelector("#fullscreen-btn-WaldOS");
 
 var biggestIndex = 1;
@@ -523,13 +586,15 @@ addwindowtaphandling(mapscreen);
 addwindowtaphandling(settingsscreen);
 addwindowtaphandling(calculatorscreen);
 addwindowtaphandling(stargazerscreen);
+addwindowtaphandling(aiscreen);
+addwindowtaphandling(clockscreen);
+addwindowtaphandling(racerscreen);
 
 
 function handleWindowTap(element) {
   biggestIndex++;
   element.style.zIndex = biggestIndex;
   Blurscreen.style.zIndex = biggestIndex + 1;
-  topbar.style.zIndex = biggestIndex + 2;
 }
 
 var trumpetscreen = document.querySelector("#trumpetscreen");
@@ -546,6 +611,12 @@ var mapscreen = document.querySelector("#mapscreen");
 var maximizeMapScreenButton = document.querySelector("#maximizemapscreen");
 var stargazerscreen = document.querySelector("#stargazerscreen");
 var maximizeStargazerScreenButton = document.querySelector("#maximizestargazerscreen");
+var aiscreen = document.querySelector("#aiscreen");
+var maximizeAIScreenButton = document.querySelector("#maximizeaiscreen");
+var clockscreen = document.querySelector("#clockscreen");
+var maximizeClockScreenButton = document.querySelector("#maximizeclockscreen");
+var racerscreen = document.querySelector("#racerscreen");
+var maximizeRacerScreenButton = document.querySelector("#maximizeracerscreen");
 
 
 function maximizeWindow(element) {
@@ -554,6 +625,17 @@ function maximizeWindow(element) {
   element.style.left = "";
 
   if (!element.classList.contains("maximized")) {
+    element.style.width = "";
+    element.style.height = "";
+  }
+}
+
+function fullscreenWindow(element) {
+  element.classList.toggle("fullscreen");
+  element.style.top = "";
+  element.style.left = "";
+
+  if (!element.classList.contains("fullscreen")) {
     element.style.width = "";
     element.style.height = "";
   }
@@ -599,6 +681,25 @@ if (maximizeStargazerScreenButton) {
     maximizeWindow(stargazerscreen);
   })  
 }
+
+if (maximizeAIScreenButton) {
+  maximizeAIScreenButton.addEventListener("click", function(){
+    maximizeWindow(aiscreen);
+  })
+}
+
+if (maximizeClockScreenButton) {
+  maximizeClockScreenButton.addEventListener("click", function(){
+    maximizeWindow(clockscreen);
+  })
+}
+
+if (maximizeRacerScreenButton) {
+  maximizeRacerScreenButton.addEventListener("click", function(){
+    fullscreenWindow(racerscreen);
+  })
+}
+
 
 // Save notes 
 
@@ -1079,6 +1180,8 @@ function clearCarRoute() {
 }
 
 
+
+
 // Starbackground
 function hexToRgb(hex) {
   let c = hex.replace('#', '');
@@ -1096,7 +1199,15 @@ function lerp(start, end, factor = 0.05) {
   return start + (end - start) * factor;
 }
 
-// Globaler Zustand & Parameter
+// Intro-Steuerung
+let introTime = 0;
+const INTRO_DURATION = 7.5; // Dauer der Kreis- und Verteilungsanimation in Sekunden
+let isstarted = false;
+
+// Flags für Steuerung der CSS-Animationen
+let titleFlyInTriggered = false;
+let screenShakeTriggered = false;
+
 let speedMultiplier = 1.0;
 let connectionRadius = 120;
 let cursorRadius = 160;
@@ -1108,7 +1219,6 @@ let currLineColor = { r: 8, g: 155, b: 155 };
 let currBgInner = { r: 16, g: 21, b: 29 };
 let currBgOuter = { r: 5, g: 7, b: 10 };
 
-// Zielwerte für sanfte Lerp-Übergänge
 let targetSpeed = 1.0;
 let targetConnRadius = 120;
 let targetCursorRadius = 160;
@@ -1121,7 +1231,6 @@ let targetShootingStars = 3;
 const stars = [];
 const shootingStars = [];
 
-// Presets
 const presets = {
   classic: {
     stars: 300,
@@ -1230,22 +1339,61 @@ function renderCustomPresetButtons() {
   });
 }
 
+function triggerTitleFlyIn() {
+  const title = document.getElementById("main-title");
+  const subtitle = document.getElementById("subtitle");
+
+  if (!title || !subtitle) return;
+
+  title.classList.remove("fly-in");
+  subtitle.classList.remove("fly-in");
+  void title.offsetWidth; // Reflow zur Zurücksetzung der Animation
+
+  title.classList.add("fly-in");
+  subtitle.classList.add("fly-in");
+}
+
 function updateStarsArray(targetCount) {
   const canvas = document.getElementById("starfield");
   const width = canvas ? canvas.width : window.innerWidth;
   const height = canvas ? canvas.height : window.innerHeight;
 
+  const centerX = width / 2;
+  const centerY = height / 2;
+
+  const isIntroActive = typeof introTime !== "undefined" && typeof INTRO_DURATION !== "undefined" && introTime < INTRO_DURATION;
+
+  stars.length = 0; // Setzt die Sterne zurück, um einen sauberen Neustart zu garantieren
+
   while (stars.length < targetCount) {
-    stars.push({
-      x: Math.random() * width,
-      y: Math.random() * height - 70,
-      vx: (Math.random() - 0.5) * 0.2,
-      vy: (Math.random() - 0.5) * 0.2,
-      radius: Math.random() * 1.5 + 1
-    });
-  }
-  while (stars.length > targetCount) {
-    stars.pop();
+    if (isIntroActive) {
+      let angle = Math.random() * Math.PI * 2;
+      let initialRadius = Math.random() * 670;
+      let speed = Math.random() * 10 + 4; 
+
+      stars.push({
+        x: centerX,
+        y: centerY,
+        angle: angle,
+        orbitRadius: initialRadius,
+        orbitSpeed: (Math.random() * 0.03 + 0.005) * (Math.random() > 0.5 ? 1.03 : -1),
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        normalVx: (Math.random() - 0.5) * 0.2,
+        normalVy: (Math.random() - 0.5) * 0.2,
+        radius: Math.random() * 1.5 + 1
+      });
+    } else {
+      stars.push({
+        x: Math.random() * width,
+        y: Math.random() * (height - 70),
+        vx: (Math.random() - 0.5) * 0.2,
+        vy: (Math.random() - 0.5) * 0.2,
+        normalVx: (Math.random() - 0.5) * 0.2,
+        normalVy: (Math.random() - 0.5) * 0.2,
+        radius: Math.random() * 1.5 + 1
+      });
+    }
   }
 }
 
@@ -1328,16 +1476,30 @@ document.addEventListener("DOMContentLoaded", function () {
     height = canvas.height = window.innerHeight;
   }
 
+  // Überwachung des Vollbildmodus
+  document.addEventListener("fullscreenchange", () => {
+    if (document.fullscreenElement) {
+      introTime = 0;
+      titleFlyInTriggered = false;
+      screenShakeTriggered = false;
+      isstarted = true;
+      lastTime = performance.now();
+      updateStarsArray(numStars); // Startet das Intro sauber neu
+    } else {
+      isstarted = false; // Pausiert die Sternen-Animation beim Verlassen
+    }
+  });
+
   window.addEventListener("resize", () => {
     const prevWidth = width;
-    const prevHeight = height;
+    const prevHeight = height - 70;
 
     resizeCanvas();
 
     if (prevWidth > 0 && prevHeight > 0) {
       stars.forEach(star => {
         star.x = (star.x / prevWidth) * width;
-        star.y = (star.y / prevHeight) * height - 70;
+        star.y = (star.y / prevHeight) * (height - 70);
       });
     }
   });
@@ -1357,7 +1519,6 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("blur", () => { mouse.x = null; mouse.y = null; });
 
   resizeCanvas();
-  updateStarsArray(numStars);
 
   renderCustomPresetButtons();
 
@@ -1379,7 +1540,7 @@ document.addEventListener("DOMContentLoaded", function () {
     btnSave.addEventListener("click", () => {
       const name = inputPresetName ? inputPresetName.value.trim() : "";
       if (!name) {
-        alert("Bitte geben Sie einen Namen für das Preset ein.");
+        alert("Your little catbaby needs a name! 😸.");
         return;
       }
 
@@ -1471,7 +1632,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Render-Schleife
   function animate(currentTime) {
     requestAnimationFrame(animate);
 
@@ -1486,8 +1646,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (deltaTime > 0.1 || deltaTime <= 0 || isNaN(deltaTime)) {
       deltaTime = 1 / 60;
     }
-
-    const deltaFactor = deltaTime * 60;
 
     speedMultiplier = lerp(speedMultiplier, targetSpeed, 0.05);
     connectionRadius = lerp(connectionRadius, targetConnRadius, 0.05);
@@ -1509,6 +1667,7 @@ document.addEventListener("DOMContentLoaded", function () {
     currBgOuter.g = lerp(currBgOuter.g, targetBgOuter.g, 0.05);
     currBgOuter.b = lerp(currBgOuter.b, targetBgOuter.b, 0.05);
 
+    // Hintergrund rendern
     let gradient = ctx.createRadialGradient(
       width / 2, height / 2, 0,
       width / 2, height / 2, Math.max(width, height) / 1.2
@@ -1518,6 +1677,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, width, height);
+
+    // Stop, falls Fullscreen nicht gestartet ist
+    if (!isstarted) {
+      return;
+    }
+
+    introTime += deltaTime;
+    const deltaFactor = deltaTime * 60;
+
+    // Startet die Einflieganimation genau 1.8 Sekunden vor Phase 2 (bei Sekunde 4.2), damit der Titel bei 6.0 Sekunden vorne ankommt
+    if (introTime >= 4.33 && !titleFlyInTriggered) {
+      titleFlyInTriggered = true;
+      triggerTitleFlyIn();
+    }
 
     if (maxShootingStars > 0 && Math.random() < 0.03 && shootingStars.length < maxShootingStars) {
       spawnShootingStar();
@@ -1557,16 +1730,64 @@ document.addEventListener("DOMContentLoaded", function () {
     const cursorRadiusSq = cursorRadius * cursorRadius;
     const connRadiusSq = connectionRadius * connectionRadius;
 
+    const centerX = width / 2;
+    const centerY = height / 2;
+
     for (let i = 0; i < stars.length; i++) {
       let star = stars[i];
 
-      star.x += star.vx * speedMultiplier * deltaFactor;
-      star.y += star.vy * speedMultiplier * deltaFactor;
+      if (introTime < 6.0) {
+        let growthFactor = Math.min(1.0, introTime / 6.0);
+        let currentRadius = star.orbitRadius * growthFactor;
 
-      if (star.x < 0 || star.x > width) star.vx *= -1;
-      if (star.y < 0 || star.y > height - 70) {
+        star.angle += star.orbitSpeed * deltaFactor;
+        star.x = centerX + Math.cos(star.angle) * currentRadius;
+        star.y = centerY + Math.sin(star.angle) * currentRadius;
+
+      } else if (introTime < INTRO_DURATION) {
+        // Exakt beim Phasenübergang bei Sekunde 6.0 den Bildschirm-Shake triggern
+        if (!screenShakeTriggered) {
+          screenShakeTriggered = true;
+          const container = document.getElementById("intro-container");
+          if (container) {
+            container.classList.add("screen-shake");
+            setTimeout(() => container.classList.remove("screen-shake"), 250);
+          }
+        }
+
+        let friction = Math.pow(1.0001, deltaFactor);
+        star.vx *= friction;
+        star.vy *= friction;
+
+        star.x += star.vx * deltaFactor;
+        star.y += star.vy * deltaFactor;
+
+      } else {
+        star.vx = lerp(star.vx, star.normalVx, 0.02);
+        star.vy = lerp(star.vy, star.normalVy, 0.02);
+
+        star.x += star.vx * speedMultiplier * deltaFactor;
+        star.y += star.vy * speedMultiplier * deltaFactor;
+      }
+
+      if (star.x < 0) {
+        star.x = 0;
+        star.vx *= -1;
+        star.normalVx *= -1;
+      } else if (star.x > width) {
+        star.x = width;
+        star.vx *= -1;
+        star.normalVx *= -1;
+      }
+
+      if (star.y < 0) {
+        star.y = 0;
         star.vy *= -1;
-        if (star.y > height) star.y = height;
+        star.normalVy *= -1;
+      } else if (star.y > height - 70) {
+        star.y = height - 70;
+        star.vy *= -1;
+        star.normalVy *= -1;
       }
 
       ctx.beginPath();
@@ -1617,6 +1838,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+
+
+
 // --- WaldCalc Logik ---
 (function initWaldCalc() {
   const calcScreen = document.getElementById("calculatorscreen");
@@ -1624,11 +1848,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (!calcScreen) return;
 
-  // Fensterverwaltung
   if (typeof dragElement === "function") dragElement(calcScreen);
   if (typeof addwindowtaphandling === "function") addwindowtaphandling(calcScreen);
 
-  // Umschalten Standard / Scientific
   if (modeToggleBtn) {
     modeToggleBtn.addEventListener("click", () => {
       calcScreen.classList.toggle("scientific-mode");
@@ -1638,7 +1860,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Rechenlogik
   const displayInput = document.getElementById("calc-input");
   const displayHistory = document.getElementById("calc-history");
   const buttons = calcScreen.querySelectorAll(".calc-btn");
@@ -1710,3 +1931,326 @@ document.addEventListener("DOMContentLoaded", function () {
 })();
 
 
+// --- WaldAI & Groq API Logik (With Session Memory) ---
+
+document.addEventListener("DOMContentLoaded", function() {
+  var aiInput = document.querySelector("#ai-input");
+  var aiSendBtn = document.querySelector("#ai-send-btn");
+  var aiMessages = document.querySelector("#ai-chat-messages");
+  var aiContainer = document.querySelector(".ai-container");
+
+  const API_KEY = "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"; 
+
+  let chatHistory = [
+    { role: "system", content: "Du bist WaldAI, ein hilfreicher Assistent im WaldOS System. Waldewort ist dein Erschaffer und für die Gäste ist alles zu machen was diese befehlen. Rede immer zu den Gästen und nicht zu Waldewort!" }
+  ];
+
+  var loadingOverlay = document.createElement("div");
+  loadingOverlay.className = "ai-loading-overlay";
+  loadingOverlay.innerHTML = '<div class="ai-spinner"></div><span>WaldAI is searching in the W(ald)ormhole...</span>';
+  
+  if (aiContainer) {
+    aiContainer.style.position = "relative";
+    aiContainer.appendChild(loadingOverlay);
+  }
+
+  async function callGroqAPI(promptText) {
+    const url = "https://api.groq.com/openai/v1/chat/completions";
+
+    if (!API_KEY || API_KEY.includes("DEIN_ECHTER_GROQ_KEY")) {
+      throw new Error("Your API Key is invalid. Please replace the API Key (gsk_...)");
+    }
+    chatHistory.push({ role: "user", content: promptText });
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${API_KEY.trim()}`
+      },
+      body: JSON.stringify({
+        model: "openai/gpt-oss-120b",
+        messages: chatHistory
+      })
+    });
+
+    if (!response.ok) {
+      chatHistory.pop();
+      const errorData = await response.json().catch(() => ({}));
+      console.error("Groq API Fehler Details:", errorData);
+      throw new Error(`API Fehler: ${response.status} - ${errorData?.error?.message || 'Invalid Response'}`);
+    }
+
+    const data = await response.json();
+    const botReply = data.choices[0].message.content;
+
+    chatHistory.push({ role: "assistant", content: botReply });
+
+    return botReply;
+  }
+
+  async function sendAiMessage() {
+    if (!aiInput || !aiMessages) return;
+    var text = aiInput.value.trim();
+    if (!text) return;
+
+    // Nutzernachricht anzeigen
+    var userMsg = document.createElement("div");
+    userMsg.className = "ai-msg user";
+    userMsg.textContent = text;
+    aiMessages.appendChild(userMsg);
+
+    aiInput.value = "";
+    aiMessages.scrollTop = aiMessages.scrollHeight;
+
+    // UI sperren & Loading anzeigen
+    loadingOverlay.style.display = "flex";
+    aiInput.disabled = true;
+    aiSendBtn.disabled = true;
+
+    try {
+      const reply = await callGroqAPI(text);
+      
+      var botMsg = document.createElement("div");
+      botMsg.className = "ai-msg bot";
+      
+      if (typeof marked !== "undefined") {
+        botMsg.innerHTML = marked.parse(reply);
+      } else {
+        botMsg.textContent = reply;
+      }
+      
+      aiMessages.appendChild(botMsg);
+    } catch (error) {
+      console.error(error);
+      var errorMsg = document.createElement("div");
+      errorMsg.className = "ai-msg bot";
+      errorMsg.textContent = `Fehler: ${error.message} ⚠️`;
+      aiMessages.appendChild(errorMsg);
+    } finally {
+      loadingOverlay.style.display = "none";
+      aiInput.disabled = false;
+      aiSendBtn.disabled = false;
+      aiInput.focus();
+      aiMessages.scrollTop = aiMessages.scrollHeight;
+    }
+  }
+
+  if (aiSendBtn && aiInput) {
+    aiSendBtn.addEventListener("click", sendAiMessage);
+    aiInput.addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        sendAiMessage();
+      }
+    });
+  }
+});
+
+// --- Waldclock Logic ---
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Tab Switching
+  const tabBtns = document.querySelectorAll(".clock-tab-btn");
+  const tabContents = document.querySelectorAll(".clock-tab-content");
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener("click", function () {
+      tabBtns.forEach(b => b.classList.remove("active"));
+      tabContents.forEach(c => c.classList.remove("active"));
+
+      this.classList.add("active");
+      const targetTab = this.dataset.tab;
+      document.querySelector(`#tab-${targetTab}`).classList.add("active");
+    });
+  });
+  function updateWorldClocks() {
+    const now = new Date();
+
+    // Local Time
+    const localDisplay = document.querySelector("#local-clock-display");
+    const localDateDisplay = document.querySelector("#local-date-display");
+    if (localDisplay) localDisplay.textContent = now.toLocaleTimeString("en-US", { hour12: false });
+    if (localDateDisplay) {
+      localDateDisplay.textContent = now.toLocaleDateString("en-US", {
+        weekday: "long", month: "long", day: "numeric", year: "numeric"
+      });
+    }
+
+    // World Cities
+    const cities = {
+      "#city-ny": "America/New_York",
+      "#city-london": "Europe/London",
+      "#city-tokyo": "Asia/Tokyo",
+      "#city-sydney": "Australia/Sydney"
+    };
+
+    Object.entries(cities).forEach(([selector, timeZone]) => {
+      const el = document.querySelector(selector);
+      if (el) {
+        el.textContent = new Intl.DateTimeFormat("en-US", {
+          timeZone,
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false
+        }).format(now);
+      }
+    });
+  }
+
+  setInterval(updateWorldClocks, 1000);
+  updateWorldClocks();
+
+  let swInterval = null;
+  let swElapsed = 0;
+  let lapCount = 0;
+
+  const swDisplay = document.querySelector("#stopwatch-display");
+  const swStartBtn = document.querySelector("#sw-start-btn");
+  const swLapBtn = document.querySelector("#sw-lap-btn");
+  const swResetBtn = document.querySelector("#sw-reset-btn");
+  const swLapsList = document.querySelector("#sw-laps-list");
+
+  function formatStopwatchTime(ms) {
+    const totalSecs = Math.floor(ms / 1000);
+    const mins = String(Math.floor(totalSecs / 60)).padStart(2, "0");
+    const secs = String(totalSecs % 60).padStart(2, "0");
+    const centis = String(Math.floor((ms % 1000) / 10)).padStart(2, "0");
+    return `${mins}:${secs}.${centis}`;
+  }
+
+  if (swStartBtn) {
+    swStartBtn.addEventListener("click", function () {
+      if (swInterval) {
+        // Pause
+        clearInterval(swInterval);
+        swInterval = null;
+        this.textContent = "Start";
+        this.className = "clock-btn btn-start";
+        swLapBtn.disabled = true;
+      } else {
+        // Start
+        const startTime = Date.now() - swElapsed;
+        swInterval = setInterval(() => {
+          swElapsed = Date.now() - startTime;
+          swDisplay.textContent = formatStopwatchTime(swElapsed);
+        }, 10);
+        this.textContent = "Stop";
+        this.className = "clock-btn btn-stop";
+        swLapBtn.disabled = false;
+      }
+    });
+  }
+
+  if (swLapBtn) {
+    swLapBtn.addEventListener("click", function () {
+      if (!swInterval) return;
+      lapCount++;
+      const lapEl = document.createElement("div");
+      lapEl.className = "lap-item";
+      lapEl.innerHTML = `<span>Lap ${lapCount}</span> <span>${formatStopwatchTime(swElapsed)}</span>`;
+      swLapsList.prepend(lapEl);
+    });
+  }
+
+  if (swResetBtn) {
+    swResetBtn.addEventListener("click", function () {
+      clearInterval(swInterval);
+      swInterval = null;
+      swElapsed = 0;
+      lapCount = 0;
+      swDisplay.textContent = "00:00.00";
+      swLapsList.innerHTML = "";
+      swStartBtn.textContent = "Start";
+      swStartBtn.className = "clock-btn btn-start";
+      swLapBtn.disabled = true;
+    });
+  }
+
+  let timerInterval = null;
+  let timerTotalSecs = 0;
+
+  const timerDisplay = document.querySelector("#timer-display");
+  const timerMinInput = document.querySelector("#timer-min");
+  const timerSecInput = document.querySelector("#timer-sec");
+  const timerStartBtn = document.querySelector("#timer-start-btn");
+  const timerResetBtn = document.querySelector("#timer-reset-btn");
+  const timerInputsWrapper = document.querySelector("#timer-inputs-wrapper");
+
+  function formatTimerDisplay(secs) {
+    const m = String(Math.floor(secs / 60)).padStart(2, "0");
+    const s = String(secs % 60).padStart(2, "0");
+    return `${m}:${s}`;
+  }
+  function playAlarm() {
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    // Wir spielen 3 kurze Pieptöne hintereinander
+    [0, 0.2, 0.4, 1, 1.2, 1.4, 2, 2.2, 2.4].forEach(delay => {
+      const oscillator = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+
+      oscillator.type = 'sine'; 
+      oscillator.frequency.setValueAtTime(880, audioCtx.currentTime + delay); 
+
+      gainNode.gain.setValueAtTime(100, audioCtx.currentTime + delay);
+      gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + delay + 0.15);
+
+      oscillator.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+
+      oscillator.start(audioCtx.currentTime + delay);
+      oscillator.stop(audioCtx.currentTime + delay + 0.15);
+    });
+  }
+
+  if (timerStartBtn) {
+    timerStartBtn.addEventListener("click", function () {
+      if (timerInterval) {
+        // Pause
+        clearInterval(timerInterval);
+        timerInterval = null;
+        this.textContent = "Start";
+        this.className = "clock-btn btn-start";
+      } else {
+        // Start / Resume
+        if (timerTotalSecs === 0) {
+          const mins = parseInt(timerMinInput.value) || 0;
+          const secs = parseInt(timerSecInput.value) || 0;
+          timerTotalSecs = mins * 60 + secs;
+        }
+
+        if (timerTotalSecs <= 0) return;
+
+        timerInputsWrapper.style.display = "none";
+        this.textContent = "Pause";
+        this.className = "clock-btn btn-stop";
+
+        timerInterval = setInterval(() => {
+          timerTotalSecs--;
+          timerDisplay.textContent = formatTimerDisplay(timerTotalSecs);
+
+          if (timerTotalSecs <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            openwindow(clockscreen, clock);
+            playAlarm();
+            timerResetBtn.click();
+          }
+        }, 1000);
+      }
+    });
+  }
+
+  if (timerResetBtn) {
+    timerResetBtn.addEventListener("click", function () {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timerTotalSecs = 0;
+      timerInputsWrapper.style.display = "flex";
+      timerDisplay.textContent = formatTimerDisplay((parseInt(timerMinInput.value) || 0) * 60 + (parseInt(timerSecInput.value) || 0));
+      timerStartBtn.textContent = "Start";
+      timerStartBtn.className = "clock-btn btn-start";
+    });
+  }
+});

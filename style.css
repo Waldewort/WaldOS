@@ -14,17 +14,6 @@ body {
     background-repeat: no-repeat;
     overflow: hidden;
 }
-.title {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 48px;
-    color: rgb(255, 255, 255);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    font-family: Arial;
-    user-select: none;
-}
 
 .window-title {
     font-size: 13px;
@@ -43,6 +32,15 @@ body {
     background: radial-gradient(circle at center, #10151d -20%, #05070a 100%);
     pointer-events: none; 
     transition: ease-transform 1s;
+}
+
+button, .unselected, .selected, .close-button, .window-header {
+  touch-action: manipulation;
+}
+
+.window {
+  will-change: transform, top, left;
+  contain: layout style;
 }
 
 .information {
@@ -174,6 +172,7 @@ body {
     overflow: hidden;
     overflow-y: hidden;
     margin: 0px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(8, 155, 155, 0.2);
 }
 
 .unselected, .selected {
@@ -182,7 +181,6 @@ body {
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Unausgewähltes Icon */
 .unselected {
   transform: scale(0.85);
   opacity: 0.95;
@@ -257,6 +255,18 @@ body {
     border-radius: 0px;
     box-sizing: border-box;
 }
+
+.window.fullscreen {
+    position: fixed;
+    width: 100%;
+    height: calc(100% - 0px);
+    top: 0;
+    left: 0;
+    transform: none;
+    border-radius: 0px;
+    box-sizing: border-box;
+}
+
 .maximize-button {
     display: block;
     cursor: pointer;
@@ -277,7 +287,6 @@ body {
     display: none;
 }
 
-/* Container für die Preset-Erstellung */
 .custom-preset-builder {
   display: flex;
   flex-direction: column;
@@ -286,7 +295,6 @@ body {
   margin-bottom: 10px;
 }
 
-/* Eingabefeld für den Preset-Namen */
 #input-preset-name {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -307,7 +315,6 @@ body {
   color: rgba(255, 255, 255, 0.4);
 }
 
-/* Speichern-Button */
 #btn-save-preset {
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.25);
@@ -325,7 +332,6 @@ body {
   border-color: rgba(255, 255, 255, 0.4);
 }
 
-/* Container für gespeicherte Custom Presets */
 #custom-presets-container {
   display: flex;
   flex-wrap: wrap;
@@ -333,15 +339,14 @@ body {
   margin-top: 8px;
 }
 
-/* Wrapper-Elemente für die Buttons */
 #custom-presets-container > div {
-  display: inline-flex !important;
+  display: inline-flex;
   align-items: center;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 6px;
   overflow: hidden;
-  margin: 0 !important;
+  margin: 0;
   transition: border-color 0.2s ease;
 }
 
@@ -349,7 +354,6 @@ body {
   border-color: rgba(255, 255, 255, 0.4);
 }
 
-/* Preset-Button (Name) */
 #custom-presets-container .preset-btn {
   background: transparent;
   border: none;
@@ -364,7 +368,6 @@ body {
   background: rgba(255, 255, 255, 0.12);
 }
 
-/* Löschen-Button (✕) */
 #custom-presets-container button:last-child {
   background: transparent;
   border: none;
@@ -373,11 +376,94 @@ body {
   padding: 6px 8px;
   font-size: 11px;
   cursor: pointer;
-  margin-left: 0 !important;
+  margin-left: 0;
   transition: all 0.2s ease;
 }
 
 #custom-presets-container button:last-child:hover {
   background: rgba(255, 77, 77, 0.25);
   color: #ff6b6b;
+}
+
+#intro-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    perspective: 1000px;
+    z-index: 0;
+}
+
+.title {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    font-size: 56px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 2px 2px 8px rgba(0, 0, 0, 0.8);
+    font-family: Arial, sans-serif;
+    user-select: none;
+    text-align: center;
+    margin: 0 0 12px 0; /* Erzeugt Abstand zum Subtitel darunter */
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+.subtitle {
+    position: relative ;
+    top: auto;
+    left: auto;
+    transform: none;
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: rgb(255, 255, 255);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 2px 2px 8px rgba(0, 0, 0, 0.8);
+    font-family: Arial, sans-serif;
+    user-select: none;
+    text-align: center;
+    margin: 0;
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+/* Fly-In Animation */
+.fly-in {
+    animation: flyInAccelerate 1.8s cubic-bezier(0.7, 0, 1, 0.5) forwards;
+}
+
+@keyframes flyInAccelerate {
+    0% {
+        opacity: 0;
+        transform: translateZ(-3000px) scale(0.05);
+    }
+    30% {
+        opacity: 1;
+    }
+    90% {
+        transform: translateZ(50px) scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: translateZ(0) scale(1);
+    }
+}
+
+.screen-shake {
+    animation: shake 0.25s ease-out;
+}
+
+@keyframes shake {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-5px, 5px); }
+    50% { transform: translate(5px, -5px); }
+    75% { transform: translate(-3px, 3px); }
+    100% { transform: translate(0, 0); }
 }
