@@ -23,14 +23,7 @@
 }
 
 .settings-window {
-  width: 320px;
-  background: rgba(16, 21, 29, 0.9);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(8, 155, 155, 0.3);
-  border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-  color: #e2e8f0;
+  width: 520px;
   overflow: hidden;
   position: fixed;
   bottom: 80px;
@@ -39,6 +32,11 @@
   left: auto;
   z-index: 9999;
 }
+
+.setting-header {
+  cursor: pointer;
+}
+
 .settings-container {
   padding: 16px;
   display: flex;
@@ -202,4 +200,118 @@
   user-select: none;
   z-index: 0;
   transition: text-shadow 0.5s ease, color 0.5s ease;
+}
+
+.settings-nav {
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.settings-tab-btn {
+  flex: 1;
+  padding: 10px 15px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.settings-tab-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.settings-tab-btn.active {
+  color: #00d8ff;
+  border-bottom: 2px solid #00d8ff;
+  background: rgba(0, 216, 255, 0.1);
+}
+
+.settings-tab-content {
+  display: none;
+  padding: 15px;
+}
+
+.settings-tab-content.active {
+  display: block;
+}
+
+/* General Voice AI Guide Styling */
+.voice-guide-container {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.voice-guide-title {
+  color: #00d8ff;
+  font-size: 16px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.voice-guide-subtitle {
+  color: #ffffff;
+  font-size: 14px;
+  margin: 15px 0 10px 0;
+}
+
+.voice-guide-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.voice-guide-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.voice-guide-card.highlight-card {
+  background: rgba(0, 216, 255, 0.08);
+  border-color: rgba(0, 216, 255, 0.3);
+}
+
+.guide-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.voice-guide-card strong {
+  display: block;
+  color: #fff;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.voice-guide-card p {
+  margin: 3px 0;
+  font-size: 12px;
+  color: #d1d5db;
+}
+
+.voice-guide-card code {
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.5);
+  color: #00f3ff;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 12px;
+  margin: 4px 0;
+}
+
+.voice-guide-card small {
+  display: block;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 4px;
 }

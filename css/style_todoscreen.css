@@ -1,0 +1,160 @@
+/* Fenster-Größe & Grundlayout */
+.todo-window {
+  width: 520px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  display: none;
+}
+
+.todo-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 40px);
+  padding: 15px;
+  box-sizing: border-box;
+  gap: 15px;
+  background: rgba(16, 21, 29, 0.75);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  overflow: hidden;
+}
+
+/* Eingabebereich */
+.todo-input-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.todo-input-bar textarea {
+  width: 100%;
+  height: 65px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #fff;
+  padding: 10px;
+  font-family: inherit;
+  font-size: 14px;
+  resize: none;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.todo-input-bar textarea:focus {
+  border-color: #00f3ff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.todo-input-bar button {
+  align-self: flex-end;
+  background: #089b9b;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.todo-input-bar button:hover {
+  background: #00f3ff;
+  color: #000;
+}
+
+/* Scrollbarer Inhaltsbereich */
+.todo-main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Datums-Überschrift Gruppe */
+.todo-date-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.todo-date-header {
+  font-size: 14px;
+  font-weight: bold;
+  color: #00f3ff;
+  border-bottom: 1px solid rgba(0, 243, 255, 0.3);
+  padding-bottom: 4px;
+  margin: 0;
+}
+
+/* Zettel-Grid innerhalb eines Tages */
+.todo-notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+/* Einzelner Notizzettel */
+.todo-note {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-left: 4px solid #089b9b;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: transform 0.15s, background 0.15s;
+  position: relative;
+  min-height: 80px;
+  word-break: break-word;
+}
+
+.todo-note:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.todo-note.completed {
+  border-left-color: #555;
+  opacity: 0.6;
+}
+
+.todo-note.completed .todo-text {
+  text-decoration: line-through;
+  color: #aaa;
+}
+
+/* Zettel-Header (Uhrzeit & Delete Button) */
+.todo-note-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 6px;
+}
+
+.todo-delete-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  font-size: 13px;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.todo-delete-btn:hover {
+  color: #ff4d4d;
+}
+
+.todo-text {
+  font-size: 13px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}

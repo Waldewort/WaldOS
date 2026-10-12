@@ -1,6 +1,6 @@
 #youtubescreen {
     width: 1320px;
-    height: 1000px;
+    height: 900px;
     flex-direction: column;
     background: rgba(18, 22, 28, 0.85);
     backdrop-filter: blur(16px);

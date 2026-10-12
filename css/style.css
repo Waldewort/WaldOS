@@ -80,17 +80,48 @@ button, .unselected, .selected, .close-button, .window-header {
   background-color: rgba(0, 0, 0, 0.94);
   position: fixed;
 }
+
+/* Gemeinsamer Container für alle Fenster-Steuerungsknöpfe */
+.window-controls button,
+.minimize-btn,
+.maximize-btn,
 .close-button {
     background: none;
     border: none;
-    color: #888;
-    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    transition: color 0.2s;
+    color: #888888;
+    margin: 0;
+    padding: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+/* SVG-Icons innerhalb der Buttons zentrieren */
+.window-controls button svg,
+.minimize-btn svg,
+.maximize-btn svg,
+.close-button svg {
+    display: block;
+    overflow: visible;
+}
+
+/* Hover-Effekte */
+.minimize-btn:hover,
+.maximize-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #089b9b;
+    transform: scale(1.05);
 }
 
 .close-button:hover {
+    background: rgba(255, 95, 86, 0.2);
     color: #ff5f56;
+    transform: scale(1.05);
 }
 
 .move {
@@ -161,18 +192,23 @@ button, .unselected, .selected, .close-button, .window-header {
     position: absolute;
     top: 100px;
     left: 100px;
-    border: solid;
     border-width: 1px;
     max-width: 100vw;
     max-height: 100vh;
     padding: 10px;
-    border-radius: 10px;
     border-color: rgb(238, 238, 239);
-    background-color: rgba(34, 38, 73, 0.2);
     overflow: hidden;
     overflow-y: hidden;
     margin: 0px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(8, 155, 155, 0.2);
+    
+    background: rgba(18, 22, 28, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(8, 155, 155, 0.3);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(8, 155, 155, 0.15);
+    color: #e0e0e0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .unselected, .selected {
@@ -182,14 +218,11 @@ button, .unselected, .selected, .close-button, .window-header {
 }
 
 .unselected {
-  transform: scale(0.85);
-  opacity: 0.95;
+  display: none;
 }
 
-.unselected:hover {
-  transform: scale(0.95);
-  opacity: 0.95;
-  filter: brightness(1) drop-shadow(0 0 6px rgba(0, 243, 255, 0.3));
+.minimized {
+  display: flex;
 }
 
 .selected {
@@ -265,22 +298,6 @@ button, .unselected, .selected, .close-button, .window-header {
     transform: none;
     border-radius: 0px;
     box-sizing: border-box;
-}
-
-.maximize-button {
-    display: block;
-    cursor: pointer;
-    cursor: pointer;
-    color: #888888;
-    stroke: #888888;
-    margin: 0;
-    font-size: 16px;
-    line-height: 1;
-    transition: all 0.2s ease;
-}
-.maximize-button:hover {
-    transform: scale(1.1);
-    transition: transform 0.1s ease-in-out;
 }
 
 .versteckt {
@@ -465,4 +482,50 @@ button, .unselected, .selected, .close-button, .window-header {
     50% { transform: translate(5px, -5px); }
     75% { transform: translate(-3px, 3px); }
     100% { transform: translate(0, 0); }
+}
+
+
+.start-menu-window {
+  width: 320px;
+  height: 450px;
+  position: absolute;
+  bottom: 80px;
+  left: 10px;
+  top: auto !important;
+  display: none;
+  z-index: 9999;
+  background: rgba(18, 22, 28, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(8, 155, 155, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.start-menu-container {
+  display: flex;
+  height: calc(100% - 40px);
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.start-app-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.start-app-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  color: #fff;
+  font-size: 13px;
+}
+
+.start-app-item:hover {
+  background: rgba(255, 255, 255, 0.08);
 }

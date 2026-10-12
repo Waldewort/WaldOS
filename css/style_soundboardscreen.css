@@ -1,0 +1,184 @@
+.sound-window {
+    width: 600px;
+}
+/* Haupt-Content Container */
+.soundboard-container {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Presets-Leiste (Wie die Tags/Badges im linken Fenster) */
+.sound-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-bottom: 4px;
+}
+
+.preset-btn {
+    background: #18222d;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    color: #9aa8b6;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.preset-btn:hover {
+    background: #202c3a;
+    color: #ffffff;
+    border-color: rgba(56, 217, 169, 0.4);
+}
+
+.preset-btn.active {
+    background: rgba(34, 184, 167, 0.15);
+    color: #38d9a9;
+    border-color: #22b8a7;
+}
+
+/* Grid-Layout für die Pads (2 Spalten wie im Screenshot) */
+.sound-controls {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+/* Sound-Pad Karte */
+.sound-pad {
+    background: #121820;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    transition: all 0.2s ease;
+}
+
+.sound-pad:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    background: #151d27;
+}
+
+/* Aktives Pad */
+.sound-pad.active {
+    border-color: rgba(34, 184, 167, 0.5);
+    background: #141f29;
+}
+
+/* Pad-Button (Icon + Text) */
+.pad-btn {
+    background: transparent;
+    border: none;
+    color: #e6edf3;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    width: 100%;
+}
+
+.pad-btn span,
+.sound-pad [class^="icon"] {
+    color: #38d9a9;
+}
+
+/* Lautstärkeregler (Türkiser Accent) */
+.sound-volume {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: #212c38;
+    outline: none;
+    cursor: pointer;
+}
+
+.sound-volume::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #22b8a7;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(34, 184, 167, 0.6);
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.sound-volume::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    background: #38d9a9;
+}
+
+.sound-volume::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #22b8a7;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(34, 184, 167, 0.6);
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.sound-volume::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    background: #38d9a9;
+}
+
+/* Preset Container Layout */
+.sound-presets {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.preset-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #38d9a9;
+  letter-spacing: 1px;
+  margin-right: 6px;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.preset-btn {
+  background: #18222d;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  color: #9aa8b6;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.preset-btn:hover {
+  background: #202c3a;
+  color: #ffffff;
+  border-color: rgba(56, 217, 169, 0.4);
+}
+
+.preset-btn.active {
+  background: rgba(34, 184, 167, 0.18);
+  color: #38d9a9;
+  border-color: #22b8a7;
+  box-shadow: 0 0 8px rgba(34, 184, 167, 0.25);
+}
