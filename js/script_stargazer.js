@@ -27,7 +27,6 @@
   const searchInput = document.getElementById("sky-search-input");
   const searchBtn = document.getElementById("sky-search-btn");
   const geoBtn = document.getElementById("sky-geolocation-btn");
-
   function updateLocation(lat, lon) {
     currentLat = parseFloat(lat);
     currentLon = parseFloat(lon);
@@ -102,7 +101,6 @@
       }
     });
   }
-
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x020307);
   scene.fog = new THREE.FogExp2(0x0a101d, 0.0003);
