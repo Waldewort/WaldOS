@@ -14,6 +14,29 @@
     <div id="intro-container">
       <h1 class="title" id="main-title">WaldOS&copy; 2.0</h1>
       <h2 class="subtitle" id="subtitle">The WaldOS&copy; Experience by Waldewort</h2>
+      <!-- Assistent-->
+      <div id="assistant-container" class="assistant-container">
+        <button id="voice-assistant-btn" class="ready" type="button">
+          <div id="star-ring" class="star-ring">
+            <span class="star" style="--i:0">.</span>
+            <span class="star" style="--i:1">.</span>
+            <span class="star" style="--i:2">.</span>
+            <span class="star" style="--i:3">.</span>
+            <span class="star" style="--i:4">.</span>
+            <span class="star" style="--i:5">.</span>
+            <span class="star" style="--i:6">.</span>
+            <span class="star" style="--i:7">.</span>
+            <span class="star" style="--i:8">.</span>
+            <span class="star" style="--i:9">.</span>
+            <span class="star" style="--i:10">.</span>
+            <span class="star" style="--i:11">.</span>
+            <span class="star" style="--i:12">.</span>
+            <span class="star" style="--i:13">.</span>
+            <span class="star" style="--i:14">.</span>
+            <span class="star" style="--i:15">.</span>
+          </div>
+        </button>
+      </div>
     </div>
     <canvas id="starfield"></canvas>
     
@@ -25,67 +48,132 @@
     <!--Taskleiste-->
     <div id="Header" class="taskbar">  
 
-      <!-- Applications -->
+      <!-- Applications / Start-Button -->
       <div id="applications" class="applications"> 
-        <!-- Notizen App-Aufruf-->
+        <div id="waldos-start-btn" class="unselected" style="cursor: pointer; display: flex; align-items: center; gap: 8px; padding: 0 6px;">
+          <img src="icons/WaldOS_W.png" draggable="false" style="width: 50px; height: 50px;">
+          <span style="color: white; font-weight: bold; font-size: 20px; font-family: sans-serif;">WaldOS</span>
+        </div>
+
+        <!-- Taskleisten-Plätze für geöffnete Apps (werden per JS/CSS eingeblendet) -->
         <div id="notes" class="unselected">
-          <img id="opennotescreen" src="icons/notizen.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="minimizenotescreen_taskbar" src="icons/notizen.png" draggable="false" style="width: 50px; height: 50px;">
         </div>
-        <!-- Uhr App-Aufruf--> 
+        <div id="todo" class="unselected">
+          <img id="minimizetodoscreen_taskbar" src="icons/to-do.png" draggable="false" style="width: 50px; height: 50px;">
+        </div>
         <div id="clock" class="unselected">
-          <img id="openclockscreen" src="icons/clock.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="minimizeclockscreen_taskbar" src="icons/clock.png" draggable="false" style="width: 50px; height: 50px;">
         </div>
-        <!-- Trompeten App-Aufruf -->
         <div id="trumpet" class="unselected">
-          <img id="opentrumpetscreen" src="icons/trumpet.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="minimizetrumpetscreen_taskbar" src="icons/trumpet.png" draggable="false" style="width: 50px; height: 50px;">
         </div>
-        <!-- Hauptseite App-Aufruf -->
         <div id="welcome" class="unselected">
-          <img id="openwelcomescreen" src="icons/WaldOS_W.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="minimizewelcomescreen_taskbar" src="icons/WaldOS_W.png" draggable="false" style="width: 50px; height: 50px;">
         </div>
-        <!-- Suchmaschine App-Aufruf -->
         <div id="searchmachine" class="unselected">
-          <img id="opensearchmachinescreen" src="icons/suchmaschine.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="minimizesearchmachinescreen_taskbar" src="icons/suchmaschine.png" draggable="false" style="width: 50px; height: 50px;">
         </div>
-        <!--YouTube App-Aufruf -->
         <div id="youtube" class="unselected">
-          <img id="openyoutubescreen" src="icons/waldiverse.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="minimizeyoutubescreen_taskbar" src="icons/waldiverse.png" draggable="false" style="width: 50px; height: 50px;">
         </div>
-        <!--Maps App-Aufruf-->
         <div id="map" class="unselected">
-          <img id="openmapscreen" src="icons/maps.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="minimizemapscreen_taskbar" src="icons/maps.png" draggable="false" style="width: 50px; height: 50px;">
         </div>
-        <!--Taschenrechner App-Aufruf-->
         <div id="calculator" class="unselected">
-          <img id="opencalculatorscreen" src="icons/taschenrechner.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="minimizecalculatorscreen_taskbar" src="icons/taschenrechner.png" draggable="false" style="width: 50px; height: 50px;">
         </div>
-        <!--Stargazer App-Aufruf-->
         <div id="stargazer" class="unselected">
-          <img id="openstargazerscreen" src="icons/stargazer.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="minimizestargazerscreen_taskbar" src="icons/stargazer.png" draggable="false" style="width: 50px; height: 50px;">
         </div>
-        <!--WaldAI App-Aufruf-->
         <div id="waldai" class="unselected">
-          <img id="openwaldaiscreen" src="icons/waldai.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+          <img id="minimizewaldaiscreen_taskbar" src="icons/waldai.png" draggable="false" style="width: 50px; height: 50px;">
         </div>
-        <!--Autospiel App-Aufruf-->
-        <div id="racer" class="unselected">
-          <img id="openracerscreen" src="icons/waldracer.png" draggable="false" style="width: 50px; height: 50px; cursor: pointer; transform: rotate(0deg)">
+        <div id="waldracer" class="unselected">
+          <img id="minimizewaldracerscreen_taskbar" src="icons/waldracer.png" draggable="false" style="width: 50px; height: 50px;">
+        </div>
+        <div id="soundboard" class="unselected">
+          <img id="minimizesoundboardscreen_taskbar" src="icons/waldsound.png" draggable="false" style="width: 50px; height: 50px;">
+        </div>
+        <div id="travel" class="unselected">
+          <img id="minimizetravelscreen_taskbar" src="icons/waldtravel.png" draggable="false" style="width: 50px; height: 50px;">
         </div>
       </div>
 
-
-      <!-- Informationen-->
+      <!-- Informationen -->
       <div class="information">
-          <button id="opensettingscreen" class="settings-btn">⚙️</button>
-
+        <button id="opensettingscreen" class="settings-btn">⚙️</button>
         <div id="togglecalendarscreen">
           <p id="time" class="time"></p>
         </div>
+      </div>
 
+    </div>
+
+    <!-- WaldOS Start-Menü -->
+    <div class="window start-menu-window" id="startmenu">
+      <div class="window-header" id="startmenuheader">
+        <div class="window-title">
+          <span class="window-icon">🪟</span> WaldOS Control Center 
+        </div>
+        <div class="window-controls">
+          <button class="close-button" id="closestartmenu">✕</button>
+        </div>
+      </div>
+
+      <div class="start-menu-container">
+        <!-- Apps Übersicht -->
+        <div class="start-menu-sidebar" style="width: 100%;">
+          <h3>Installed Apps</h3>
+          <div class="start-app-list">
+            <div class="start-app-item" id="opennotescreen">
+              <img src="icons/notizen.png" width="36" height="36" style="cursor: pointer;"><span>Notes</span>
+            </div>
+            <div class="start-app-item" id="opentodoscreen">
+              <img src="icons/to-do.png" width="36" height="36" style="cursor: pointer;"><span>To-Do</span>
+            </div>
+            <div class="start-app-item" id="openclockscreen">
+              <img src="icons/clock.png" width="36" height="36" style="cursor: pointer;"><span>Waldclock</span>
+            </div>
+            <div class="start-app-item" id="opentrumpetscreen">
+              <img src="icons/trumpet.png" width="36" height="36" style="cursor: pointer;"><span>Trumpet Learn</span>
+            </div>
+            <div class="start-app-item" id="openwelcomescreen">
+              <img src="icons/WaldOS_W.png" width="36" height="36" style="cursor: pointer;"><span>About WaldOS</span>
+            </div>
+            <div class="start-app-item" id="opensearchmachinescreen">
+              <img src="icons/suchmaschine.png" width="36" height="36" style="cursor: pointer;"><span>WaldSearch</span>
+            </div>
+            <div class="start-app-item" id="openyoutubescreen">
+              <img src="icons/waldiverse.png" width="36" height="36" style="cursor: pointer;"><span>Waldiverse</span>
+            </div>
+            <div class="start-app-item" id="openmapscreen">
+              <img src="icons/maps.png" width="36" height="36" style="cursor: pointer;"><span>Maps</span>
+            </div>
+            <div class="start-app-item" id="opencalculatorscreen">
+              <img src="icons/taschenrechner.png" width="36" height="36" style="cursor: pointer;"><span>WaldCalc</span>
+            </div>
+            <div class="start-app-item" id="openstargazerscreen">
+              <img src="icons/stargazer.png" width="36" height="36" style="cursor: pointer;"><span>WaldSky</span>
+            </div>
+            <div class="start-app-item" id="openwaldaiscreen">
+              <img src="icons/waldai.png" width="36" height="36" style="cursor: pointer;"><span>WaldAI</span>
+            </div>
+            <div class="start-app-item" id="openwaldracerscreen">
+              <img src="icons/waldracer.png" width="36" height="36" style="cursor: pointer;"><span>Waldracer</span>
+            </div>
+            <div class="start-app-item" id="opensoundboardscreen">
+              <img src="icons/waldsound.png" width="36" height="36" style="cursor: pointer;"><span>Waldience</span>
+            </div>
+            <div class="start-app-item" id="opentravelscreen">
+              <img src="icons/waldtravel.png" width="36" height="36" style="cursor: pointer;"><span>WaldTravel</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
       
-    <!--Einstellungen-->  
+    <!-- Einstellungen -->  
     <div class="window settings-window" id="settingsscreen">
       <div class="window-header" id="settingsscreenheader">
         <div class="window-title">
@@ -96,15 +184,23 @@
         </div>
       </div>
 
-      <div class="settings-container">
+      <!-- Tab Navigations-Leiste -->
+      <div class="settings-nav">
+        <button class="settings-tab-btn active" data-tab="bg-settings">🌌 Background Settings</button>
+        <button class="settings-tab-btn" data-tab="voice-settings">🎙️ Voice AI</button>
+      </div>
 
-        <div class="setting-group">
-          <label for="input-title">Your own title:</label>
-          <input type="text" id="input-title" value="WaldOS©">
-        </div>
+      <!-- Tab 1: Background Settings -->
+      <div class="settings-tab-content active" id="tab-bg-settings">
+        <div class="settings-container">
 
-        <div class="setting-group">
-          <label class="settings-label">Galaxies:</label>
+          <div class="setting-group">
+            <label for="input-title">Your own title:</label>
+            <input type="text" id="input-title" value="WaldOS©">
+          </div>
+
+          <div class="setting-group">
+            <label class="settings-label">Galaxies:</label>
             <div class="preset-buttons">
               <button class="preset-btn" data-preset="classic">The WaldOS&copy;</button>
               <button class="preset-btn" data-preset="supernova">Mount Doom </button>
@@ -113,50 +209,126 @@
               <button class="preset-btn" data-preset="matrix">Posion</button>
               <button class="preset-btn" data-preset="night">Anime</button>
             </div>
-          <div class="custom-preset-builder">
-            <input type="text" id="input-preset-name" placeholder="Your Galaxy Name..." />
-            <button id="btn-save-preset">Save your Galaxy 💫</button>
+            <div class="custom-preset-builder">
+              <input type="text" id="input-preset-name" placeholder="Your Galaxy Name..." />
+              <button id="btn-save-preset">Save your Galaxy 💫</button>
+            </div>
+
+            <div id="custom-presets-container"></div>
+
+            <label for="slider-num-stars">More Stars!!! <span id="val-num-stars" class="setting-value">300</span></label>
+            <input type="range" id="slider-num-stars" min="100" max="2000" value="300">
           </div>
 
-          <div id="custom-presets-container"></div>
-
-          <label for="slider-num-stars">More Stars!!! <span id="val-num-stars" class="setting-value">300</span></label>
-          <input type="range" id="slider-num-stars" min="100" max="2000" value="300">
-        </div>
-
-        <div class="setting-group">
-          <label for="slider-conn-radius">Bigger Constallations (Intensive Graphic Design) <span id="val-conn-radius" class="setting-value">120 px</span></label>
-          <input type="range" id="slider-conn-radius" min="20" max="400" value="120">
-        </div>
-
-        <div class="setting-group">
-          <label for="slider-cursor-radius">Bigger Mousespan (Intensive Graphic Design)<span id="val-cursor-radius" class="setting-value">160 px</span></label>
-          <input type="range" id="slider-cursor-radius" min="50" max="400" value="160">
-        </div>
-
-        <div class="setting-group">
-          <label for="slider-star-speed">Speeeeeeeed <span id="val-star-speed" class="setting-value">1.0x</span></label>
-          <input type="range" id="slider-star-speed" min="0.1" max="3.0" step="0.1" value="1.0">
-        </div>
-
-        <div class="setting-group">
-          <label for="slider-shooting-stars">Shooting Stars <span id="val-shooting-stars" class="setting-value">3</span></label>
-          <input type="range" id="slider-shooting-stars" min="0" max="20" value="3">
-        </div>
-
-        <div class="setting-group-row">
-          <div class="color-picker-item">
-            <label for="color-stars">Own Starcolour</label>
-            <input type="color" id="color-stars" value="#ffffff">
+          <div class="setting-group">
+            <label for="slider-conn-radius">Bigger Constallations (Intensive Graphic Design) <span id="val-conn-radius" class="setting-value">120 px</span></label>
+            <input type="range" id="slider-conn-radius" min="20" max="400" value="120">
           </div>
-          <div class="color-picker-item">
-            <label for="color-lines">Differnet Linecolour</label>
-            <input type="color" id="color-lines" value="#08879b">
+
+          <div class="setting-group">
+            <label for="slider-cursor-radius">Bigger Mousespan (Intensive Graphic Design)<span id="val-cursor-radius" class="setting-value">160 px</span></label>
+            <input type="range" id="slider-cursor-radius" min="50" max="400" value="160">
           </div>
-          <div class="color-picker-item">
-            <label for="color-bg">Personial Background</label>
-            <input type="color" id="color-bg" value="#05070a">
+
+          <div class="setting-group">
+            <label for="slider-star-speed">Speeeeeeeed <span id="val-star-speed" class="setting-value">1.0x</span></label>
+            <input type="range" id="slider-star-speed" min="0.1" max="3.0" step="0.1" value="1.0">
           </div>
+
+          <div class="setting-group">
+            <label for="slider-shooting-stars">Shooting Stars <span id="val-shooting-stars" class="setting-value">3</span></label>
+            <input type="range" id="slider-shooting-stars" min="0" max="20" value="3">
+          </div>
+
+          <div class="setting-group-row">
+            <div class="color-picker-item">
+              <label for="color-stars">Own Starcolour</label>
+              <input type="color" id="color-stars" value="#ffffff">
+            </div>
+            <div class="color-picker-item">
+              <label for="color-lines">Differnet Linecolour</label>
+              <input type="color" id="color-lines" value="#08879b">
+            </div>
+            <div class="color-picker-item">
+              <label for="color-bg">Personial Background</label>
+              <input type="color" id="color-bg" value="#05070a">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Voice AI Settings -->
+      <div class="settings-tab-content" id="tab-voice-settings">
+        <div class="voice-container">
+          <div class="voice-status-box">
+            <span id="voice-status-text">Ready for voice command</span>
+            <div id="voice-indicator" class="ready"></div>
+          </div>
+
+          <div class="voice-controls">
+            <button id="start-voice-btn">🎙️ Manual start</button>
+            <button id="stop-voice-btn" disabled>⏹️ Stop</button>
+          </div>
+
+          <div class="voice-output-area">
+            <div class="voice-label">Recognized Text:</div>
+            <div id="voice-transcript" class="transcript-box">Click "Start Listening"...</div>
+
+            <div class="voice-label">Action Log:</div>
+            <div id="voice-command-log" class="command-box">Waiting for commands...</div>
+          </div>
+
+          <!-- General Voice Control Guide -->
+          <div class="voice-guide-container">
+            <h3 class="voice-guide-title">How VoiceAI Works</h3>
+            
+            <div class="voice-guide-card highlight-card">
+              <span class="guide-icon"></span>
+              <div class="guide-text">
+                <strong>Activation:</strong>
+                <p>Click the <strong>Star Ring Button</strong> in the top header or press <em>"Start Listening"</em> above to activate speech recognition.</p>
+              </div>
+            </div>
+
+            <h4 class="voice-guide-subtitle">Command Structure</h4>
+
+            <div class="voice-guide-grid">
+              
+              <!-- Rule 1: Window Controls -->
+              <div class="voice-guide-card">
+                <span class="guide-icon"></span>
+                <div>
+                  <strong>1. Window Controls (Open / Close / Maximize)</strong>
+                  <p>To control app windows, start with the action verb followed by the app name:</p>
+                  <p><code>[Action] + [App Name]</code></p>
+                  <small>Action keywords: <em>Open, Close, Maximize, Restore</em></small>
+                </div>
+              </div>
+
+              <!-- Rule 2: In-App Actions -->
+              <div class="voice-guide-card">
+                <span class="guide-icon"></span>
+                <div>
+                  <strong>2. In-App Actions (Search, Write, Calculate)</strong>
+                  <p>To execute an action inside a specific app, always state the app name or trigger word first, followed by the action and your content:</p>
+                  <p><code>[App Name] + [Action / Function] + [Your Content or Input]</code></p>
+                  <small>Structure: Target App ➔ Desired Function ➔ Query / Text / Calculation</small>
+                </div>
+              </div>
+
+              <!-- Rule 3: Close All -->
+              <div class="voice-guide-card">
+                <span class="guide-icon"></span>
+                <div>
+                  <strong>3. Global Commands</strong>
+                  <p>Use global system triggers to affect the whole workspace at once:</p>
+                  <p><code>"Close All"</code> — Closes all currently open windows immediately.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -169,7 +341,17 @@
           <span class="window-icon">🌲</span> About WaldOS&copy;
         </div>
         <div class="window-controls">
-          <button class="close-button" id="closewelcomescreen">✕</button>
+          <button class="minimize-btn" id="minimizewelcomescreen" title="Minimieren">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="close-button" id="closewelcomescreen" title="Schließen">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -221,16 +403,27 @@
     <!-- Trompeten-Screen -->
     <div class="window trumpet-window" id="trumpetscreen">
 
-      <!-- Fenster-Header im einheitlichen WaldOS-Stil -->
       <div class="window-header" id="trumpetscreenheader">
         <div class="window-title">
           <span class="window-icon">🎺</span> Trumpet Learn
         </div>
         <div class="window-controls">
-          <svg class="maximize-button" id="maximizetrumpetscreen" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="4.5" y="4.5" width="14" height="14" rx="1" ry="1"/>
-          </svg>
-          <button class="close-button" id="closetrumpetscreen">✕</button>
+          <button class="minimize-btn" id="minimizetrumpetscreen" title="Minimieren">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="maximize-btn" id="maximizetrumpetscreen" title="Maximieren">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <rect x="1.5" y="1.5" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.5" rx="1"/>
+            </svg>
+          </button>
+          <button class="close-button" id="closetrumpetscreen" title="Schließen">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -249,10 +442,22 @@
           <span class="window-icon">📝</span> Notes
         </div>
         <div class="window-controls">
-          <svg class="maximize-button" id="maximizenotescreen" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="4.5" y="4.5" width="14" height="14" rx="1" ry="1"/>
-          </svg>
-          <button class="close-button" id="closenotescreen">✕</button>
+          <button class="minimize-btn" id="minimizenotescreen" title="Minimieren">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="maximize-btn" id="maximizenotescreen" title="Maximieren">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <rect x="1.5" y="1.5" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.5" rx="1"/>
+            </svg>
+          </button>
+          <button class="close-button" id="closenotescreen" title="Schließen">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -309,7 +514,12 @@
           <span class="window-icon">🌙</span> Mooncalendar
         </div>
         <div class="window-controls">
-          <button class="close-button" id="closecalendarscreen">✕</button>
+          <button class="close-button" id="closetrumpetscreen" title="Schließen">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -339,10 +549,22 @@
           <span class="window-icon">🔍</span> WaldSearch
         </div>
         <div class="window-controls">
-          <svg class="maximize-button" id="maximizesearchmachinescreen" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="4.5" y="4.5" width="14" height="14" rx="1" ry="1"/>
-          </svg>
-          <button class="close-button" id="closesearchmachinescreen">✕</button>
+          <button class="minimize-btn" id="minimizesearchmachinescreen" title="Minimieren">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="maximize-btn" id="maximizesearchmachinescreen" title="Maximieren">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <rect x="1.5" y="1.5" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.5" rx="1"/>
+            </svg>
+          </button>
+          <button class="close-button" id="closesearchmachinescreen" title="Schließen">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -368,10 +590,17 @@
           <span class="window-icon">📖</span> Waldpedia
         </div>
         <div class="window-controls">
-          <svg class="maximize-button" id="maximizewikipediascreen" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="4.5" y="4.5" width="14" height="14" rx="1" ry="1"/>
-          </svg>
-          <button class="close-button" id="closewikipediascreen">✕</button>
+          <button class="maximize-btn" id="maximizewikipediascreen" title="Maximieren">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <rect x="1.5" y="1.5" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.5" rx="1"/>
+            </svg>
+          </button>
+          <button class="close-button" id="closewikipediascreen" title="Schließen">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -390,10 +619,22 @@
           <span class="window-icon">📽️</span> Waldiverse
         </div>
         <div class="window-controls">
-          <svg class="maximize-button" id="maximizeyoutubescreen" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="4.5" y="4.5" width="14" height="14" rx="1" ry="1"/>
-          </svg>
-          <button class="close-button" id="closeyoutubescreen">✕</button>
+          <button class="minimize-btn" id="minimizeyoutubescreen" title="Minimieren">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="maximize-btn" id="maximizeyoutubescreen" title="Maximieren">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <rect x="1.5" y="1.5" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.5" rx="1"/>
+            </svg>
+          </button>
+          <button class="close-button" id="closeyoutubescreen" title="Schließen">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
         </div>
       </div>
       
@@ -423,10 +664,22 @@
             <span>🗺️</span> Mapscreen
           </div>
           <div class="window-controls">
-            <svg class="maximize-button" id="maximizemapscreen" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="4.5" y="4.5" width="14" height="14" rx="1" ry="1"/>
-            </svg>
-            <p class="close-button" id="closemapscreen">✕</p>
+            <button class="minimize-btn" id="minimizemapscreen" title="Minimieren">
+              <svg viewBox="0 0 12 12" width="12" height="12">
+                <line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <button class="maximize-btn" id="maximizemapscreen" title="Maximieren">
+              <svg viewBox="0 0 12 12" width="12" height="12">
+                <rect x="1.5" y="1.5" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.5" rx="1"/>
+              </svg>
+            </button>
+            <button class="close-button" id="closemapscreen" title="Schließen">
+              <svg viewBox="0 0 12 12" width="12" height="12">
+                <line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
           </div>
         </div>
 
@@ -486,7 +739,17 @@
         </div>
         <div class="window-controls">
           <button id="toggle-calc-mode" class="calc-mode-toggle" type="button">🧪 Sci-Mode</button>
-          <button class="close-button" id="closecalculatorscreen" type="button">✕</button>
+          <button class="minimize-btn" id="minimizecalculatorscreen" title="Minimieren">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="close-button" id="closecalculatorscreen" title="Schließen">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -549,10 +812,22 @@
           <span class="window-icon">🌌</span> WaldSky
         </div>
         <div class="window-controls">
-           <svg class="maximize-button" id="maximizestargazerscreen" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="4.5" y="4.5" width="14" height="14" rx="1" ry="1"/>
+          <button class="minimize-btn" id="minimizestargazerscreen" title="Minimieren">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
-          <button class="close-button" id="closestargazerscreen" type="button">✕</button>
+          </button>
+          <button class="maximize-btn" id="maximizestargazerscreen" title="Maximieren">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <rect x="1.5" y="1.5" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.5" rx="1"/>
+            </svg>
+          </button>
+          <button class="close-button" id="closestargazerscreen" title="Schließen">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -602,10 +877,22 @@
           <span class="window-icon">🤖</span> WaldAI
         </div>
         <div class="window-controls">
-           <svg class="maximize-button" id="maximizeaiscreen" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="4.5" y="4.5" width="14" height="14" rx="1" ry="1"/>
+          <button class="minimize-btn" id="minimizewaldaiscreen" title="Minimieren">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
-          <button class="close-button" id="closeaiscreen" type="button">✕</button>
+          </button>
+          <button class="maximize-btn" id="maximizewaldaiscreen" title="Maximieren">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <rect x="1.5" y="1.5" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.5" rx="1"/>
+            </svg>
+          </button>
+          <button class="close-button" id="closewaldaiscreen" title="Schließen">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -628,10 +915,17 @@
           <span class="window-icon">⏰</span> Waldclock 
         </div>
         <div class="window-controls">
-          <svg class="maximize-button" id="maximizeclockscreen" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="4.5" y="4.5" width="14" height="14" rx="1" ry="1"/>
-          </svg>
-          <button class="close-button" id="closeclockscreen">✕</button>
+          <button class="minimize-btn" id="minimizeclockscreen" title="Minimieren">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="close-button" id="closeclockscreen" title="Schließen">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -712,27 +1006,230 @@
 
     <!-- Waldracer-Screen -->
     <div class="window racer-window" id="racerscreen">
-      <div class="window-header" id="clockscreenheader">
+      <div class="window-header" id="waldracerscreenheader">
         <div class="window-title">
           <span class="window-icon">🏎</span> Waldracer
         </div>
         <div class="window-controls">
-          <svg class="maximize-button" id="maximizeracerscreen" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="4.5" y="4.5" width="14" height="14" rx="1" ry="1"/>
-          </svg>
-          <button class="close-button" id="closeracerscreen">✕</button>
+          <button class="minimize-btn" id="minimizewaldracerscreen" title="Minimieren">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="maximize-btn" id="maximizeracerscreen" title="Maximieren">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <rect x="1.5" y="1.5" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.5" rx="1"/>
+            </svg>
+          </button>
+          <button class="close-button" id="closewaldracerscreen" title="Schließen">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
         </div>
       </div>
 
       <div class="racer-container">
-        <iframe src="https://slowroads.io/#A3-4532954b@1" class="racer-iframe"></iframe>
+        <iframe src="https://slowroads.io/#A3-4532954b@2" class="racer-iframe"></iframe>
+      </div>
+    </div>
+
+    <!-- WaldSound-Screen-->
+    <div class="window sound-window" id="soundboardscreen">
+      <div class="window-header" id="soundboardscreenheader">
+        <div class="window-title">
+          <span class="window-icon">🎵</span> Waldience
+        </div>
+        <div class="window-controls">
+          <button class="minimize-btn" id="minimizesoundboardscreen" title="Minimieren">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="close-button" id="closesoundboardscreen" title="Schließen">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="soundboard-container">
+        <div class="sound-presets">
+          <span class="preset-label">PRESETS</span>
+          <button class="preset-btn" onclick="playPreset('rainy')">Rainy</button>
+          <button class="preset-btn" onclick="playPreset('sunny')">Sunny</button>
+          <button class="preset-btn" onclick="playPreset('night')">Night</button>
+          <button class="preset-btn" onclick="playPreset('forest')">Forest</button>
+          <button class="preset-btn" onclick="playPreset('ocean')">Ocean</button>
+        </div>
+
+        <div class="sound-controls">
+          <!-- Wind -->
+          <div class="sound-pad" data-sound="wind">
+            <button class="pad-btn" onclick="toggleSound('wind')">🌲 Wind</button>
+            <input type="range" class="sound-volume" min="0" max="1" step="0.01" value="0.7" oninput="setVolume('wind', this.value)">
+          </div>
+
+          <!-- Regen -->
+          <div class="sound-pad" data-sound="rain">
+            <button class="pad-btn" onclick="toggleSound('rain')">🌧️ Regen</button>
+            <input type="range" class="sound-volume" min="0" max="1" step="0.01" value="0.7" oninput="setVolume('rain', this.value)">
+          </div>
+
+          <!-- Vögel -->
+          <div class="sound-pad" data-sound="birds">
+            <button class="pad-btn" onclick="toggleSound('birds')">🐦 Vögel</button>
+            <input type="range" class="sound-volume" min="0" max="1" step="0.01" value="0.7" oninput="setVolume('birds', this.value)">
+          </div>
+
+          <!-- Feuer -->
+          <div class="sound-pad" data-sound="fire">
+            <button class="pad-btn" onclick="toggleSound('fire')">🔥 Lagerfeuer</button>
+            <input type="range" class="sound-volume" min="0" max="1" step="0.01" value="0.7" oninput="setVolume('fire', this.value)">
+          </div>
+
+          <!-- Bach -->
+          <div class="sound-pad" data-sound="stream">
+            <button class="pad-btn" onclick="toggleSound('stream')">🌊 Bach</button>
+            <input type="range" class="sound-volume" min="0" max="1" step="0.01" value="0.7" oninput="setVolume('stream', this.value)">
+          </div>
+
+          <!-- Eule -->
+          <div class="sound-pad" data-sound="owl">
+            <button class="pad-btn" onclick="toggleSound('owl')">🦉 Eule</button>
+            <input type="range" class="sound-volume" min="0" max="1" step="0.01" value="0.7" oninput="setVolume('owl', this.value)">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- To-Do-Screen-->
+    <div class="window todo-window" id="todoscreen">
+      <!-- Fenster-Header -->
+      <div class="window-header" id="TodoSeiteheader">
+        <div class="window-title">
+          <span class="window-icon">📝</span> Wal(D)-O´S
+        </div>
+        <div class="window-controls">
+          <button class="minimize-btn" id="minimizetodoscreen" title="Minimieren">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="maximize-btn" id="maximizetodoscreen" title="Maximieren">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <rect x="1.5" y="1.5" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.5" rx="1"/>
+            </svg>
+          </button>
+          <button class="close-button" id="closetodoscreen" title="Schließen">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    
+      <!-- Fenster-Inhalt -->
+       <div class="todo-container">
+        
+        <div class="todo-input-bar">
+          <textarea id="todo-input" placeholder="Neuen Notizzettel schreiben..."></textarea>
+          <button id="add-todo-btn">Zettel hinzufügen</button>
+        </div>
+
+        <div class="todo-main-content" id="todo-list-container">
+        </div>
+
+      </div>
+    </div>
+
+    <!-- WaldTravel-Screen -->
+    <div class="window travel-window" id="travelscreen">
+      <div class="window-header" id="travelscreenheader">
+        <div class="window-title">
+          <span class="window-icon">🚀</span> WaldTravel
+        </div>
+        <div class="window-controls">
+          <button class="minimize-btn" id="minimizetravelscreen" title="Minimize">
+            <svg viewBox="0 0 12 12" width="12" height="12"><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <button class="maximize-btn" id="maximizetravelscreen" title="Maximize">
+            <svg viewBox="0 0 12 12" width="12" height="12"><rect x="1.5" y="1.5" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.5" rx="1"/></svg>
+          </button>
+          <button class="close-button" id="closetravelscreen" title="Close">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="travel-container">
+        <div class="travel-input-section">
+          <div class="input-group">
+            <label for="travel-start">Start Location</label>
+            <input type="text" id="travel-start" placeholder="e.g. Frankfurt">
+          </div>
+          <div class="input-group">
+            <label for="travel-end">Destination</label>
+            <input type="text" id="travel-end" placeholder="e.g. Berlin">
+          </div>
+          <div class="input-group">
+            <label for="travel-transport">Transport Mode</label>
+            <select id="travel-transport" class="travel-select">
+              <option value="petrol_car">🚗 Gasoline Car</option>
+              <option value="diesel_car">🚙 Diesel Car</option>
+              <option value="electric_green">⚡ Electric Car (Green Energy)</option>
+              <option value="electric_gray">🔌 Electric Car (Gray/Black Energy)</option>
+              <option value="motorcycle">🏍️ Motorcycle</option>
+              <option value="plane_commercial">✈️ Commercial Passenger Airplane (Per Person)</option>
+              <option value="plane_private">🛫 Private Jet</option>
+              <option value="bike">🚲 Bicycle</option>
+            </select>
+          </div>
+          <button id="travel-calc-btn" class="travel-btn">Calculate Interstellar Route 🌌</button>
+        </div>
+        
+        <!-- DYNAMISCHER WALD ALS GROSSES ODER KOMPAKTES VIEWPORT -->
+        <div class="forest-viewport large" id="forest-viewport">
+          <canvas id="travel-forest-canvas" width="420" height="220"></canvas>
+          <div class="forest-overlay-badge" id="forest-status-badge">Ecosystem: Pristine & Flourishing 🌲</div>
+        </div>
+
+        <div id="travel-results" class="travel-results" style="display: none;">
+          <h3>📊 Mission Statistics</h3>
+          <div class="travel-stat-grid">
+            <div class="travel-stat-card"><span class="stat-label">📏 Distance</span><span class="stat-value" id="travel-dist">-</span></div>
+            <div class="travel-stat-card"><span class="stat-label">⏱️ Duration</span><span class="stat-value" id="travel-time">-</span></div>
+            <div class="travel-stat-card"><span class="stat-label">⛽ Fuel / Energy</span><span class="stat-value" id="travel-fuel">-</span></div>
+            <div class="travel-stat-card"><span class="stat-label">🌍 CO₂ Emissions</span><span class="stat-value" id="travel-co2">-</span></div>
+          </div>
+          <div class="travel-comparison-box" id="travel-comparison"></div>
+          
+        </div>
       </div>
     </div>
 
 
-
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/script_stargazer.js"></script>
+    <script src="js/script_youtubescreen.js"></script>
+    <script src="js/script_waldsearch.js"></script>
+    <script src="js/script_mooncalendar.js"></script>
+    <script src="js/script_calculator.js"></script>
+    <script src="js/script_waldsound.js"></script>
+    <script src="js/script_background.js"></script>
+    <script src="js/script_clockscreen.js"></script>
+    <script src="js/script_waldai.js"></script>
+    <script src="js/script_todoscreen.js"></script>
+    <script src="js/script_voiceai.js"></script>
+    <script src="js/script_travelscreen.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/style_WaldOS.css">
@@ -748,7 +1245,10 @@
     <link rel="stylesheet" type="text/css" href="css/style_waldai.css">
     <link rel="stylesheet" type="text/css" href="css/style_clockscreen.css">
     <link rel="stylesheet" type="text/css" href="css/style_racerscreen.css">
-    <script src="js/script_stargazer.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style_soundboardscreen.css">
+    <link rel="stylesheet" type="text/css" href="css/style_todoscreen.css">
+    <link rel="stylesheet" type="text/css" href="css/style_voiceai.css">
+    <link rel="stylesheet" type="text/css" href="css/style_travelscreen.css">
   </body>
 
 </html>
