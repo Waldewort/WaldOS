@@ -211,7 +211,7 @@ var wikipediascreen = document.querySelector("#wikipediascreen");
 var mapscreen = document.querySelector("#mapscreen");
 var settingscreen = document.querySelector("#settingscreen");
 var calculatorscreen = document.querySelector("#calculatorscreen");
-var Stargazerscreen = document.querySelector("#stargazerscreen");
+var stargazerscreen = document.querySelector("#stargazerscreen");
 var aiscreen = document.querySelector("#aiscreen");
 var clockscreen = document.querySelector("#clockscreen");
 var waldracerscreen = document.querySelector("#racerscreen");
@@ -261,7 +261,7 @@ var closecalendarscreen = document.querySelector("#closecalendarscreen");
 var closesettingscreen = document.querySelector("#closesettingscreen");
 var closecalculatorscreen = document.querySelector("#closecalculatorscreen");
 var closestargazerscreen = document.querySelector("#closestargazerscreen");
-var closeaiscreen = document.querySelector("#closeaiscreen");
+var closewaldaiscreen = document.querySelector("#closewaldaiscreen");
 var closeclockscreen = document.querySelector("#closeclockscreen");
 var closewaldracerscreen = document.querySelector("#closewaldracerscreen");
 var closesoundboardscreen = document.querySelector("#closesoundboardscreen");
@@ -276,7 +276,7 @@ var minimizeyoutubescreen = document.querySelectorAll("#minimizeyoutubescreen, #
 var minimizemapscreen = document.querySelectorAll("#minimizemapscreen, #minimizemapscreen_taskbar");
 var minimizecalculatorscreen = document.querySelectorAll("#minimizecalculatorscreen, #minimizecalculatorscreen_taskbar");
 var minimizestargazerscreen = document.querySelectorAll("#minimizestargazerscreen, #minimizestargazerscreen_taskbar");
-var minimizeaiscreen = document.querySelectorAll("#minimizeaiscreen, #minimizeaiscreen_taskbar");
+var minimizewaldaiscreen = document.querySelectorAll("#minimizewaldaiscreen, #minimizewaldaiscreen_taskbar");
 var minimizeclockscreen = document.querySelectorAll("#minimizeclockscreen, #minimizeclockscreen_taskbar");
 var minimizewaldracerscreen = document.querySelectorAll("#minimizewaldracerscreen, #minimizewaldracerscreen_taskbar");
 var minimizesoundboardscreen = document.querySelectorAll("#minimizesoundboardscreen, #minimizesoundboardscreen_taskbar");
@@ -303,7 +303,7 @@ bindMinimizers(minimizeyoutubescreen, youtubescreen, youtube);
 bindMinimizers(minimizemapscreen, mapscreen, map);
 bindMinimizers(minimizecalculatorscreen, calculatorscreen, calculator);
 bindMinimizers(minimizestargazerscreen, stargazerscreen, stargazer);
-bindMinimizers(minimizeaiscreen, aiscreen, waldai);
+bindMinimizers(minimizewaldaiscreen, aiscreen, waldai);
 bindMinimizers(minimizeclockscreen, clockscreen, clock);
 bindMinimizers(minimizewaldracerscreen, waldracerscreen, waldracer);
 bindMinimizers(minimizesoundboardscreen, soundboardscreen, soundboard);
@@ -707,8 +707,8 @@ if (closestargazerscreen) {
   });
 }
 
-if (closeaiscreen) {
-  closeaiscreen.addEventListener("click", function() {
+if (closewaldaiscreen) {
+  closewaldaiscreen.addEventListener("click", function() {
     closewindow(aiscreen, waldai);
   });
 }
@@ -809,7 +809,7 @@ var maximizeMapScreenButton = document.querySelector("#maximizemapscreen");
 var stargazerscreen = document.querySelector("#stargazerscreen");
 var maximizeStargazerScreenButton = document.querySelector("#maximizestargazerscreen");
 var aiscreen = document.querySelector("#aiscreen");
-var maximizeAIScreenButton = document.querySelector("#maximizeaiscreen");
+var maximizewaldAIScreenButton = document.querySelector("#maximizewaldaiscreen");
 var racerscreen = document.querySelector("#racerscreen");
 var maximizeRacerScreenButton = document.querySelector("#maximizeracerscreen");
 var soundboardscreen = document.querySelector("#soundboardscreen");
@@ -882,8 +882,8 @@ if (maximizeStargazerScreenButton) {
   })  
 }
 
-if (maximizeAIScreenButton) {
-  maximizeAIScreenButton.addEventListener("click", function(){
+if (maximizewaldAIScreenButton) {
+  maximizewaldAIScreenButton.addEventListener("click", function(){
     maximizeWindow(aiscreen);
   })
 }
