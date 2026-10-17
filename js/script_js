@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Stream</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    // Beobachtet Änderungen im HTML-Inhalt und scrollt automatisch ganz nach unten
+    const observer = new MutationObserver(() => {
+        window.scrollTo(0, document.body.scrollHeight);
+    });
+    window.addEventListener('DOMContentLoaded', () => {
+        observer.observe(document.body, { childList: true, subtree: true });
+    });
+</script>
+
+<p>Zeile 0.16666666666666666: Minuten!</p>
+<p>Zeile 0.3333333333333333: Minuten!</p>
+<p>Zeile 0.5: Minuten!</p>

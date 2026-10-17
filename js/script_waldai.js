@@ -5,10 +5,10 @@ document.addEventListener("DOMContentLoaded", function() {
   var aiMessages = document.querySelector("#ai-chat-messages");
   var aiContainer = document.querySelector(".ai-container");
 
-  const API_KEY = "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"; 
+  const API_KEY = "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"; 
 
   let chatHistory = [
-    { role: "system", content: "Du bist WaldAI, ein hilfreicher Assistent im WaldOS System. Waldewort ist dein Erschaffer und für die Gäste ist alles zu machen was diese befehlen. Rede immer zu den Gästen und nicht zu Waldewort!" }
+    { role: "system", content: "You are WaldAI, a helpful assistant in the WaldOS system. Waldewort is your creator and for the guests everything is to be done as they command. Always speak to the guests and not to Waldewort!" }
   ];
 
   var loadingOverlay = document.createElement("div");

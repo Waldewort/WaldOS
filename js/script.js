@@ -41,17 +41,14 @@ const windowControlsTemplate = (key) => `
 
 document.addEventListener("DOMContentLoaded", function() {
   appsConfig.forEach(app => {
-    // Finde den passenden Controls-Container im HTML (z.B. per data-app oder über den Screen)
     if (app.screen) {
       const headerControls = app.screen.querySelector(".window-controls");
       if (headerControls && headerControls.innerHTML.trim() === "") {
-        // Generiert die Buttons mit dem korrekten App-Key (z.B. "trumpet", "notes" etc.)
         headerControls.innerHTML = windowControlsTemplate(app.key);
       }
     }
   });
 
-  // Danach greifen deine bestehenden Event-Listener für Öffnen, Schließen, Minimieren & Maximieren wieder vollautomatisch!
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -102,6 +99,9 @@ dragElement(document.getElementById("racerscreen"));
 dragElement(document.getElementById("soundboardscreen"));
 dragElement(document.getElementById("todoscreen"));
 dragElement(document.getElementById("travelscreen"));
+dragElement(document.getElementById("waldeyescreen"));
+dragElement(document.getElementById("waldollutionscreen"));
+dragElement(document.getElementById("waldweatherscreen"));
 
 const fullscreenBtn = document.getElementById("fullscreen-btn-WaldOS");
 const overlayWaldOS = document.getElementById("fullscreen-btn-WaldOS");
@@ -133,13 +133,16 @@ document.addEventListener("fullscreenchange", () => {
         { element: mapscreen, underline: map },
         { element: settingscreen, underline: settings },
         { element: calculatorscreen, underline: calculator },
-        { element: Stargazerscreen, underline: stargazer },
+        { element: stargazerscreen, underline: stargazer },
         { element: aiscreen, underline: waldai },
         { element: clockscreen, underline: clock },
         { element: waldracerscreen, underline: waldracer },
         { element: soundboardscreen, underline: soundboard },
         { element: todoscreen, underline: todo },
         { element: travelscreen, underline: travel },
+        { element: waldeyescreen, underline: waldeye },
+        { element: waldollutionscreen, underline: waldollution},
+        { element: waldweatherscreen, underline: waldweather },
       ];
 
       windowMappings.forEach(item => {
@@ -218,6 +221,9 @@ var waldracerscreen = document.querySelector("#racerscreen");
 var soundboardscreen = document.querySelector("#soundboardscreen");
 var todoscreen = document.querySelector("#todoscreen");
 var travelscreen = document.querySelector("#travelscreen");
+var waldeyescreen = document.querySelector("#waldeyescreen");
+var waldollutionscreen = document.querySelector("#waldollutionscreen");
+var waldweatherscreen = document.querySelector("#waldweatherscreen");
 
 var welcome = document.querySelector("#welcome");
 var trumpet = document.querySelector("#trumpet");
@@ -234,6 +240,9 @@ var waldracer = document.querySelector("#waldracer");
 var soundboard = document.querySelector("#soundboard");
 var todo = document.querySelector("#todo");
 var travel = document.querySelector("#travel");
+var waldeye = document.querySelector("#waldeye");
+var waldollution = document.querySelector("#waldollution");
+var waldweather = document.querySelector("#waldweather");
 
 var openwelcomescreen = document.querySelector("#openwelcomescreen");
 var opentrumpetscreen = document.querySelector("#opentrumpetscreen");
@@ -250,6 +259,9 @@ var openwaldracerscreen = document.querySelector("#openwaldracerscreen");
 var opensoundboardscreen = document.querySelector("#opensoundboardscreen");
 var opentodoscreen = document.querySelector("#opentodoscreen");
 var opentravelscreen = document.querySelector("#opentravelscreen");
+var openwaldeyescreen = document.querySelector("#openwaldeyescreen");
+var openwaldollutionscreen = document.querySelector("#openwaldollutionscreen");
+var openwaldweatherscreen = document.querySelector("#openwaldweatherscreen");
 
 var closewelcomescreen = document.querySelector("#closewelcomescreen");
 var closetrumpetscreen = document.querySelector("#closetrumpetscreen");
@@ -267,6 +279,9 @@ var closewaldracerscreen = document.querySelector("#closewaldracerscreen");
 var closesoundboardscreen = document.querySelector("#closesoundboardscreen");
 var closetodoscreen = document.querySelector("#closetodoscreen");
 var closetravelscreen = document.querySelector("#closetravelscreen");
+var closewaldeyescreen = document.querySelector("#closewaldeyescreen");
+var closewaldollutionscreen = document.querySelector("#closewaldollutionscreen");
+var closewaldweatherscreen = document.querySelector("#closewaldweatherscreen");
 
 var minimizewelcomescreen = document.querySelectorAll("#minimizewelcomescreen, #minimizewelcomescreen_taskbar");
 var minimizetrumpetscreen = document.querySelectorAll("#minimizetrumpetscreen, #minimizetrumpetscreen_taskbar");
@@ -282,6 +297,9 @@ var minimizewaldracerscreen = document.querySelectorAll("#minimizewaldracerscree
 var minimizesoundboardscreen = document.querySelectorAll("#minimizesoundboardscreen, #minimizesoundboardscreen_taskbar");
 var minimizetodoscreen = document.querySelectorAll("#minimizetodoscreen, #minimizetodoscreen_taskbar");
 var minimizetravelscreen = document.querySelectorAll("#minimizetravelscreen, #minimizetravelscreen_taskbar");
+var minimizewaldeyescreen = document.querySelectorAll("#minimizewaldeyescreen, #minimizewaldeyescreen_taskbar");
+var minimizewaldollutionscreen = document.querySelectorAll("#minimizewaldollutionscreen, #minimizewaldollutionscreen_taskbar");
+var minimizewaldweatherscreen = document.querySelectorAll("#minimizewaldweatherscreen, #minimizewaldweatherscreen_taskbar");
 
 function bindMinimizers(nodeList, screen, underline) {
   if (nodeList) {
@@ -309,6 +327,9 @@ bindMinimizers(minimizewaldracerscreen, waldracerscreen, waldracer);
 bindMinimizers(minimizesoundboardscreen, soundboardscreen, soundboard);
 bindMinimizers(minimizetodoscreen, todoscreen, todo);
 bindMinimizers(minimizetravelscreen, travelscreen, travel);
+bindMinimizers(minimizewaldeyescreen, waldeyescreen, waldeye);
+bindMinimizers(minimizewaldollutionscreen, waldollutionscreen, waldollution);
+bindMinimizers(minimizewaldweatherscreen, waldweatherscreen, waldweather);
 
 function closewindow(element, underline) {
   if (!element) return;
@@ -640,6 +661,33 @@ opentravelscreen.addEventListener("click", function() {
   }
 })
 
+openwaldeyescreen.addEventListener("click", function() {
+  if (visible(waldeyescreen)) {
+    closewindow(waldeyescreen, waldeye);
+  }
+  else{
+    openwindow(waldeyescreen, waldeye);
+  }
+})
+
+openwaldollutionscreen.addEventListener("click", function() {
+  if (visible(waldollutionscreen)) {
+    closewindow(waldollutionscreen, waldollution);
+  }
+  else{
+    openwindow(waldollutionscreen, waldollution);
+  }
+})
+
+openwaldweatherscreen.addEventListener("click", function() {
+  if (visible(waldweatherscreen)) {
+    closewindow(waldweatherscreen, waldweather);
+  }
+  else{
+    openwindow(waldweatherscreen, waldweather); 
+  }
+})
+
 if (closesettingscreen) {
   closesettingscreen.addEventListener("click", function() {
     closewindow(settingsscreen, settings);
@@ -743,6 +791,24 @@ if (closetravelscreen) {
   })
 }
 
+if (closewaldeyescreen) {
+  closewaldeyescreen.addEventListener("click", function() {
+    closewindow(waldeyescreen, waldeye);
+  })
+}
+
+if (closewaldollutionscreen) {
+  closewaldollutionscreen.addEventListener("click", function() {
+    closewindow(waldollutionscreen, waldollution);
+  })
+}
+
+if (closewaldweatherscreen) {
+  closewaldweatherscreen.addEventListener("click", function() {
+    closewindow(waldweatherscreen, waldweather);
+  })
+}
+
 var clockelement = document.querySelector("#togglecalendarscreen");
 var calendarscreen = document.querySelector("#calendarscreen");
 
@@ -786,7 +852,9 @@ addwindowtaphandling(racerscreen);
 addwindowtaphandling(soundboardscreen);
 addwindowtaphandling(todoscreen);
 addwindowtaphandling(travelscreen);
-
+addwindowtaphandling(waldeyescreen);
+addwindowtaphandling(waldollutionscreen);
+addwindowtaphandling(waldweatherscreen);
 
 function handleWindowTap(element) {
   biggestIndex++;
@@ -818,6 +886,10 @@ var todoscreen = document.querySelector("#todoscreen");
 var maximizeTodoScreenButton = document.querySelector("#maximizetodoscreen");
 var travelscreen = document.querySelector("#travelscreen");
 var maximizeTravelScreenButton = document.querySelector("#maximizetravelscreen");
+var waldeyescreen = document.querySelector("#waldeyescreen");
+var maximizeWaldeyeScreenButton = document.querySelector("#maximizewaldeyescreen");
+var waldweatherscreen = document.querySelector("#waldweatherscreen");
+var maximizeWaldWeatherScreenButton = document.querySelector("#maximizewaldweatherscreen");
 
 function maximizeWindow(element) {
   element.classList.toggle("maximized");
@@ -912,6 +984,17 @@ if (maximizeTravelScreenButton) {
   })
 }
 
+if (maximizeWaldeyeScreenButton) {
+  maximizeWaldeyeScreenButton.addEventListener("click", function(){
+    maximizeWindow(waldeyescreen);
+  })
+}
+
+if (maximizeWaldWeatherScreenButton) {
+  maximizeWaldWeatherScreenButton.addEventListener("click", function(){
+    maximizeWindow(waldweatherscreen);
+  })
+}
 
 // Save notes 
 

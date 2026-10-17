@@ -56,153 +56,171 @@ async function calculateTravelStats() {
     const startCoords = await geocodeAddressForTravel(startInput);
     const endCoords = await geocodeAddressForTravel(endInput);
 
-    const osrmUrl = `https://router.project-osrm.org/route/v1/driving/${startCoords.lon},${startCoords.lat};${endCoords.lon},${endCoords.lat}?overview=false`;
-    const response = await fetch(osrmUrl);
-    const data = await response.json();
+    let distanceKm = 0;
+    let airDistanceKm = 0;
+    let routeDuration = 0;
 
-    if (data.code === "Ok" && data.routes && data.routes.length > 0) {
-      const route = data.routes[0];
-      const distanceKm = (route.distance / 1000).toFixed(1);
-      const airDistanceKm = distanceKm * 0.8;
+    const isPlane = (transportMode === "plane_commercial" || transportMode === "plane_private");
 
-      let totalMinutes = 0;
-      let durationText = "";
-      let fuelText = "-";
-      let co2Kg = 0;
-      let additionalInfo = "";
-
-      const totalLifetimeKm = 200000;
-      const batteryProductionTotalKg = 6000;
-      const batteryCo2PerKm = batteryProductionTotalKg / totalLifetimeKm;
-      const routeBatteryCo2 = distanceKm * batteryCo2PerKm;
-
-      switch (transportMode) {
-        case "petrol_car":
-          totalMinutes = Math.round(route.duration / 60);
-          const petrolLiters = (distanceKm * 7.5) / 100;
-          fuelText = `${petrolLiters.toFixed(1)} Liters Gasoline`;
-          co2Kg = petrolLiters * 2.33;
-          break;
-
-        case "diesel_car":
-          totalMinutes = Math.round(route.duration / 60);
-          const dieselLiters = (distanceKm * 6.0) / 100;
-          fuelText = `${dieselLiters.toFixed(1)} Liters Diesel`;
-          co2Kg = dieselLiters * 2.64;
-          break;
-
-        case "electric_green":
-          totalMinutes = Math.round(route.duration / 60);
-          const kwhGreen = (distanceKm * 18) / 100;
-          fuelText = `${kwhGreen.toFixed(1)} kWh Green Electricity`;
-          co2Kg = routeBatteryCo2;
-          additionalInfo = `<br>🔋 <strong>Battery Production Share:</strong> ${routeBatteryCo2.toFixed(1)} kg CO₂.`;
-          break;
-
-        case "electric_gray":
-          totalMinutes = Math.round(route.duration / 60);
-          const kwhGray = (distanceKm * 18) / 100;
-          fuelText = `${kwhGray.toFixed(1)} kWh Gray Grid Electricity`;
-          const drivingCo2Gray = kwhGray * 0.40;
-          co2Kg = drivingCo2Gray + routeBatteryCo2;
-          additionalInfo = `<br>🔌 <strong>Energy Breakdown:</strong> Driving: ${drivingCo2Gray.toFixed(1)} kg CO₂ + Battery: ${routeBatteryCo2.toFixed(1)} kg CO₂.`;
-          break;
-
-        case "motorcycle":
-          totalMinutes = Math.round((route.duration / 60) * 0.95);
-          const motoLiters = (distanceKm * 4.5) / 100;
-          fuelText = `${motoLiters.toFixed(1)} Liters Fuel`;
-          co2Kg = motoLiters * 2.33;
-          break;
-
-        case "plane_commercial":
-          const flightHours = (airDistanceKm / 800) + 1.5;
-          totalMinutes = Math.round(flightHours * 60);
-          const totalPlaneLiters = airDistanceKm * 3.5;
-          const totalPlaneCo2 = totalPlaneLiters * 3.16;
-          const passengerCount = 180;
-          co2Kg = totalPlaneCo2 / passengerCount;
-          fuelText = `~${(totalPlaneLiters / passengerCount).toFixed(1)} Liters Kerosene (Share)`;
-          additionalInfo = `<br>✈️ <strong>Commercial Flight:</strong> Shared among ${passengerCount} passengers.`;
-          break;
-
-        case "plane_private":
-          const jetHours = (airDistanceKm / 750) + 0.5;
-          totalMinutes = Math.round(jetHours * 60);
-          const totalJetLiters = airDistanceKm * 2.5;
-          const totalJetCo2 = totalJetLiters * 3.16;
-          const jetPassengers = 6;
-          co2Kg = totalJetCo2 / jetPassengers;
-          fuelText = `~${(totalJetLiters / jetPassengers).toFixed(1)} Liters Jet Fuel (Share)`;
-          additionalInfo = `<br>🛫 <strong>Private Jet:</strong> Massive footprint shared by only ${jetPassengers} passengers.`;
-          break;
-
-        case "bike":
-          const bikeHours = distanceKm / 18;
-          totalMinutes = Math.round(bikeHours * 60);
-          fuelText = `0 kcal / Muscle Power 💪`;
-          co2Kg = 0;
-          break;
-      }
-
-      const hours = Math.floor(totalMinutes / 60);
-      const minutes = totalMinutes % 60;
-      durationText = hours > 0 ? `${hours} hrs ${minutes} mins` : `${minutes} mins`;
-
-      if (forestViewport && canvas) {
-        forestViewport.classList.remove("large");
-        forestViewport.classList.add("compact");
-        canvas.width = 420;
-        canvas.height = 85;
-      }
-
-      const co2PerKm = co2Kg / distanceKm;
-      const intensityFactor = Math.min(1, co2PerKm / 1.5);
-      const volumeFactor = Math.min(1, Math.log10(co2Kg + 1) / 3.5);
-      const combinedDamage = (intensityFactor * 0.5) + (volumeFactor * 0.5);
-
-      drawRealisticForest(combinedDamage, co2Kg);
-
-      let cloudUnitWeight = 1; 
-      if (co2Kg > 500) {
-        cloudUnitWeight = 20; 
-      } else if (co2Kg > 200) {
-        cloudUnitWeight = 10;  
-      } else if (co2Kg > 50) {
-        cloudUnitWeight = 5;  
-      } else if (co2Kg > 10) {
-        cloudUnitWeight = 1;   
-      }
-
-      const cloudCount = Math.min(Math.round(co2Kg / cloudUnitWeight), 1000); // Auf 100 limitiert für maximale Performance
-      renderCo2IconsEverywhere(cloudCount);
-
-      document.querySelector("#travel-dist").innerText = `${distanceKm} km`;
-      document.querySelector("#travel-time").innerText = durationText;
-      document.querySelector("#travel-fuel").innerText = fuelText;
-      document.querySelector("#travel-co2").innerText = `${co2Kg.toFixed(1)} kg`;
-
-      let comparisonHTML = `<strong>💡 CO₂ Insights & Legend:</strong><br>`;
-      if (co2Kg === 0) {
-        comparisonHTML += `Flawless! 100% emission-free. Mother Nature thanks you! 🌲`;
-      } else {
-        const treeDays = Math.ceil(co2Kg / 0.06);
-        if (treeDays > 365) {
-          const treeYears = Math.floor(treeDays / 365);
-          const remainingDays = treeDays % 365;
-          comparisonHTML += `Requires <strong>${treeYears} years and ${remainingDays} days</strong> for 1 tree to absorb this CO₂! 🌳`;
-        }
-        else {
-          comparisonHTML += `Requires <strong>${treeDays} days</strong> for 1 tree to absorb this CO₂! 🌳`;
-        }
-        comparisonHTML += `<br><span style="color: #089b9b; font-size: 11px;">☁️ <strong>Cloud Legend:</strong> 1 Cloud = ${cloudUnitWeight} kg CO₂ (${cloudCount} clouds on desktop)</span>${additionalInfo}`;
-      }
-
-      document.querySelector("#travel-comparison").innerHTML = comparisonHTML;
-      resultsBox.style.display = "flex";
+    if (isPlane) {
+      // Direkte Luftlinie über Ozeane/Meere via Haversine-Formel berechnen
+      const R = 6371; // Erdradius in km
+      const dLat = (endCoords.lat - startCoords.lat) * Math.PI / 180;
+      const dLon = (endCoords.lon - startCoords.lon) * Math.PI / 180;
+      const a = 
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(startCoords.lat * Math.PI / 180) * Math.cos(endCoords.lat * Math.PI / 180) * 
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      distanceKm = (R * c).toFixed(1);
+      airDistanceKm = distanceKm;
+      routeDuration = (distanceKm / 800) * 3600; // Geschätzte Flugdauer in Sekunden
     } else {
-      alert("Could not calculate route.");
+      // OSRM für Straßen-Fahrzeuge (funktioniert nur auf festem Land)
+      const osrmUrl = `https://router.project-osrm.org/route/v1/driving/${startCoords.lon},${startCoords.lat};${endCoords.lon},${endCoords.lat}?overview=false`;
+      const response = await fetch(osrmUrl);
+      const data = await response.json();
+
+      if (data.code === "Ok" && data.routes && data.routes.length > 0) {
+        const route = data.routes[0];
+        distanceKm = (route.distance / 1000).toFixed(1);
+        airDistanceKm = distanceKm * 0.8;
+        routeDuration = route.duration;
+      } else {
+        alert("You´re car can´t swim that good. Please choose a different transport mode or check your locations.");
+        return;
+      }
     }
+
+    let totalMinutes = 0;
+    let durationText = "";
+    let fuelText = "-";
+    let co2Kg = 0;
+    let additionalInfo = "";
+
+    const totalLifetimeKm = 200000;
+    const batteryProductionTotalKg = 6000;
+    const batteryCo2PerKm = batteryProductionTotalKg / totalLifetimeKm;
+    const routeBatteryCo2 = distanceKm * batteryCo2PerKm;
+
+    switch (transportMode) {
+      case "petrol_car":
+        totalMinutes = Math.round(routeDuration / 60);
+        const petrolLiters = (distanceKm * 7.5) / 100;
+        fuelText = `${petrolLiters.toFixed(1)} Liters Gasoline`;
+        co2Kg = petrolLiters * 2.33;
+        break;
+
+      case "diesel_car":
+        totalMinutes = Math.round(routeDuration / 60);
+        const dieselLiters = (distanceKm * 6.0) / 100;
+        fuelText = `${dieselLiters.toFixed(1)} Liters Diesel`;
+        co2Kg = dieselLiters * 2.64;
+        break;
+
+      case "electric_green":
+        totalMinutes = Math.round(routeDuration / 60);
+        const kwhGreen = (distanceKm * 18) / 100;
+        fuelText = `${kwhGreen.toFixed(1)} kWh Green Electricity`;
+        co2Kg = routeBatteryCo2;
+        additionalInfo = `<br>🔋 <strong>Battery Production Share:</strong> ${routeBatteryCo2.toFixed(1)} kg CO₂.`;
+        break;
+
+      case "electric_gray":
+        totalMinutes = Math.round(routeDuration / 60);
+        const kwhGray = (distanceKm * 18) / 100;
+        fuelText = `${kwhGray.toFixed(1)} kWh Gray Grid Electricity`;
+        const drivingCo2Gray = kwhGray * 0.40;
+        co2Kg = drivingCo2Gray + routeBatteryCo2;
+        additionalInfo = `<br>🔌 <strong>Energy Breakdown:</strong> Driving: ${drivingCo2Gray.toFixed(1)} kg CO₂ + Battery: ${routeBatteryCo2.toFixed(1)} kg CO₂.`;
+        break;
+
+      case "motorcycle":
+        totalMinutes = Math.round((routeDuration / 60) * 0.95);
+        const motoLiters = (distanceKm * 4.5) / 100;
+        fuelText = `${motoLiters.toFixed(1)} Liters Fuel`;
+        co2Kg = motoLiters * 2.33;
+        break;
+
+      case "plane_commercial":
+        const flightHours = (airDistanceKm / 800) + 1.5;
+        totalMinutes = Math.round(flightHours * 60);
+        const totalPlaneLiters = airDistanceKm * 3.5;
+        const totalPlaneCo2 = totalPlaneLiters * 3.16;
+        const passengerCount = 180;
+        co2Kg = totalPlaneCo2 / passengerCount;
+        fuelText = `~${(totalPlaneLiters / passengerCount).toFixed(1)} Liters Kerosene (Share)`;
+        additionalInfo = `<br>✈️ <strong>Commercial Flight:</strong> Shared among ${passengerCount} passengers.`;
+        break;
+
+      case "plane_private":
+        const jetHours = (airDistanceKm / 750) + 0.5;
+        totalMinutes = Math.round(jetHours * 60);
+        const totalJetLiters = airDistanceKm * 2.5;
+        const totalJetCo2 = totalJetLiters * 3.16;
+        const jetPassengers = 6;
+        co2Kg = totalJetCo2 / jetPassengers;
+        fuelText = `~${(totalJetLiters / jetPassengers).toFixed(1)} Liters Jet Fuel (Share)`;
+        additionalInfo = `<br>🛫 <strong>Private Jet:</strong> Massive footprint shared by only ${jetPassengers} passengers.`;
+        break;
+
+      case "bike":
+        const bikeHours = distanceKm / 18;
+        totalMinutes = Math.round(bikeHours * 60);
+        fuelText = `0 kcal / Muscle Power 💪`;
+        co2Kg = 0;
+        break;
+    }
+
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    durationText = hours > 0 ? `${hours} hrs ${minutes} mins` : `${minutes} mins`;
+
+    if (forestViewport && canvas) {
+      forestViewport.classList.remove("large");
+      forestViewport.classList.add("compact");
+      canvas.width = 420;
+      canvas.height = 85;
+    }
+
+    const co2PerKm = co2Kg / distanceKm;
+    const intensityFactor = Math.min(1, co2PerKm / 1.5);
+    const volumeFactor = Math.min(1, Math.log10(co2Kg + 1) / 3.5);
+    const combinedDamage = (intensityFactor * 0.5) + (volumeFactor * 0.5);
+
+    drawRealisticForest(combinedDamage, co2Kg);
+
+    let cloudUnitWeight = 1; 
+    if (co2Kg > 500) {
+      cloudUnitWeight = 20; 
+    } else if (co2Kg > 200) {
+      cloudUnitWeight = 10;  
+    } else if (co2Kg > 50) {
+      cloudUnitWeight = 5;  
+    } else if (co2Kg > 10) {
+      cloudUnitWeight = 1;   
+    }
+
+    const cloudCount = Math.min(Math.round(co2Kg / cloudUnitWeight), 1000);
+    renderCo2IconsEverywhere(cloudCount);
+
+    document.querySelector("#travel-dist").innerText = `${distanceKm} km`;
+    document.querySelector("#travel-time").innerText = durationText;
+    document.querySelector("#travel-fuel").innerText = fuelText;
+    document.querySelector("#travel-co2").innerText = `${co2Kg.toFixed(1)} kg`;
+
+    let comparisonHTML = `<strong>💡 CO₂ Insights & Legend:</strong><br>`;
+    if (co2Kg === 0) {
+      comparisonHTML += `Flawless! 100% emission-free. Mother Nature thanks you! 🌲`;
+    } else {
+      const treeDays = Math.ceil(co2Kg / 0.06);
+      comparisonHTML += `Requires <strong>1 tree about ${treeDays} days</strong> to absorb this CO₂! 🌳`;
+      comparisonHTML += `<br><span style="color: #089b9b; font-size: 11px;">☁️ <strong>Cloud Legend:</strong> 1 Cloud = ${cloudUnitWeight} kg CO₂ (${cloudCount} clouds on desktop)</span>${additionalInfo}`;
+    }
+
+    document.querySelector("#travel-comparison").innerHTML = comparisonHTML;
+    resultsBox.style.display = "flex";
+
   } catch (error) {
     alert("Error searching location: " + error.message);
   }
@@ -221,8 +239,6 @@ async function geocodeAddressForTravel(query) {
 function renderCo2IconsEverywhere(totalCount) {
   document.querySelectorAll('.desktop-energy-floating').forEach(el => el.remove());
   if (totalCount <= 0) return;
-
-  const windows = document.querySelectorAll('#travelscreen, .window, .os-window, [class*="window"]');
 
   for (let i = 0; i < totalCount; i++) {
     const icon = document.createElement("div");
@@ -266,7 +282,6 @@ function updateFloatingIconPositions() {
 
     const iconSize = 25;
 
-    // Kollisionsprüfung mit Fenstern
     activeWindows.forEach(win => {
       const rect = win.getBoundingClientRect();
       if (rect.width > 0) {

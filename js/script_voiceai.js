@@ -339,7 +339,6 @@ document.addEventListener("DOMContentLoaded", function () {
     { name: "calendar", windowId: "calendarscreen", containerId: "togglecalendarscreen", keywords: ["calendar", "mooncalendar", "events", "takeoff dates", "schedule"] }
   ];
 
-  // --- Ausschließliche Englisch-Verarbeitung für In-App Interaktionen ---
 
   function processInAppCommands(originalText) {
     const text = originalText.trim();
