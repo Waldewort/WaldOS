@@ -55,7 +55,6 @@
           <span style="color: white; font-weight: bold; font-size: 20px; font-family: sans-serif;">WaldOS</span>
         </div>
 
-        <!-- Taskleisten-Plätze für geöffnete Apps (werden per JS/CSS eingeblendet) -->
         <div id="notes" class="unselected">
           <img id="minimizenotescreen_taskbar" src="icons/notizen.png" draggable="false" style="width: 50px; height: 50px;">
         </div>
@@ -98,6 +97,15 @@
         <div id="travel" class="unselected">
           <img id="minimizetravelscreen_taskbar" src="icons/waldtravel.png" draggable="false" style="width: 50px; height: 50px;">
         </div>
+        <div id="waldeye" class="unselected">
+          <img id="minimizewaldeyescreen_taskbar" src="icons/waldeye.png" draggable="false" style="width: 50px; height: 50px;">
+        </div>
+        <div id="waldollution" class="unselected">
+          <img id="minimizewaldollution_taskbar" src="icons/waldollution.png" draggable="false" style="width: 50px; height: 50px;">
+        </div>
+        <div id="waldweather" class="unselected">
+          <img id="minimizewaldweatherscreen_taskbar" src="icons/waldweather.png" draggable="false" style="width: 50px; height: 50px;">
+        </div>
       </div>
 
       <!-- Informationen -->
@@ -114,7 +122,7 @@
     <div class="window start-menu-window" id="startmenu">
       <div class="window-header" id="startmenuheader">
         <div class="window-title">
-          <span class="window-icon">🪟</span> WaldOS Control Center 
+          <span class="window-icon">🪟</span> WaldOS Control Center
         </div>
         <div class="window-controls">
           <button class="close-button" id="closestartmenu">✕</button>
@@ -122,54 +130,76 @@
       </div>
 
       <div class="start-menu-container">
-        <!-- Apps Übersicht -->
-        <div class="start-menu-sidebar" style="width: 100%;">
-          <h3>Installed Apps</h3>
+        
+        <!-- Linke Spalte: Alle installierten Apps (durchgehende scrollbare Liste) -->
+        <div class="start-menu-sidebar">
+          <h3>Alle Apps</h3>
           <div class="start-app-list">
             <div class="start-app-item" id="opennotescreen">
-              <img src="icons/notizen.png" width="36" height="36" style="cursor: pointer;"><span>Notes</span>
+              <img src="icons/notizen.png" width="28" height="28"><span>Notes</span>
             </div>
             <div class="start-app-item" id="opentodoscreen">
-              <img src="icons/to-do.png" width="36" height="36" style="cursor: pointer;"><span>To-Do</span>
+              <img src="icons/to-do.png" width="28" height="28"><span>To-Do</span>
             </div>
             <div class="start-app-item" id="openclockscreen">
-              <img src="icons/clock.png" width="36" height="36" style="cursor: pointer;"><span>Waldclock</span>
-            </div>
-            <div class="start-app-item" id="opentrumpetscreen">
-              <img src="icons/trumpet.png" width="36" height="36" style="cursor: pointer;"><span>Trumpet Learn</span>
-            </div>
-            <div class="start-app-item" id="openwelcomescreen">
-              <img src="icons/WaldOS_W.png" width="36" height="36" style="cursor: pointer;"><span>About WaldOS</span>
+              <img src="icons/clock.png" width="28" height="28"><span>Waldclock</span>
             </div>
             <div class="start-app-item" id="opensearchmachinescreen">
-              <img src="icons/suchmaschine.png" width="36" height="36" style="cursor: pointer;"><span>WaldSearch</span>
+              <img src="icons/suchmaschine.png" width="28" height="28"><span>WaldSearch</span>
+            </div>
+            <div class="start-app-item" id="openwaldweatherscreen">
+              <img src="icons/waldweather.png" width="28" height="28"><span>WaldWeather</span>
+            </div>
+            <div class="start-app-item" id="opentrumpetscreen">
+              <img src="icons/trumpet.png" width="28" height="28"><span>Trumpet Learn</span>
+            </div>
+            <div class="start-app-item" id="openwelcomescreen">
+              <img src="icons/WaldOS_W.png" width="28" height="28"><span>About WaldOS</span>
+            </div>
+            <div class="start-app-item" id="opensearchmachinescreen">
+              <img src="icons/suchmaschine.png" width="28" height="28"><span>WaldSearch</span>
             </div>
             <div class="start-app-item" id="openyoutubescreen">
-              <img src="icons/waldiverse.png" width="36" height="36" style="cursor: pointer;"><span>Waldiverse</span>
+              <img src="icons/waldiverse.png" width="28" height="28"><span>Waldiverse</span>
             </div>
             <div class="start-app-item" id="openmapscreen">
-              <img src="icons/maps.png" width="36" height="36" style="cursor: pointer;"><span>Maps</span>
+              <img src="icons/maps.png" width="28" height="28"><span>Maps</span>
             </div>
             <div class="start-app-item" id="opencalculatorscreen">
-              <img src="icons/taschenrechner.png" width="36" height="36" style="cursor: pointer;"><span>WaldCalc</span>
+              <img src="icons/taschenrechner.png" width="28" height="28"><span>WaldCalc</span>
             </div>
             <div class="start-app-item" id="openstargazerscreen">
-              <img src="icons/stargazer.png" width="36" height="36" style="cursor: pointer;"><span>WaldSky</span>
+              <img src="icons/stargazer.png" width="28" height="28"><span>WaldSky</span>
             </div>
             <div class="start-app-item" id="openwaldaiscreen">
-              <img src="icons/waldai.png" width="36" height="36" style="cursor: pointer;"><span>WaldAI</span>
+              <img src="icons/waldai.png" width="28" height="28"><span>WaldAI</span>
             </div>
             <div class="start-app-item" id="openwaldracerscreen">
-              <img src="icons/waldracer.png" width="36" height="36" style="cursor: pointer;"><span>Waldracer</span>
+              <img src="icons/waldracer.png" width="28" height="28"><span>Waldracer</span>
             </div>
             <div class="start-app-item" id="opensoundboardscreen">
-              <img src="icons/waldsound.png" width="36" height="36" style="cursor: pointer;"><span>Waldience</span>
+              <img src="icons/waldsound.png" width="28" height="28"><span>Waldience</span>
             </div>
             <div class="start-app-item" id="opentravelscreen">
-              <img src="icons/waldtravel.png" width="36" height="36" style="cursor: pointer;"><span>WaldTravel</span>
+              <img src="icons/waldtravel.png" width="28" height="28"><span>WaldTravel</span>
+            </div>
+            <div class="start-app-item" id="openwaldeyescreen">
+              <img src="icons/waldeye.png" width="28" height="28"><span>WaldEye</span>
+            </div>
+            <div class="start-app-item" id="openwaldollutionscreen">
+              <img src="icons/waldollution.png" width="28" height="28"><span>Waldollution</span>
             </div>
           </div>
         </div>
+
+        <!-- Rechte Spalte: Top-Apps (meistverwendet) -->
+        <div class="start-menu-frequent">
+          <h3>Top-Apps</h3>
+          <div class="frequent-app-grid" id="frequent-app-list">
+            <!-- Wird dynamisch gefüllt -->
+          </div>
+        </div>
+
       </div>
     </div>
       
@@ -1173,11 +1203,11 @@
         <div class="travel-input-section">
           <div class="input-group">
             <label for="travel-start">Start Location</label>
-            <input type="text" id="travel-start" placeholder="e.g. Frankfurt">
+            <input type="text" id="travel-start" placeholder="e.g. New York">
           </div>
           <div class="input-group">
             <label for="travel-end">Destination</label>
-            <input type="text" id="travel-end" placeholder="e.g. Berlin">
+            <input type="text" id="travel-end" placeholder="e.g. Los Angeles">
           </div>
           <div class="input-group">
             <label for="travel-transport">Transport Mode</label>
@@ -1215,9 +1245,194 @@
       </div>
     </div>
 
+    <!-- Waldeye App-Fenster -->
+    <div class="window waldeye-window" id="waldeyescreen" style="display: none;">
+      <div class="window-header" id="waldeyeheader">
+        <div class="window-title">
+          <span class="window-icon">👁️</span> Waldeye
+        </div>
+        <div class="window-controls">
+          <button class="minimize-btn" id="minimizewaldeyescreen" title="Minimize">
+            <svg viewBox="0 0 12 12" width="12" height="12"><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <button class="maximize-btn" id="maximizewaldeyescreen" title="Maximize">
+            <svg viewBox="0 0 12 12" width="12" height="12"><rect x="1.5" y="1.5" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.5" rx="1"/></svg>
+          </button>
+          <button class="close-button" id="closewaldeyescreen" title="Close">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="waldeye-container">
+        <div class="waldeye-sidebar">
+          <h3>Live Cams</h3>
+          <div class="waldeye-channel-list" id="waldeye-channel-list">
+          </div>
+        </div>
+
+        <div class="waldeye-main">
+          <div class="waldeye-video-wrapper">
+            <iframe id="waldeye-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          
+          <div class="waldeye-info" style="margin-top: 10px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 6px;">
+            <h4 id="waldeye-title" style="margin: 0 0 4px 0; font-size: 13px; color: #eceff4;">Choose your animal</h4>
+            <p id="waldeye-desc" style="margin: 0; font-size: 11px; color: #9099a8;">Natural cams around the w(or)ald.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Waldollution App-Fenster -->
+    <div class="window waldollution-window" id="waldollutionscreen">
+      <div class="window-header" id="waldollutionscreenheader">
+        <div class="window-title">
+          <span class="window-icon">♻️</span> Waldollution
+        </div>
+        <div class="window-controls">
+          <button class="minimize-btn" id="minimizewaldollutionscreen" title="Minimize">
+            <svg viewBox="0 0 12 12" width="12" height="12"><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <button class="close-button" id="closewaldollutionscreen" title="Close">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="waldollution-container">
+        <div class="waldollution-sidebar-grid">
+          <h3>Select an Item:</h3>
+          <div class="waldollution-grid" id="waldollution-grid">
+          </div>
+        </div>
+
+        <div class="waldollution-result-card">
+          <div class="waldollution-icon" id="waldollution-icon">🍌</div>
+          <h4 id="waldollution-item-title">Banana</h4>
+          <div class="waldollution-time" id="waldollution-time">1 to 3 months</div>
+          <p class="waldollution-fact" id="waldollution-fact">
+            Although biodegradable, the decomposition in central European forests takes several months due to the thick skin.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- WaldWeather App-Fenster -->
+    <div class="window weather-window" id="waldweatherscreen" style="display: none;">
+      <div class="window-header" id="waldweatherscreenheader">
+        <div class="window-title">
+          <span class="window-icon">☀️</span> WaldWeather
+        </div>
+        <div class="window-controls">
+          <button class="minimize-btn" id="minimizewaldweatherscreen" title="Minimize">
+            <svg viewBox="0 0 12 12" width="12" height="12"><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <button class="maximize-btn" id="maximizewaldweatherscreen" title="Maximize">
+            <svg viewBox="0 0 12 12" width="12" height="12"><rect x="1.5" y="1.5" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.5" rx="1"/></svg>
+          </button>
+          <button class="close-button" id="closewaldweatherscreen" title="Close">
+            <svg viewBox="0 0 12 12" width="12" height="12">
+              <line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="weather-container">
+        <div class="weather-tabs-wrapper">
+          <button class="weather-scroll-arrow" id="weather-scroll-left" title="Scroll Left">◀</button>
+          <div class="weather-tabs" id="weather-tabs">
+            <button class="weather-tab active" data-lat="50.11" data-lon="8.68" data-name="HQ (Frankfurt)">📍 My Location</button>
+          </div>
+          <button class="weather-scroll-arrow" id="weather-scroll-right" title="Scroll Right">▶</button>
+        </div>
+
+        <div class="weather-search-bar">
+          <input type="text" id="weather-city-input" placeholder="Search city...">
+          <button id="weather-search-btn">Search</button>
+          <button id="weather-save-btn" title="Save Location">💾</button>
+        </div>
+
+        <div class="weather-main-card">
+          <div class="weather-location" id="weather-location">HQ (Frankfurt)</div>
+          <div class="weather-temp-row">
+            <span class="weather-icon-large" id="weather-icon">⛅</span>
+            <span class="weather-temp" id="weather-temp">--°C</span>
+          </div>
+          <div class="weather-condition" id="weather-condition">Loading...</div>
+        </div>
+
+        <!-- Basis-Grid (immer sichtbar) -->
+        <div class="weather-grid">
+          <div class="weather-card">
+            <span class="weather-label">🌳 Air Quality (AQI)</span>
+            <span class="weather-value" id="weather-aqi">--</span>
+          </div>
+          <div class="weather-card">
+            <span class="weather-label">🌲 Pollen Level</span>
+            <span class="weather-value" id="weather-pollen">--</span>
+          </div>
+          <div class="weather-card">
+            <span class="weather-label">💧 Humidity</span>
+            <span class="weather-value" id="weather-humidity">--</span>
+          </div>
+          <div class="weather-card">
+            <span class="weather-label">🌬️ Wind Speed</span>
+            <span class="weather-value" id="weather-wind">--</span>
+          </div>
+        </div>
+
+        <button id="weather-forecast-btn" class="weather-forecast-toggle">📊 View 7-Day Forecast & Details</button>
+
+        <!-- Maximierter Bereich (Erweiterte Details & 7-Tage-Vorhersage) -->
+        <div class="weather-forecast-section" id="weather-forecast-section" style="display: none;">
+          <h4>Advanced Atmospheric Details</h4>
+          <div class="advanced-weather-grid">
+            <div class="weather-card">
+              <span class="weather-label">🌐 Air Pressure</span>
+              <span class="weather-value" id="weather-pressure">-- hPa</span>
+            </div>
+            <div class="weather-card">
+              <span class="weather-label">👁️ Visibility</span>
+              <span class="weather-value" id="weather-visibility">-- km</span>
+            </div>
+            <div class="weather-card">
+              <span class="weather-label">☀️ UV Index</span>
+              <span class="weather-value" id="weather-uv">--</span>
+            </div>
+            <div class="weather-card">
+              <span class="weather-label">💨 Wind Gusts</span>
+              <span class="weather-value" id="weather-gusts">-- km/h</span>
+            </div>
+            <div class="weather-card">
+              <span class="weather-label">❄️ Snow Line</span>
+              <span class="weather-value" id="weather-snowline">-- m</span>
+            </div>
+            <div class="weather-card">
+              <span class="weather-label">💧 Dew Point</span>
+              <span class="weather-value" id="weather-dewpoint">--°C</span>
+            </div>
+          </div>
+
+          <h4 style="margin-top: 4px;">7-Day Eco-Forecast</h4>
+          <div class="forecast-grid" id="weather-forecast-grid"></div>
+        </div>
+      </div>
+    </div>
+
+
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/script_startmenu.js"></script>
     <script src="js/script_stargazer.js"></script>
     <script src="js/script_youtubescreen.js"></script>
     <script src="js/script_waldsearch.js"></script>
@@ -1230,8 +1445,12 @@
     <script src="js/script_todoscreen.js"></script>
     <script src="js/script_voiceai.js"></script>
     <script src="js/script_travelscreen.js"></script>
+    <script src="js/script_waldeye.js"></script>
+    <script src="js/script_waldollution.js"></script>
+    <script src="js/script_waldweather.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style_startmenu.css">
     <link rel="stylesheet" type="text/css" href="css/style_WaldOS.css">
     <link rel="stylesheet" type="text/css" href="css/style_trumpetscreen.css">
     <link rel="stylesheet" type="text/css" href="css/style_notescreen.css">
@@ -1249,6 +1468,8 @@
     <link rel="stylesheet" type="text/css" href="css/style_todoscreen.css">
     <link rel="stylesheet" type="text/css" href="css/style_voiceai.css">
     <link rel="stylesheet" type="text/css" href="css/style_travelscreen.css">
+    <link rel="stylesheet" type="text/css" href="css/style_waldeye.css">
+    <link rel="stylesheet" type="text/css" href="css/style_waldollution.css">
+    <link rel="stylesheet" type="text/css" href="css/style_waldweather.css">
   </body>
-
 </html>
