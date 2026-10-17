@@ -6,11 +6,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let todos = JSON.parse(localStorage.getItem("waldos_todos")) || [];
 
-  // FIX 1: Explicit focus on click & prevent OS drag interference
   if (inputArea) {
-    inputArea.style.pointerEvents = "auto"; // Stellt sicher, dass Klicks ankommen
+    inputArea.style.pointerEvents = "auto"; 
     inputArea.addEventListener("click", function (e) {
-      e.stopPropagation(); // Verhindert, dass Drag-Skripte des Fensters das Event verschlucken
+      e.stopPropagation();
       this.focus();
     });
   }
@@ -34,12 +33,11 @@ document.addEventListener("DOMContentLoaded", function () {
     todos.unshift(newTodo);
     saveAndRender();
     inputArea.value = "";
-    inputArea.focus(); // Belässt den Cursor direkt im Eingabefeld
+    inputArea.focus();
   }
 
   if (addBtn) addBtn.addEventListener("click", addTodo);
 
-  // Taste Enter (ohne Shift) zum Absenden nutzen
   if (inputArea) {
     inputArea.addEventListener("keydown", function (e) {
       if (e.key === "Enter" && !e.shiftKey) {
@@ -70,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
     listContainer.innerHTML = "";
 
     if (todos.length === 0) {
-      listContainer.innerHTML = `<div style="text-align: center; color: rgba(255,255,255,0.4); margin-top: 40px;">Keine Zettel vorhanden.</div>`;
+      listContainer.innerHTML = `<div style="text-align: center; color: rgba(255,255,255,0.4); margin-top: 40px;">Nothing to do.</div>`;
       return;
     }
 
