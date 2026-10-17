@@ -1,126 +1,151 @@
-# 🌲 WaldOS© - The Ultimate WebOS Experience by Waldewort 🌲
+#  WaldOS© - The Ultimate WebOS Experience by Waldewort 
 
-## 2️⃣.0️⃣ **THE LAUNCH OF WALDOS© IS HERE!** 2️⃣.0️⃣
+## 3️⃣.0️⃣ **WALDOS© 3.0 IS HERE!** 3️⃣.0️⃣
 
 **Trying is better than reading:** [Launch WaldOS© in your browser right now! 🚀](https://waldewort.github.io/WaldOS/?utm_source=gemini)
 
-Hey everyone! 🙃 Welcome to the official repository for **WaldOS©**, a fully web-based operating system running right in your browser! Built with pure HTML/CSS/JS, sleek glassy UI components, and way too many late-night coding sessions.
+Hey everyone! 🙃 Welcome to the official repository for **WaldOS© 3.0**, a fully web-based operating system running right in your browser! Built with pure HTML/CSS/JS, sleek glassy UI components, and way too many late-night coding sessions.
 
-## 🚀 What is WaldOS©?
+## What is WaldOS©?
 
-WaldOS© is a lightweight WebOS created by a 17-year-old developer from Germany. It packs a custom canvas-rendered starry universe, responsive windows, and a whole collection of built-in apps ranging from route planning to stargazing.
+WaldOS© 3.0 is a lightweight WebOS created by a 17-year-old developer from Germany. It packs a custom canvas-rendered starry universe, responsive windows, and a whole collection of built-in apps ranging from route planning to stargazing.
 
-And the best part? **It's 100% customisable — yesss, fully customisable, unlike Apple XD!**
+## Deep Dive into All Built-in Apps
 
-## 📱 Deep Dive into All Built-in Apps
+WaldOS© comes packed with 18 awesome applications! Here is every single app broken down:
 
-WaldOS© comes packed with 10 awesome applications! Here is every single app broken down:
+### 1. ⚙️ Settings App 
 
-### 1. ⚙️ Settings App
+- **Create Your Own Universe**: Adjust the background star speed, digit/count of stars, and how far constellations stretch across your display. *(Warning: Graphical intensive! )*
 
-> *“Because customisation should actually be customisable!”*
+- **Coloring Presets**: Choose between 6 different presets or create your own custom coloring.
 
-* **Create Your Own Universe**: Adjust the background star speed, digit/count of stars, and how far constellations stretch across your display. *(Warning: Watch out for your potato PC - graphical intensive! 🥔🔥)*
+- **Saveable Presets**: Save your custom background styles so they stick around!
 
-* **Coloring Presets**: Choose between 6 different presets or create your own custom coloring.
+- **Rename Main Title**: Change the main title in the middle of the WebOS to whatever you want.
 
-* **Saveable Presets**: Save your custom background styles so they stick around!
-
-* **Rename Main Title**: Change the main title in the middle of the WebOS to whatever you want.
+- **Voice AI Controls**: Set up hands-free voice commands to launch apps and control system functions.
 
 ### 2. 🌲 About WaldOS©
 
-> *“Meet the head behind the code!”*
+- **Developer Profile**: Get to know **Waldewort** — 17yo student from Germany, graduating next year!
 
-* **Developer Profile**: Get to know **Waldewort** — 17yo student from Germany, graduating next year!
+- **Fun Facts**: 5 years playing the trombone 🎺, massive *Valheim* fan 🌲, and 7 years into HTML/CSS/JS since school!
 
-* **Fun Facts**: 5 years playing the trombone 🎺, massive *Valheim* fan 🌲, and 7 years into HTML/CSS/JS since school!
+- **Real-Time Clock**: Shows current German time *(probably not true XD)*.
 
-* **Real-Time Clock**: Shows current German time *(probably not true XD)*.
+### 3. 🤖 WaldAI & 🎙️ Voice AI ***New***
 
-### 3. 🎺 Trumpet Learn
+- **WaldAI Chat**: An interactive assistant to answer questions, write code, or guide you through the workspace.
 
-> *“For musicians & noise-makers alike!”*
+- **Voice Control**: Control windows, launch apps, and search the system using speech recognition.
 
-* Interactive trumpet learning app built right into the OS!
+### 4. ⏰ Waldclock  ***New***
 
-* Practice notes, fingerings, and sheet music directly inside your browser window.
+- **World Clock**: Keep track of local times in New York, London, Tokyo, Sydney, and more.
 
-### 4. 📝 Notes
+- **Stopwatch & Timer**: Features lap tracking and customizable timer countdowns.
 
-> *“Jot down your 2 AM brilliant ideas before you forget them.”*
+### 5. 📝 Notes & Wal(D)-O'S  ***New***
 
-* Super fast, clean, and minimal notepad app.
+- **Notes**: Super fast, clean, and minimal notepad app. Perfect for typing quick code snippets, reminder lists, or secret plans.
 
-* Perfect for typing quick code snippets, reminder lists, or secret plans.
+- **Wal(D)-O'S (To-Do)**: A sticky-note task board to organize your daily priorities and checklists.
 
-### 5. 🌙 Mooncalendar
+### 6. 🎺 Trumpet Learn
 
-> *“Track the lunar phases & space takeoffs!”*
+- Interactive trumpet learning app built right into the OS!
 
-* Keep track of current moon phases and astronomical events.
+- Practice notes, fingerings, and sheet music directly inside your browser window.
 
-* **Your Takeoff Dates**: Check out upcoming space rocket launch schedules!
+### 7. 🌙 Mooncalendar
 
-### 6. 🔍 WaldSearch & 📖 Waldpedia
+- Keep track of current moon phases and astronomical events.
 
-> *“Search the web without leaving your desktop UI!”*
+- **Your Takeoff Dates**: Check out upcoming space rocket launch schedules!
 
-* **WaldSearch**: Built-in search bar — search for cute lil cats or rockets 🐱🚀!
+### 8. 🔍 WaldSearch & 📖 Waldpedia
 
-* **Waldpedia**: Direct Wikipedia integration built straight into a desktop window for instant rabbit-hole research.
+- **WaldSearch**: Built-in search bar — search for cute lil cats or rockets 🐱🚀!
 
-### 7. 📽️ Waldiverse
+- **Waldpedia**: Direct Wikipedia integration built straight into a desktop window for instant rabbit-hole research.
 
-> *“The video hub inside your WebOS.”*
+### 9. 📽️ Waldiverse
 
-* Video streaming & searching experience inside a floatable WebOS window.
+- Video streaming & searching experience inside a floatable WebOS window.
 
-* Search for a fantastic video and watch it without opening another browser tab.
+- Search for a fantastic video and watch it without opening another browser tab.
 
-### 8. 🗺️ Waldlas
+### 10. 🗺️ Waldlas
 
-> *“Never get lost in the digital wilderness.”*
+- **Route Planner (🚗 Routeplaner)**: Interactive map interface to calculate routes.
 
-* **Route Planner (🚗 Routeplaner)**: Interactive map interface to calculate routes.
+- **Stats**: Instant calculation for Distance (📏 Distanz) and Travel Time (⏱️ Fahrzeit).
 
-* **Stats**: Instant calculation for Distance (📏 Distanz) and Travel Time (⏱️ Fahrzeit).
+### 11. 🚀 WaldTravel  ***New***
 
-### 9. 🧮 WaldCalc
+- **Interstellar Route Calculator**: Calculate distances, durations, fuel/energy consumption, and CO₂ emissions.
 
-> *“A ... Calculator (stunning 😲)”*
+- **Transport Modes**: Compare petrol/diesel cars, electric vehicles, motorcycles, commercial/private flights, and bicycles.
 
-* Clean grid-based desktop calculator.
+- **Ecosystem Monitor**: Includes a live canvas graphic reflecting your travel impact on nature.
 
-* Great for quick math, calculating your graduation grades, or counting how many hours you spent coding!
+### 12. ☀️ WaldWeather  ***New***
 
-### 10. 🌌 WaldSky
+- **Live Conditions**: Real-time temperature, condition indicators, humidity, and wind speeds.
 
-> *“Watch the real stars flying over the sky!”*
+- **Eco Metrics**: Air Quality Index (AQI) and regional pollen levels.
 
-* **Real Constellations**: Shows real constellations and their actual names floating in 3D/canvas 💫.
+- **Advanced Atmospheric View**: Air pressure, visibility, UV index, wind gusts, snow line, dew point, and a full 7-day forecast.
 
-* **Time & Location Picker**: Set custom coordinates (e.g., Earth N50.11°, E8.68°), FOV, FPS counter, and UTC timestamp.
+### 13. 👁️ Waldeye  ***New***
 
-* **Time Speedup**: Scrub time at 1x, 100x, 1000x, or 10000x speed!
-  
+- **Live Cams**: Stream real-time wildlife and natural environment feeds directly inside your desktop workspace.
+
+### 14. ♻️ Waldollution  ***New***
+
+- **Decomposition Guide**: Select common objects (like banana peels, plastic bottles, or coffee cups) to see decomposition timelines and ecological facts.
+
+### 15. 🧮 WaldCalc
+
+- Clean grid-based desktop calculator.
+
+- **Sci-Mode**: Scientific calculator toggle for trigonometry, exponents, logarithms, and constants.
+
+### 16. 🌌 WaldSky
+
+- **Real Constellations**: Shows real constellations and their actual names floating in 3D/canvas 💫.
+
+- **Time & Location Picker**: Set custom coordinates (e.g., Earth N50.11°, E8.68°), FOV, FPS counter, and UTC timestamp.
+
+- **Time Speedup**: Scrub time at 1x, 100x, 1000x, or 10000x speed!
+
+### 17. 🎵 Waldience  ***New***
+
+- **Soundboard**: Mix natural sounds including wind, rain, birds, campfire, streams, and owls with individual volume sliders and presets.
+
+### 18. 🏎️ Waldracer  ***New***
+
+- **3D Driving Simulator**: Embedded procedurally generated driving game powered by *Slow Roads*.
 
 ## 🎨 Visuals & Features
 
-* **Glassy Header & Windows**: Slick glassmorphic aesthetic applied across all app windows (sadly looks a bit like Apple : ( but cooler!).
+- **Glassy Header & Windows**: Slick glassmorphic aesthetic applied across all app windows (sadly looks a bit like Apple : ( but cooler!).
 
-* **Gemini-Cooked Icons**: Gemini cooked with the new icons, I just inserted them (took anyways like one hour XD).
+- **Start Menu & Control Center**: An organized app launcher featuring top/frequent applications and a full app list sidebar.  ***New***
 
-* **Abuse Prevention**: A little Copyright sentence under the title to prevent abuse 😲.
+- **Gemini-Cooked Icons**: Gemini cooked with the new icons, I just inserted them (took anyways like one hour XD).
+
+- **Abuse Prevention**: A little Copyright sentence under the title to prevent abuse.
 
 ## 🛠️ How to Try It Out
 
-No installation or build steps needed! Just open the link in any modern browser:
+No installation or build steps needed! Just open the link in any browser:
 
 👉 [**TRY WALDOS© FOR YOURSELF**](https://waldewort.github.io/WaldOS/?utm_source=gemini) 👈
 
 ## ❤️ Credits & Support
 
-Thanks for reading and all the support, comments, and likes ♥️! 🥳
+Thanks for reading and all the support, comments, and likes and the good Rating♥️! 🥳
 
-Created by **Waldewort**. Feel free to star the repository if you enjoyed testing it out!
+Created by **Waldewort** for the stardance challenge. Feel free to star the repository if you enjoyed testing it out!
