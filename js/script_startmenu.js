@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
-  // Initialisiere die Anzeige der häufigsten Apps beim Start
   updateFrequentAppsList();
 
-  // Klick-Tracking für alle Apps im Startmenü
   document.querySelectorAll('.start-app-item').forEach(item => {
     item.addEventListener('click', () => {
       const nameSpan = item.querySelector('span');
@@ -66,7 +64,6 @@ function updateFrequentAppsList() {
       <span style="font-size: 11px; color: #eee; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;">${name}</span>
     `;
 
-    // Beim Klick auf die Kachel wird die Original-App geöffnet
     tile.addEventListener('click', () => {
       const targetEl = document.getElementById(data.id);
       if (targetEl) targetEl.click();
