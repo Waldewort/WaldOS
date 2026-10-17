@@ -1,0 +1,104 @@
+/* Waldeye App Fenster */
+.waldeye-window {
+  width: 760px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: rgba(18, 26, 31, 0.95);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.waldeye-container {
+  display: flex;
+  flex: 1;
+  background: rgba(18, 26, 31, 0.95);
+  overflow: hidden;
+  height: calc(100% - 40px);
+}
+
+.waldeye-sidebar {
+  width: 240px;
+  background: rgba(15, 22, 27, 0.9);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.waldeye-sidebar h3 {
+  margin: 0 0 8px 0;
+  font-size: 11px;
+  color: #a3be8c;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.waldeye-category-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cat-btn, .waldeye-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #d8dee9;
+  padding: 8px 10px;
+  text-align: left;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.2s, border-color 0.2s;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.cat-btn:hover, .waldeye-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.cat-btn.active, .waldeye-btn.active {
+  background: rgba(136, 192, 208, 0.2);
+  border-color: #88c0d0;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.waldeye-channel-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.waldeye-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.waldeye-video-wrapper {
+  flex: 1;
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.waldeye-video-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}

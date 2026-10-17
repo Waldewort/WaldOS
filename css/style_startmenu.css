@@ -1,0 +1,109 @@
+.start-menu-window {
+  width: 640px !important;
+  height: 480px !important;
+  max-width: 95vw;
+  max-height: 90vh;
+  display: none;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.start-menu-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  flex: 1;
+  height: calc(100% - 40px); 
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.start-menu-sidebar h3,
+.start-menu-frequent h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+.start-menu-sidebar {
+  flex: 1.1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  padding-right: 15px;
+  height: 100%;
+}
+
+.start-app-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-right: 4px;
+  box-sizing: border-box;
+}
+
+.start-app-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+
+.start-app-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.start-menu-frequent {
+  flex: 1.4;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+
+.frequent-app-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  overflow-y: auto;
+  padding-right: 4px;
+  box-sizing: border-box;
+  flex: 1;
+  align-content: start;
+}
+
+.frequent-app-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  height: 85px;
+  box-sizing: border-box;
+}
+
+.frequent-app-tile:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}

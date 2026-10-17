@@ -81,7 +81,6 @@ button, .unselected, .selected, .close-button, .window-header {
   position: fixed;
 }
 
-/* Gemeinsamer Container für alle Fenster-Steuerungsknöpfe */
 .window-controls button,
 .minimize-btn,
 .maximize-btn,
@@ -101,7 +100,6 @@ button, .unselected, .selected, .close-button, .window-header {
     transition: all 0.2s ease;
 }
 
-/* SVG-Icons innerhalb der Buttons zentrieren */
 .window-controls button svg,
 .minimize-btn svg,
 .maximize-btn svg,
@@ -110,7 +108,6 @@ button, .unselected, .selected, .close-button, .window-header {
     overflow: visible;
 }
 
-/* Hover-Effekte */
 .minimize-btn:hover,
 .maximize-btn:hover {
     background: rgba(255, 255, 255, 0.05);
